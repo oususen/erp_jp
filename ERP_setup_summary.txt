@@ -1,0 +1,95 @@
+ERP セットアップ手順（Django + MySQL / Windows）
+更新日時: 2025-10-19 14:31
+1) 環境 & 依存関係
+使用中の仮想環境:
+C:\Users\user\.virtualenvs\django-KssZbzz_
+
+有効化:
+& C:/Users/user/.virtualenvs/django-KssZbzz_/Scripts/Activate.ps1
+
+requirements.txt の1行目にあったドット (.asgiref==3.4.1) を削除後、依存関係インストール:
+pip install -r requirements.txt
+
+※ pipenv は入っているが、現状は virtualenv で運用しています。
+2) Django 設定（重要）
+project/settings.py:
+from configs.django import *   # DBなどの設定を読み込み
+AUTH_USER_MODEL = 'system.User'  # 認証ユーザーは system.User を使用
+
+configs/django.py（DB設定の例）:
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATABASES = {
+  'default': {
+    'ENGINE': 'django.db.backends.mysql',
+    'HOST': '127.0.0.1',
+    'PORT': '3306',
+    'USER': 'erp_user',
+    'PASSWORD': '（あなたのPW）',
+    'NAME': 'erp_db',
+    'OPTIONS': {'charset': 'utf8mb4'},
+  }
+}
+3) MySQL 準備
+rootでDB作成＆権限付与:
+mysql -uroot -p -e "CREATE DATABASE IF NOT EXISTS erp_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; CREATE USER IF NOT EXISTS 'erp_user'@'%' IDENTIFIED BY 'あなたのPW'; GRANT ALL PRIVILEGES ON erp_db.* TO 'erp_user'@'%'; FLUSH PRIVILEGES;"
+
+接続テスト（アプリと同条件）:
+mysql -h 127.0.0.1 -P 3306 -u erp_user -p -e "SELECT 1;" erp_db
+→ 1 が返ればOK
+4) マイグレーション前の注意（ハマりどころ）
+・「Dependency on app with no migrations: manage」→ manage に初期マイグレーションを作成。
+・「Related model 'manage.superuser' cannot be resolved」→ 認証モデル指定の不整合。最終方針は AUTH_USER_MODEL='system.User' で統一。
+5) system.User を Django 認証ユーザーにする（最小実装）
+apps/system/models.py の User を AbstractUser 継承に変更（重複フィールドは定義しない）。
+
+例:
+from extensions.models import *
+from django.contrib.auth.models import AbstractUser
+
+class User(AbstractUser):
+    class Sex(TextChoices):
+        MAN = ('man', '男')
+        WOMAN = ('woman', '女')
+    name = CharField(max_length=64, verbose_name='名称', blank=True)
+    phone = CharField(max_length=32, null=True, blank=True, verbose_name='手机号')
+    sex = CharField(max_length=32, choices=Sex.choices, null=True, blank=True, verbose_name='性?')
+    roles = ManyToManyField('system.Role', blank=True, related_name='users', verbose_name='角色')
+    permissions = JSONField(default=list, verbose_name='?限')
+    is_manager = BooleanField(default=False, verbose_name='管理?状?')
+    create_time = DateTimeField(auto_now_add=True, verbose_name='?建??')
+    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='users', null=True, blank=True)
+    class Meta:
+        db_table = 'system_user'
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
+        unique_together = [('name', 'team')]
+
+読み込み確認:
+python -c "import os;os.environ.setdefault('DJANGO_SETTINGS_MODULE','project.settings');import django,inspect;django.setup();from django.contrib.auth import get_user_model;U=get_user_model();print(U);print(inspect.getsource(U))"
+→ class User(AbstractUser): が見えればOK
+6) マイグレーション & 起動
+差分作成:
+python manage.py makemigrations system
+python manage.py makemigrations
+
+適用:
+python manage.py migrate
+
+初期データ（任意）:
+python manage.py runscript init_permission
+python manage.py runscript create_default_user
+# もしくは
+# python manage.py createsuperuser
+
+起動:
+python manage.py runserver 0.0.0.0:8000
+7) トラブル時の最速リセット（初期構築フェーズ向け）
+DBを作り直して migrate し直す:
+mysql -uroot -p -e "DROP DATABASE IF EXISTS erp_db; CREATE DATABASE erp_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; GRANT ALL PRIVILEGES ON erp_db.* TO 'erp_user'@'%'; FLUSH PRIVILEGES;"
+python manage.py migrate
+8) フロントエンド（参考）
+cd ..\frontend
+npm install
+npm run serve
+※ フロントの /api は http://127.0.0.1:8000 を向くように（proxy/baseURL等を調整）。

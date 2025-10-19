@@ -1,0 +1,6 @@
+django仮想環境入って次の指令を実行
+(django) PS D:\erp-main\django> python manage.py runserver
+
+
+
+
