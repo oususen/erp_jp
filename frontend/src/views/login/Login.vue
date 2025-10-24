@@ -5,14 +5,14 @@
         <a-form-model-item prop="username" label="用户名">
           <a-input size="large" v-model="form.username"/>
         </a-form-model-item>
-        <a-form-model-item prop="password" label="密码">
+        <a-form-model-item prop="password" label="パスワード">
           <a-input-password size="large" v-model="form.password"/>
         </a-form-model-item>
       </a-form-model>
     </div>
     <a-row>
       <a-col :span="14" offset="5">
-        <a-button type="primary" size="large" :loading="isLoading" style="width: 100%;" @click="login">登录</a-button>
+        <a-button type="primary" size="large" :loading="isLoading" style="width: 100%;" @click="login">ログイン</a-button>
       </a-col>
     </a-row>
   </div>
@@ -29,7 +29,7 @@ export default {
       selectedKeys: ['login'],
       isLoading: false,
       form: {
-        number: '2',
+        number: 'ADMIN',
         username: '',
         password: '',
       },

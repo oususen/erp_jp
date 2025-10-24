@@ -1,9 +1,7 @@
 from django.contrib.auth.hashers import make_password
 from django.db import transaction
 from apps.system.models import *
-import pendulum
-
-
+from extensions.common.base import pendulum
 def run(*args):
     number = input('编号: ')
     username = input('用户名: ')

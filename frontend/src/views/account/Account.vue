@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card title="员工账号">
+    <a-card title="従業員アカウント">
       <a-row :gutter="16">
         <a-col :span="24" :md="8" :xl="6" style="margin-bottom: 12px;">
           <a-input-search v-model="searchForm.search" placeholder="用户名, 名称, 电话" allowClear @search="search" />
@@ -32,12 +32,12 @@
           </div>
           <div slot="action" slot-scope="value, item">
             <a-button-group>
-              <a-button icon="edit" size="small" @click="targetItem = {...item}; visible = true;">编辑</a-button>
+              <a-button icon="edit" size="small" @click="targetItem = {...item}; visible = true;">編集</a-button>
               <a-popconfirm title="确定重置吗? 密码: 123456" @confirm="resetPassword(item.id)">
                 <a-button size="small" type="primary" icon="sync">重置密码</a-button>
               </a-popconfirm>
               <a-popconfirm title="确定删除吗?" @confirm="destroy(item.id)">
-                <a-button type="danger" icon="delete" size="small">删除</a-button>
+                <a-button type="danger" icon="delete" size="small">削除</a-button>
               </a-popconfirm>
             </a-button-group>
           </div>

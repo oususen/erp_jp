@@ -1,13 +1,13 @@
 <template>
   <div>
     <a-card title="出库单">
-      <a-button slot="extra" type="primary" ghost @click="() => { this.$router.go(-1); }"> <a-icon type="left" />返回</a-button>
+      <a-button slot="extra" type="primary" ghost @click="() => { this.$router.go(-1); }"> <a-icon type="left" />戻る</a-button>
       <section>
         <a-spin :spinning="loading">
           <a-form-model ref="form" :model="form" :rules="rules" :label-col="{ span: 7 }" :wrapper-col="{ span: 16 }">
             <a-row>
               <a-col :span="6" style="width: 320px;">
-                <a-form-model-item prop="number" label="编号">
+                <a-form-model-item prop="number" label="番号">
                   {{ info.number }}
                 </a-form-model-item>
               </a-col>
@@ -41,7 +41,7 @@
                 </a-form-model-item>
                 </a-col>
               <a-col :span="6" style="width: 320px;">
-                <a-form-model-item prop="remark" label="备注">
+                <a-form-model-item prop="remark" label="備考">
                   <a-input v-model="form.remark" allowClear />
                 </a-form-model-item>
               </a-col>
@@ -98,7 +98,7 @@
         materialItems: [],
         columns: [
           {
-            title: '序号',
+            title: '番号',
             dataIndex: 'index',
             key: 'index',
             width: 45,
@@ -113,7 +113,7 @@
             width: 150,
           },
           {
-            title: '编号',
+            title: '番号',
             dataIndex: 'goods_number',
             key: 'goods_number',
             width: 150,
@@ -147,7 +147,7 @@
             },
           },
           {
-            title: '批次',
+            title: 'バッチ',
             dataIndex: 'batch',
             key: 'batch',
             width: 120,

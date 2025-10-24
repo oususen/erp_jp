@@ -25,13 +25,13 @@
             <a-select-option value="woman"> 女 </a-select-option>
           </a-select>
         </a-form-model-item>
-          <a-form-model-item prop="is_active" label="状态">
+          <a-form-model-item prop="is_active" label="ステータス">
             <a-select v-model="form.is_active" style="width: 100%;">
               <a-select-option :value="true">启用</a-select-option>
               <a-select-option :value="false">禁用</a-select-option>
             </a-select>
           </a-form-model-item>
-          <a-form-model-item prop="roles" label="角色">
+          <a-form-model-item prop="roles" label="ロール">
             <a-select v-model="form.roles" mode="multiple" allowClear style="width: 100%;">
               <a-select-option v-for="item in roleItems" :key="item.id" :value="item.id">{{item.name}}
               </a-select-option>

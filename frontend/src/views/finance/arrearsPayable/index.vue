@@ -1,9 +1,9 @@
 <template>
   <div>
-    <a-card title="应付欠款">
+    <a-card title="買掛金">
       <a-row gutter="16">
         <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
-          <a-input-search v-model="searchForm.search" placeholder="编号" allowClear @search="search" />
+          <a-input-search v-model="searchForm.search" placeholder="番号" allowClear @search="search" />
         </a-col>
       </a-row>
 
@@ -32,7 +32,7 @@
       return {
         columns: [
           {
-            title: '序号',
+            title: '番号',
             dataIndex: 'index',
             key: 'index',
             fixed: 'left',
@@ -42,7 +42,7 @@
             width: 45
           },
           {
-            title: '编号',
+            title: '番号',
             dataIndex: 'number',
             fixed: 'left',
           },
@@ -87,7 +87,7 @@
             dataIndex: 'bank_name',
           },
           {
-            title: '备注',
+            title: '備考',
             dataIndex: 'remark',
           },
           {

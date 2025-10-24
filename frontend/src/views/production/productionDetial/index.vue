@@ -2,7 +2,7 @@
   <div>
     <a-card title="生产计划详情">
       <a-button slot="extra" type="primary" style="margin-right: 8px;" ghost v-print="'#printContent'">
-        <a-icon type="printer" />打印</a-button
+        <a-icon type="printer" />印刷</a-button
       >
       <a-button
         slot="extra"
@@ -14,7 +14,7 @@
           }
         "
       >
-        <a-icon type="left" />返回</a-button
+        <a-icon type="left" />戻る</a-button
       >
       <section id="printContent">
         <a-spin :spinning="loading">
@@ -26,7 +26,7 @@
             <a-descriptions-item label="销售单号">
               {{ item.sales_order_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="状态">
+            <a-descriptions-item label="ステータス">
               {{ item.status_display }}
             </a-descriptions-item>
             <a-descriptions-item label="产品编号">
@@ -47,10 +47,10 @@
             <a-descriptions-item label="计划结束时间">
               {{ item.end_time }}
             </a-descriptions-item>
-            <a-descriptions-item label="创建时间">
+            <a-descriptions-item label="作成日時">
               {{ item.create_time }}
             </a-descriptions-item>
-            <a-descriptions-item label="创建人">
+            <a-descriptions-item label="作成者">
               {{ item.creator_name }}
             </a-descriptions-item>
           </a-descriptions>

@@ -4,7 +4,7 @@
       <div slot="title">{{form.id ? '编辑收支项目' : '新增收支项目' }}</div>
       <div>
         <a-form-model ref="form" :model="form" :rules="rules" :label-col="{ span: 4 }" :wrapper-col="{ span: 16 }">
-          <a-form-model-item prop="name" label="收支项目">
+          <a-form-model-item prop="name" label="収支項目">
             <a-input v-model="form.name" />
           </a-form-model-item>
           <a-form-model-item prop="type" label="收支类型">
@@ -13,7 +13,7 @@
               <a-select-option value="expenditure">支出</a-select-option>
             </a-select>
           </a-form-model-item>
-          <a-form-model-item prop="remark" label="备注">
+          <a-form-model-item prop="remark" label="備考">
             <a-input v-model="form.remark" allowClear />
           </a-form-model-item>
         </a-form-model>

@@ -7,13 +7,13 @@
       <div style="margin-top: 12px;">
         <a-table :columns="columns" :data-source="items" :loading="loading" size="small" :pagination="pagination">
           <div slot="action" slot-scope="value, item">
-            <a-button size="small" @click="select(item)">选择</a-button>
+            <a-button size="small" @click="select(item)">選択</a-button>
           </div>
         </a-table>
       </div>
     </a-modal>
 
-    <a-modal v-model="formVisible" :maskClosable="false" okText="确定" cancelText="取消" :title="targetItem.name"
+    <a-modal v-model="formVisible" :maskClosable="false" okText="確定" cancelText="キャンセル" :title="targetItem.name"
       @ok="confirm">
       <a-form-model ref="form" :model="targetItem" :rules="rules" :label-col="{ span: 4 }" :wrapper-col="{ span: 16 }">
         <a-form-model-item prop="quantity" label="产品数量">

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card title="销售记录">
+    <a-card title="販売履歴">
       <a-row gutter="16">
         <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
           <a-input-search v-model="searchForm.search" placeholder="单号,供应商编号/名称" allowClear @search="search" />
@@ -38,7 +38,7 @@ export default {
     return {
       columns: [
         {
-          title: '序号',
+          title: '番号',
           dataIndex: 'index',
           key: 'index',
           customRender: (value, item, index) => {

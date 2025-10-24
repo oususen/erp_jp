@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card title="日常收支">
+    <a-card title="日常収支">
       <a-row gutter="16">
         <a-col :span="24" :md="6" :xl="4" style="max-width: 256px; margin-bottom: 12px;">
           <a-input-search v-model="searchForm.search" placeholder="名称, 备注" allowClear @search="search" />
@@ -15,7 +15,7 @@
         <a-table size="small" :columns="columns" :dataSource="items" rowKey="id" :loading="loading" :pagination="pagination"
           @change="tableChange">
           <div slot="is_active" slot-scope="value">
-            <a-tag :color="value ? 'green' : 'red'">{{value ? '激活' : '冻结'}}</a-tag>
+            <a-tag :color="value ? 'green' : 'red'">{{value ? '有効' : '無効'}}</a-tag>
           </div>
           <div slot="action" slot-scope="value, item">
             <a-button-group>
@@ -45,7 +45,7 @@
       return {
         columns: [
           {
-            title: '序号',
+            title: '番号',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {
@@ -53,7 +53,7 @@
             },
           },
           {
-            title: '编号',
+            title: '番号',
             dataIndex: 'number',
           },
           {
@@ -69,11 +69,11 @@
             dataIndex: 'supplier_name'
           },
           {
-            title: '收支项目',
+            title: '収支項目',
             dataIndex: 'charge_item_name'
           },
           {
-            title: '结算账户',
+            title: '決済アカウント',
             dataIndex: 'account_name'
           },
           {
@@ -93,7 +93,7 @@
             dataIndex: 'handle_time'
           },
           {
-            title: '备注',
+            title: '備考',
             dataIndex: 'remark'
           },
           {

@@ -7,7 +7,7 @@
           <a-form-model-item prop="name" label="单位名称">
             <a-input v-model="form.name" />
           </a-form-model-item>
-          <a-form-model-item prop="remark" label="备注">
+          <a-form-model-item prop="remark" label="備考">
             <a-input v-model="form.remark" allowClear />
           </a-form-model-item>
         </a-form-model>

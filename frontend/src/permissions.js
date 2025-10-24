@@ -1,16 +1,16 @@
 export let permissions = {
-  'role': '角色管理',
+  'role': 'ロール管理',
   'account': '账号管理',
-  'warehouse': '仓库管理',
+  'warehouse': '倉庫管理',
   'stock_location': '库位管理',
   'client': '往来单位',
   'unit': '单位管理',
-  'material': '产品管理',
+  'material': '製品管理',
   'material_batch': '产品批次',
   'stock_in': '入库',
   'stock_out': '出库',
-  'stock_check': '盘点',
-  'stock_transfer': '调拨',
+  'stock_check': '棚卸',
+  'stock_transfer': '振替',
   'config': '功能配置',
   'order_prefix': '单据字头',
   'inventory': '库存信息',
@@ -20,12 +20,12 @@ export let permissions = {
 
 export let permissionsTree = [
   {
-    title: '系统管理',
+    title: 'システム管理',
     value: '0',
     key: '0',
     children: [
       {
-        title: '角色管理',
+        title: 'ロール管理',
         value: 'role',
         key: 'role',
       },
@@ -52,7 +52,7 @@ export let permissionsTree = [
     key: '1',
     children: [
       {
-        title: '仓库管理',
+        title: '倉庫管理',
         value: 'warehouse',
         key: 'warehouse',
       },
@@ -72,7 +72,7 @@ export let permissionsTree = [
         key: 'unit',
       },
       {
-        title: '产品管理',
+        title: '製品管理',
         value: 'material',
         key: 'material',
       },
@@ -106,12 +106,12 @@ export let permissionsTree = [
     key: '3',
     children: [
       {
-        title: '盘点',
+        title: '棚卸',
         value: 'stock_check',
         key: 'stock_check',
       },
       {
-        title: '调拨',
+        title: '振替',
         value: 'stock_transfer',
         key: 'stock_transfer',
       },
@@ -140,7 +140,7 @@ export let permissionsTree = [
 export let permission_groups = [
   {
       "id": 1,
-      "name": "数据看板",
+      "name": "データダッシュボード",
       "permission_items": [
           {
               "id": 1,
@@ -161,27 +161,27 @@ export let permission_groups = [
   },
   {
       "id": 2,
-      "name": "报表统计",
+      "name": "レポート統計",
       "permission_items": [
           {
               "id": 6,
-              "name": "销售报表",
+              "name": "販売レポート",
               "code": "sales_report"
           },
           {
               "id": 7,
-              "name": "采购报表",
+              "name": "購買レポート",
               "code": "purchase_report"
           },
           {
               "id": 8,
-              "name": "库存报表",
+              "name": "在庫レポート",
               "code": "inventory"
           },
 
           {
               "id": 10,
-              "name": "收支统计",
+              "name": "収支統計",
               "code": "finance_statistic"
           }
       ]
@@ -192,27 +192,27 @@ export let permission_groups = [
       "permission_items": [
           {
               "id": 11,
-              "name": "客户管理",
+              "name": "顧客管理",
               "code": "client"
           },
           {
               "id": 12,
-              "name": "供应商管理",
+              "name": "サプライヤー管理",
               "code": "supplier"
           },
           {
               "id": 13,
-              "name": "仓库管理",
+              "name": "倉庫管理",
               "code": "warehouse"
           },
           {
               "id": 14,
-              "name": "结算账户",
+              "name": "決済アカウント",
               "code": "account"
           },
           {
               "id": 15,
-              "name": "结算账户",
+              "name": "決済アカウント",
               "code": "charge_item"
           }
       ]
@@ -220,32 +220,32 @@ export let permission_groups = [
   
   {
       "id": 5,
-      "name": "采购管理",
+      "name": "購買管理",
       "permission_items": [
           {
               "id": 19,
-              "name": "采购订单",
+              "name": "購買注文",
               "code": "purchase_order"
           },
           {
               "id": 20,
-              "name": "采购退货",
+              "name": "購買返品",
               "code": "purchase_return_order"
           }
       ]
   },
   {
       "id": 6,
-      "name": "销售管理",
+      "name": "販売管理",
       "permission_items": [
           {
               "id": 21,
-              "name": "销售订单",
+              "name": "販売注文",
               "code": "sales_order"
           },
           {
               "id": 22,
-              "name": "销售退货",
+              "name": "販売返品",
               "code": "sales_return_order"
           }
       ]
@@ -253,7 +253,7 @@ export let permission_groups = [
 
   {
       "id": 8,
-      "name": "库存管理",
+      "name": "在庫管理",
       "permission_items": [
           {
               "id": 25,
@@ -309,7 +309,7 @@ export let permission_groups = [
 
           {
               "id": 36,
-              "name": "资金流水",
+              "name": "資金履歴",
               "code": "finance_flow"
           }
       ]

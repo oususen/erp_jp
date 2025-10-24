@@ -2,7 +2,7 @@
   <div>
     <a-row gutter="12">
       <a-col :span="24">
-        <a-select v-model="batch" placeholder="批次" :loading="batchLoading" :disabled="batchLoading"
+        <a-select v-model="batch" placeholder="バッチ" :loading="batchLoading" :disabled="batchLoading"
           style="width: 100%;" @change="onChangeBatch">
           <a-select-option v-for="item in batchItems" :key="item.id" :value="item.id">
             {{ item.number }}

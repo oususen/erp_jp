@@ -1,26 +1,26 @@
 <template>
   <div>
-    <a-card title="产品信息">
+    <a-card title="製品情報">
       <a-row :gutter="16">
         <a-col :span="24" style="max-width: 200px; margin-bottom: 12px;">
-          <a-input v-model="searchForm.search" placeholder="编号, 名称, 备注" allowClear @pressEnter="search" />
+          <a-input v-model="searchForm.search" placeholder="番号、名称、備考" allowClear @pressEnter="search" />
         </a-col>
         <a-col :span="24" style="width: 100px; margin-bottom: 12px;">
-          <a-button type="primary" icon="search" @click="search">查询</a-button>
+          <a-button type="primary" icon="search" @click="search">照会</a-button>
         </a-col>
 
         <a-col :span="24" style="width: 300px; margin-bottom: 12px;">
           <a-button-group>
-            <a-button icon="file-excel" @click="downloadTemplate">模板下载</a-button>
+            <a-button icon="file-excel" @click="downloadTemplate">テンプレートダウンロード</a-button>
             <a-upload name="file" :showUploadList="false" :customRequest="importExcel">
-              <a-button icon="upload">导入</a-button>
+              <a-button icon="upload">インポート</a-button>
             </a-upload>
-            <a-button icon="download" @click="exportExcel">导出</a-button>
+            <a-button icon="download" @click="exportExcel">エクスポート</a-button>
           </a-button-group>
         </a-col>
 
         <div style="margin-bottom: 12px; float: right;">
-          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="openFormModal(form)">新增产品</a-button>
+          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="openFormModal(form)">製品追加</a-button>
         </div>
       </a-row>
 
@@ -28,13 +28,13 @@
         <a-table size="small" :columns="columns" :dataSource="items" rowKey="id" :loading="loading" :pagination="pagination"
                  @change="tableChange">
           <div slot="is_active" slot-scope="value">
-            <a-tag :color="value ? 'green' : 'red'">{{value ? '激活' : '冻结'}}</a-tag>
+            <a-tag :color="value ? 'green' : 'red'">{{value ? '有効' : '無効'}}</a-tag>
           </div>
           <div slot="action" slot-scope="value, item">
             <a-button-group>
-              <a-button icon="edit" size="small" @click="openFormModal(item)">编辑</a-button>
-              <a-popconfirm title="确定删除吗" @confirm="destroy(item.id)">
-                <a-button type="danger" icon="delete" size="small">删除</a-button>
+              <a-button icon="edit" size="small" @click="openFormModal(item)">編集</a-button>
+              <a-popconfirm title="削除してもよろしいですか" @confirm="destroy(item.id)">
+                <a-button type="danger" icon="delete" size="small">削除</a-button>
               </a-popconfirm>
             </a-button-group>
           </div>
@@ -74,7 +74,7 @@ export default {
     return {
       columns: [
         {
-          title: '序号',
+          title: '番号',
           dataIndex: 'index',
           key: 'index',
           customRender: (value, item, index) => {
@@ -104,7 +104,7 @@ export default {
           dataIndex: 'retail_price',
         },
         {
-          title: '状态',
+          title: 'ステータス',
           dataIndex: 'is_active',
           scopedSlots: { customRender: 'is_active' }
         },

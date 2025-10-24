@@ -6,7 +6,7 @@ export default {
   children: [
     {
       path: 'payment',
-      meta: { title: '付款', permission: 'payment' },
+      meta: { title: '支払い', permission: 'payment' },
       component: () => import('@/views/finance/payment/index'),
     },
     {
@@ -21,7 +21,7 @@ export default {
     },
     {
       path: 'collection',
-      meta: { title: '收款', permission: 'collection' },
+      meta: { title: '入金', permission: 'collection' },
       component: () => import('@/views/finance/collection/index'),
     },
     {
@@ -36,7 +36,7 @@ export default {
     },
     {
       path: 'arrears_payable',
-      meta: { title: '应付欠款', permission: 'arrears_payable' },
+      meta: { title: '買掛金', permission: 'arrears_payable' },
       component: () => import('@/views/finance/arrearsPayable/index'),
     },
     {
@@ -46,7 +46,7 @@ export default {
     },
     {
       path: 'arrears_receivable',
-      meta: { title: '应收欠款', permission: 'arrears_receivable' },
+      meta: { title: '売掛金', permission: 'arrears_receivable' },
       component: () => import('@/views/finance/arrearsReceivable/index'),
     },
     {
@@ -56,17 +56,17 @@ export default {
     },
     {
       path: 'account_transfer',
-      meta: { title: '账户转账', permission: 'account_transfer' },
+      meta: { title: '口座振替', permission: 'account_transfer' },
       component: () => import('@/views/finance/accountTransfer/index'),
     },
     {
       path: 'income_and_pay',
-      meta: { title: '日常收支', permission: 'income_and_pay' },
+      meta: { title: '日常収支', permission: 'income_and_pay' },
       component: () => import('@/views/finance/incomeAndPay/index'),
     },
     {
       path: 'flow',
-      meta: { title: '资金流水', permission: 'flow' },
+      meta: { title: '資金履歴', permission: 'flow' },
       component: () => import('@/views/finance/flow/index'),
     },
     {

@@ -1,9 +1,7 @@
 from django_filters.rest_framework import FilterSet
 from django_filters.filters import *
 from apps.goods.models import *
-import pendulum
-
-
+from extensions.common.base import pendulum
 class BatchFilter(FilterSet):
     is_expiration_warning = BooleanFilter(method='is_expiration_warning_filter')
     is_expiration = BooleanFilter(method='is_expiration_filter')

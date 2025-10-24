@@ -44,13 +44,13 @@
               style="width:20%; text-align:center; cursor: pointer;"
               @click="navigateTo('/finance/arrears_receivable')"
           >
-            <a-statistic title="应收欠款" :value="item.arrears_receivable_amount" />
+            <a-statistic title="売掛金" :value="item.arrears_receivable_amount" />
           </a-card-grid>
           <a-card-grid
               style="width:20%; text-align:center; cursor: pointer;"
               @click="navigateTo('/finance/arrears_payable')"
           >
-            <a-statistic title="应付欠款" :value="item.arrears_payable_amount" />
+            <a-statistic title="買掛金" :value="item.arrears_payable_amount" />
           </a-card-grid>
         </a-card>
       </a-col>
@@ -61,13 +61,13 @@
             <a-col :span="4">
               <a-card-grid style="width: 100%; cursor: pointer; text-align: center;">
                 <a-icon type="profile" style="font-size: 40px; color: #1890ff;" />
-                <div style="margin-top: 4px;">采购开单</div>
+                <div style="margin-top: 4px;">購買伝票作成</div>
               </a-card-grid>
             </a-col>
             <a-col :span="4">
               <a-card-grid style="width: 100%; cursor: pointer; text-align: center;">
                 <a-icon type="profile" style="font-size: 40px; color: #1890ff;" />
-                <div style="margin-top: 4px;">销售开单</div>
+                <div style="margin-top: 4px;">販売伝票作成</div>
               </a-card-grid>
             </a-col>
             <a-col :span="4">
@@ -85,13 +85,13 @@
             <a-col :span="4">
               <a-card-grid style="width: 100%; cursor: pointer; text-align: center;">
                 <a-icon type="profile" style="font-size: 40px; color: #1890ff;" />
-                <div style="margin-top: 4px;">盘点</div>
+                <div style="margin-top: 4px;">棚卸</div>
               </a-card-grid>
             </a-col>
             <a-col :span="4">
               <a-card-grid style="width: 100%; cursor: pointer; text-align: center;">
                 <a-icon type="profile" style="font-size: 40px; color: #1890ff;" />
-                <div style="margin-top: 4px;">调拨</div>
+                <div style="margin-top: 4px;">振替</div>
               </a-card-grid>
             </a-col>
           </a-row>

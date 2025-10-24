@@ -28,11 +28,11 @@ module.exports = {
     },
   },
   devServer: {
-    // proxy: {
-    //   "/api": {
-    //     target: "http://114.218.158.78:12223",
-    //     changeOrigin: true,
-    //   },
-    // },
+    proxy: {
+      "/api": {
+        target: "http://127.0.0.1:8000",
+        changeOrigin: true,
+      },
+    },
   },
 };

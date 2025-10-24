@@ -13,7 +13,7 @@
               <a-radio-button :value="true">按订单生产</a-radio-button>
             </a-radio-group>
           </a-form-model-item>
-          <a-form-model-item v-if="!dataForm.is_related" prop="goods" label="产品">
+          <a-form-model-item v-if="!dataForm.is_related" prop="goods" label="製品">
             <goods-select v-model="dataForm.goods" :defaultItem="{ ...dataForm }" />
           </a-form-model-item>
           <a-form-model-item v-if="dataForm.is_related" prop="sales_order" label="销售单">
@@ -28,7 +28,7 @@
               "
             />
           </a-form-model-item>
-          <a-form-model-item v-if="dataForm.is_related" prop="goods" label="产品">
+          <a-form-model-item v-if="dataForm.is_related" prop="goods" label="製品">
             <a-select v-model="dataForm.goods" style="width: 100%;">
               <a-select-option v-for="item in dataForm.sales_goods_items" :key="item.goods" :value="item.goods">
                 {{ item.goods_name }}

@@ -28,13 +28,13 @@
           <a-form-model-item prop="bank_name" label="开户行">
             <a-input v-model="form.bank_name" />
           </a-form-model-item>
-          <a-form-model-item prop="remark" label="备注">
+          <a-form-model-item prop="remark" label="備考">
             <a-input v-model="form.remark" allowClear />
           </a-form-model-item>
-          <a-form-model-item prop="is_active" label="状态">
+          <a-form-model-item prop="is_active" label="ステータス">
             <a-select v-model="form.is_active" style="width: 100%;">
-              <a-select-option :value="true">激活</a-select-option>
-              <a-select-option :value="false">冻结</a-select-option>
+              <a-select-option :value="true">有効</a-select-option>
+              <a-select-option :value="false">無効</a-select-option>
             </a-select>
           </a-form-model-item>
           <a-form-model-item prop="initial_arrears_amount" label="初期欠款金额">

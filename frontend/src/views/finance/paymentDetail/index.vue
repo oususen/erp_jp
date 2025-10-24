@@ -1,8 +1,8 @@
 <template>
   <div>
     <a-card title="付款单详情">
-       <a-button slot="extra" type="primary" style="margin-right: 8px;" ghost v-print="'#printContent'"> <a-icon type="printer" />打印</a-button>
-      <a-button slot="extra" type="primary" ghost @click="() => { this.$router.go(-1); }"> <a-icon type="left" />返回</a-button>
+       <a-button slot="extra" type="primary" style="margin-right: 8px;" ghost v-print="'#printContent'"> <a-icon type="printer" />印刷</a-button>
+      <a-button slot="extra" type="primary" ghost @click="() => { this.$router.go(-1); }"> <a-icon type="left" />戻る</a-button>
       <section id="printContent">
         <a-spin :spinning="loading">
           <img id="barcode" style="float: right" />
@@ -22,7 +22,7 @@
             <a-descriptions-item label="优惠金额">
               {{ info.discount_amount }}
             </a-descriptions-item>
-            <a-descriptions-item label="备注">
+            <a-descriptions-item label="備考">
               {{ info.remark }}
             </a-descriptions-item>
           </a-descriptions>
@@ -53,7 +53,7 @@
         info: {},
         columns: [
           {
-            title: '序号',
+            title: '番号',
             dataIndex: 'index',
             key: 'index',
             width: 45,
@@ -92,7 +92,7 @@
             width: 120,
           },
           {
-            title: '金额',
+            title: '金額',
             dataIndex: 'totalAmount',
             key: 'totalAmount',
             width: 200,
@@ -105,7 +105,7 @@
         ],
         columnsAccount: [
           {
-            title: '序号',
+            title: '番号',
             dataIndex: 'index',
             key: 'index',
             width: 45,
@@ -114,7 +114,7 @@
             },
           },
           {
-            title: '结算账户',
+            title: '決済アカウント',
             dataIndex: 'account_name',
             key: 'account_name',
             width: 200,

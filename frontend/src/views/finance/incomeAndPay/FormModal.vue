@@ -4,7 +4,7 @@
       <div slot="title">{{form.id ? '编辑日常收支' : '新增日常收支' }}</div>
       <div>
         <a-form-model ref="form" :model="form" :rules="rules" :label-col="{ span: 6 }" :wrapper-col="{ span: 16 }">
-          <a-form-model-item prop="number" label="编号">
+          <a-form-model-item prop="number" label="番号">
             <a-input v-model="form.number" />
           </a-form-model-item>
           <a-form-model-item prop="type" label="收支类型">
@@ -38,14 +38,14 @@
           <a-form-model-item prop="handle_time" label="处理时间">
             <a-date-picker v-model="form.handle_time" valueFormat="YYYY-MM-DD" style="width: 100%" />
           </a-form-model-item>
-          <a-form-model-item prop="charge_item" label="收支项目">
+          <a-form-model-item prop="charge_item" label="収支項目">
             <a-select v-model="form.charge_item" style="width: 100%">
               <a-select-option v-for="item in chargeItems" :key="item.id" :value="item.id">
                 {{ item.name }}
               </a-select-option>
             </a-select>
           </a-form-model-item>
-          <a-form-model-item prop="account" label="结算账户">
+          <a-form-model-item prop="account" label="決済アカウント">
             <a-select v-model="form.account" style="width: 100%">
               <a-select-option v-for="item in accountsItems" :key="item.id" :value="item.id">
                 {{ item.name }}
@@ -58,7 +58,7 @@
           <a-form-model-item prop="charge_amount" label="实收/付金额">
             <a-input-number v-model="form.charge_amount" style="width: 100%;" />
           </a-form-model-item>
-          <a-form-model-item prop="remark" label="备注">
+          <a-form-model-item prop="remark" label="備考">
             <a-input v-model="form.remark" allowClear />
           </a-form-model-item>
         </a-form-model>

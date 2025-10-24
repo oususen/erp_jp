@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card title="库存流水">
+    <a-card title="在庫履歴">
       <a-row :gutter="16">
         <a-col :span="2">
           <a-dropdown :trigger="['click']">
@@ -49,7 +49,7 @@ export default {
       currentWarehouse: '所有仓库',
       columns: [
         {
-          title: '序号',
+          title: '番号',
           dataIndex: 'index',
           key: 'index',
           customRender: (value, item, index) => {

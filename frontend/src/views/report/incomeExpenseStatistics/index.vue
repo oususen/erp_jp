@@ -85,7 +85,7 @@ export default {
             collection: {
                 columns: [
                     {
-                        title: '序号',
+                        title: '番号',
                         dataIndex: 'index',
                         key: 'index',
                         customRender: (value, item, index) => {
@@ -116,7 +116,7 @@ export default {
                         dataIndex: 'total',
                     },
                     {
-                        title: '备注',
+                        title: '備考',
                         dataIndex: 'remark',
                     },
                     {
@@ -138,7 +138,7 @@ export default {
             payment: {
                 columns: [
                     {
-                        title: '序号',
+                        title: '番号',
                         dataIndex: 'index',
                         key: 'index',
                         customRender: (value, item, index) => {
@@ -169,7 +169,7 @@ export default {
                         dataIndex: 'total',
                     },
                     {
-                        title: '备注',
+                        title: '備考',
                         dataIndex: 'remark',
                     },
                     {

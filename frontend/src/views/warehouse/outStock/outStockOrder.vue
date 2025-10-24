@@ -34,7 +34,7 @@
       return {
         columns: [
           {
-            title: '序号',
+            title: '番号',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {

@@ -6,12 +6,12 @@ export default {
   children: [
     {
       path: 'sale_create',
-      meta: { title: '销售开单', permission: 'sale_create' },
+      meta: { title: '販売伝票作成', permission: 'sale_create' },
       component: () => import('@/views/sale/saleCreate/index'),
     },
     {
       path: 'sale_record',
-      meta: { title: '销售记录', permission: 'sale_record' },
+      meta: { title: '販売履歴', permission: 'sale_record' },
       component: () => import('@/views/sale/saleRecord/index'),
     },
     {
@@ -21,7 +21,7 @@ export default {
     },
     {
       path: 'sale_return_create',
-      meta: { title: '销售退货', permission: 'sale_return_create' },
+      meta: { title: '販売返品', permission: 'sale_return_create' },
       component: () => import('@/views/sale/saleReturnCreate/index'),
     },
     {

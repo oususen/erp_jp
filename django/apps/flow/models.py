@@ -27,7 +27,7 @@ class InventoryFlow(Model):
         VOID_STOCK_TRANSFER_IN = ('void_stock_transfer_in', '作废调拨转入')
 
     warehouse = ForeignKey('data.Warehouse', on_delete=PROTECT, related_name='inventory_flows', verbose_name='仓库')
-    goods = ForeignKey('goods.Goods', on_delete=PROTECT, related_name='inventory_flows', verbose_name='产品')
+    goods = ForeignKey('goods.Goods', on_delete=PROTECT, related_name='inventory_flows', verbose_name='製品')
     type = CharField(max_length=32, choices=Type.choices, verbose_name='流水类型')
     quantity_before = FloatField(verbose_name='变化之前数量')
     quantity_change = FloatField(verbose_name='变化数量')
@@ -66,8 +66,8 @@ class InventoryFlow(Model):
     void_stock_transfer_order = ForeignKey('stock_transfer.StockTransferOrder', on_delete=CASCADE, null=True,
                                            related_name='void_inventory_flows', verbose_name='作废调拨单据')
 
-    creator = ForeignKey('system.User', on_delete=PROTECT, related_name='inventory_flows', verbose_name='创建人')
-    create_time = DateTimeField(auto_now_add=True, verbose_name='创建时间')
+    creator = ForeignKey('system.User', on_delete=PROTECT, related_name='inventory_flows', verbose_name='作成者')
+    create_time = DateTimeField(auto_now_add=True, verbose_name='作成日時')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='inventory_flows')
 
 
@@ -97,7 +97,7 @@ class FinanceFlow(Model):
         ACCOUNT_TRANSFER_IN = ('account_transfer_in', '转账转入')
         VOID_ACCOUNT_TRANSFER_IN = ('void_account_transfer_in', '作废转账转入')
 
-    account = ForeignKey('data.Account', on_delete=PROTECT, related_name='finance_flows', verbose_name='结算账户')
+    account = ForeignKey('data.Account', on_delete=PROTECT, related_name='finance_flows', verbose_name='決済アカウント')
     type = CharField(max_length=32, choices=Type.choices, verbose_name='流水类型')
     amount_before = FloatField(verbose_name='变化之前余额')
     amount_change = FloatField(verbose_name='变化余额')
@@ -138,8 +138,8 @@ class FinanceFlow(Model):
                                               related_name='void_finance_flows', verbose_name='作废转账记录')
 
     creator = ForeignKey('system.User', on_delete=PROTECT, null=True,
-                         related_name='finance_flows', verbose_name='创建人')
-    create_time = DateTimeField(auto_now_add=True, verbose_name='创建时间')
+                         related_name='finance_flows', verbose_name='作成者')
+    create_time = DateTimeField(auto_now_add=True, verbose_name='作成日時')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='finance_flows')
 
 

@@ -8,7 +8,7 @@
     <a-menu theme="light" mode="inline" :selectedKeys="selectedKeys" :openKeys="openKeys" :inline-collapsed="collapsed"
       :style="{width: collapsed ? '80px' : '256px'}" @click="switchView" @openChange="openChange">
       <a-menu-item key="/home">
-        <a-icon type="home" /><span>数据看板</span>
+        <a-icon type="home" /><span>データダッシュボード</span>
       </a-menu-item>
 
       <a-sub-menu v-for="menu in menus" :key="menu.key">

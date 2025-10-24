@@ -2,7 +2,7 @@
   <div>
     <a-card title="付款单创建">
       <a-button slot="extra" type="primary" ghost @click="() => { this.$router.go(-1); }"> <a-icon
-          type="left" />返回</a-button>
+          type="left" />戻る</a-button>
       <a-spin :spinning="loading">
         <a-form-model ref="form" :model="form" :rules="rules" :label-col="{ span: 8 }" :wrapper-col="{ span: 16 }">
           <a-row>
@@ -40,7 +40,7 @@
               </a-form-model-item>
             </a-col>
             <a-col :span="6" style="width: 320px;">
-              <a-form-model-item prop="remark" label="备注">
+              <a-form-model-item prop="remark" label="備考">
                 <a-input v-model="form.remark" allowClear />
               </a-form-model-item>
             </a-col>
@@ -100,7 +100,7 @@ export default {
   },
   data() {
     return {
-      description: '新增',
+      description: '新規追加',
       warehouseItems: [],
       handlerItems: [],
       supplierArrearsItems: [],
@@ -131,7 +131,7 @@ export default {
       },
       columns: [
         {
-          title: '序号',
+          title: '番号',
           dataIndex: 'index',
           key: 'index',
           width: 45,
@@ -146,7 +146,7 @@ export default {
           width: 150,
         },
         {
-          title: '编号',
+          title: '番号',
           dataIndex: 'number',
           key: 'number',
           width: 150,
@@ -178,7 +178,7 @@ export default {
           scopedSlots: { customRender: 'purchase_price' },
         },
         {
-          title: '金额',
+          title: '金額',
           dataIndex: 'totalAmount',
           key: 'totalAmount',
           width: 200,
@@ -199,7 +199,7 @@ export default {
       materialItems: [],
       columnsAccount: [
         {
-          title: '序号',
+          title: '番号',
           dataIndex: 'index',
           key: 'index',
           width: 45,
@@ -208,7 +208,7 @@ export default {
           },
         },
         {
-          title: '结算账户',
+          title: '決済アカウント',
           dataIndex: 'account',
           key: 'account',
           width: 200,

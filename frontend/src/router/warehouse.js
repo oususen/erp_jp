@@ -6,7 +6,7 @@ export default {
   children: [
     {
       path: 'inStock',
-      meta: { title: '入库任务', permission: 'stock_in' },
+      meta: { title: '入庫タスク', permission: 'stock_in' },
       component: () => import('@/views/warehouse/inStock/index'),
     },
     {
@@ -26,7 +26,7 @@ export default {
     },
     {
       path: 'outStock',
-      meta: { title: '出库任务', permission: 'stock_out' },
+      meta: { title: '出庫タスク', permission: 'stock_out' },
       component: () => import('@/views/warehouse/outStock/index'),
     },
     {
@@ -46,7 +46,7 @@ export default {
     },
     {
       path: 'allocation',
-      meta: { title: '调拨', permission: 'stock_transfer' },
+      meta: { title: '振替', permission: 'stock_transfer' },
       component: () => import('@/views/warehouse/allocation/index'),
     },
     {
@@ -61,7 +61,7 @@ export default {
     },
     {
       path: 'inventory',
-      meta: { title: '盘点', permission: 'stock_check' },
+      meta: { title: '棚卸', permission: 'stock_check' },
       component: () => import('@/views/warehouse/inventory/index'),
     },
     {
@@ -76,7 +76,7 @@ export default {
     },
     {
       path: 'flow',
-      meta: { title: '库存流水', permission: 'inventory_flow' },
+      meta: { title: '在庫履歴', permission: 'inventory_flow' },
       component: () => import('@/views/warehouse/flow/index'),
     },
     {

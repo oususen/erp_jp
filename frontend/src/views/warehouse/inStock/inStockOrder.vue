@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <a-card title="入库任务"> -->
+    <!-- <a-card title="入庫タスク"> -->
       <a-row gutter="16">
         <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
           <a-input-search v-model="searchForm.search" placeholder="单号" allowClear @search="search" />
@@ -36,7 +36,7 @@
       return {
         columns: [
           {
-            title: '序号',
+            title: '番号',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {
@@ -65,7 +65,7 @@
             },
           },
           {
-            title: '状态',
+            title: 'ステータス',
             dataIndex: 'is_void',
             customRender: (value, item, index) => {
               return item.is_void ? '已作废' : '正常'

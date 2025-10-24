@@ -1,8 +1,8 @@
 <template>
   <div>
     <a-card title="盘点单详情">
-      <a-button slot="extra" type="primary" style="margin-right: 8px;" ghost v-print="'#printContent'"> <a-icon type="printer" />打印</a-button>
-      <a-button slot="extra" type="primary" ghost @click="() => { this.$router.go(-1); }"> <a-icon type="left" />返回</a-button>
+      <a-button slot="extra" type="primary" style="margin-right: 8px;" ghost v-print="'#printContent'"> <a-icon type="printer" />印刷</a-button>
+      <a-button slot="extra" type="primary" ghost @click="() => { this.$router.go(-1); }"> <a-icon type="left" />戻る</a-button>
       <section id="printContent">
         <a-spin :spinning="loading">
           <img id="barcode" style="float: right" />
@@ -34,11 +34,11 @@
             <a-descriptions-item label="处理日期">
               {{ info.handle_time }}
             </a-descriptions-item>
-            <a-descriptions-item label="备注">
+            <a-descriptions-item label="備考">
               {{ info.remark }}
             </a-descriptions-item>
           </a-descriptions>
-          <a-divider orientation="left" style="margin-top: 30px;">产品信息</a-divider>
+          <a-divider orientation="left" style="margin-top: 30px;">製品情報</a-divider>
           <a-table
             rowKey="id"
             size="middle"
@@ -57,7 +57,7 @@
       :title="batchTitle"
       v-model="batchVisible"
       width="750px"
-      cancelText="关闭"
+      cancelText="閉じる"
       :maskClosable="false"
       @cancel="batchVisible=false"
       @ok="confirmChoosed">
@@ -87,7 +87,7 @@
         info: {},
         columns: [
           {
-            title: '序号',
+            title: '番号',
             dataIndex: 'index',
             key: 'index',
             width: 45,
@@ -129,7 +129,7 @@
             width: 120,
           },
           {
-            title: '批次',
+            title: 'バッチ',
             dataIndex: 'batch',
             scopedSlots: { customRender: 'batch' },
             width: 80
@@ -137,7 +137,7 @@
         ],
         columnsAccount: [
           {
-            title: '序号',
+            title: '番号',
             dataIndex: 'index',
             key: 'index',
             width: 45,
@@ -146,7 +146,7 @@
             },
           },
           {
-            title: '结算账户',
+            title: '決済アカウント',
             dataIndex: 'account_name',
             key: 'account_name',
             width: 200,
@@ -160,7 +160,7 @@
         ],
         columnsBatch: [
           {
-            title: '序号',
+            title: '番号',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {
@@ -168,7 +168,7 @@
             },
           },
           {
-            title: "编号",
+            title: "番号",
             dataIndex: "batch_number",
             key: "batch_number",
           },

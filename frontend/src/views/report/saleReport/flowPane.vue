@@ -70,12 +70,12 @@
             key: 'supplier_name',
           },
           {
-            title: '创建人',
+            title: '作成者',
             dataIndex: 'creator_name',
             key: 'creator_name',
           },
           {
-            title: '创建时间',
+            title: '作成日時',
             dataIndex: 'create_time',
             key: 'create_time',
           },

@@ -8,7 +8,7 @@ export const kucun_echarts_data = (data) =>{
     }
     return {
         title: {
-            text: '库存报表',
+            text: '在庫レポート',
             left:'center'
         },
         tooltip: {},
@@ -21,7 +21,7 @@ export const kucun_echarts_data = (data) =>{
         },
         series: [
             {
-                name: '库存',
+                name: '在庫',
                 type: 'bar',
                 data: data_serios
             }
@@ -77,7 +77,7 @@ export const xiaoshou_echarts_data = (data) =>{
     }
     return {
         title: {
-            text: '销售报表',
+            text: '販売レポート',
             left:'center'
         },
         tooltip: {},

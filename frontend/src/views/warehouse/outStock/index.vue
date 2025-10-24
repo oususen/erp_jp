@@ -26,7 +26,7 @@
           },
           {
             key: 'outStockRecord',
-            tab: '出库记录',
+            tab: '出庫記録',
           },
         ],
         currentTab: undefined,

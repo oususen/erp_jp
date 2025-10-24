@@ -1,6 +1,6 @@
 export default [
   {
-    title: '序号',
+    title: '番号',
     dataIndex: 'index',
     key: 'index',
     customRender: (value, item, index) => {
@@ -22,13 +22,13 @@ export default [
     dataIndex: 'phone',
   }, 
   {
-    title: "状态",
+    title: "ステータス",
     dataIndex: "is_active",
     key: "is_active",
     scopedSlots: { customRender: "is_active" },
   },
   {
-    title: '角色',
+    title: 'ロール',
     dataIndex: 'role_items',
     scopedSlots: { customRender: 'role_names' },
   },

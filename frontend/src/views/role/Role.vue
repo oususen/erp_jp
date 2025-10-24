@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card title="角色管理">
+    <a-card title="ロール管理">
       <a-row gutter="16">
         <a-col :span="24" :md="8" :xl="6" style="margin-bottom: 12px;">
           <a-input-search v-model="searchForm.search" placeholder="名称, 备注" allowClear @search="search" />
@@ -16,9 +16,9 @@
           @change="tableChange">
           <div slot="action" slot-scope="value, item">
             <a-button-group>
-              <a-button icon="edit" size="small" @click="openFormModal(item)">编辑</a-button>
-              <a-popconfirm title="确定删除吗" @confirm="destroy(item.id)">
-                <a-button type="danger" icon="delete" size="small">删除</a-button>
+              <a-button icon="edit" size="small" @click="openFormModal(item)">編集</a-button>
+              <a-popconfirm title="削除してもよろしいですか" @confirm="destroy(item.id)">
+                <a-button type="danger" icon="delete" size="small">削除</a-button>
               </a-popconfirm>
             </a-button-group>
           </div>

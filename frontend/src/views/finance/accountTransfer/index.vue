@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card title="账户转账">
+    <a-card title="口座振替">
       <a-row gutter="16">
         <a-col :span="24" :md="6" :xl="4" style="max-width: 256px; margin-bottom: 12px;">
           <a-input-search v-model="searchForm.search" placeholder="名称, 备注" allowClear @search="search" />
@@ -15,7 +15,7 @@
         <a-table size="small" :columns="columns" :dataSource="items" rowKey="id" :loading="loading" :pagination="pagination"
           @change="tableChange">
           <div slot="is_active" slot-scope="value">
-            <a-tag :color="value ? 'green' : 'red'">{{value ? '激活' : '冻结'}}</a-tag>
+            <a-tag :color="value ? 'green' : 'red'">{{value ? '有効' : '無効'}}</a-tag>
           </div>
           <div slot="action" slot-scope="value, item">
             <a-button-group>
@@ -44,7 +44,7 @@
       return {
         columns: [
           {
-            title: '序号',
+            title: '番号',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {
@@ -88,7 +88,7 @@
             dataIndex: 'handle_time'
           },
           {
-            title: '备注',
+            title: '備考',
             dataIndex: 'remark'
           },
           {

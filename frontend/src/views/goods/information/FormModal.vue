@@ -96,10 +96,10 @@
               </a-form-model-item>
             </a-col>
             <a-col :span="24" :md="12">
-              <a-form-model-item prop="is_active" label="状态">
+              <a-form-model-item prop="is_active" label="ステータス">
                 <a-select v-model="form.is_active" style="width: 100%;">
-                  <a-select-option :value="1">激活</a-select-option>
-                  <a-select-option :value="0">冻结</a-select-option>
+                  <a-select-option :value="1">有効</a-select-option>
+                  <a-select-option :value="0">無効</a-select-option>
                 </a-select>
               </a-form-model-item>
             </a-col>
@@ -247,12 +247,12 @@
           :title="batchTitle"
           v-model="batchVisible"
           width="750px"
-          cancelText="关闭"
+          cancelText="閉じる"
           :maskClosable="false"
           @cancel="batchVisible=false"
           @ok="confirmChoosed">
         <div style="margin-bottom: 16px">
-          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="addLine">添加</a-button>
+          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="addLine">追加</a-button>
         </div>
         <a-table
             rowkey="columnsBatch"
@@ -338,7 +338,7 @@ export default {
       previewImage: "",
       columnsBatch: [
         {
-          title: '序号',
+          title: '番号',
           dataIndex: 'index',
           key: 'index',
           customRender: (value, item, index) => {
@@ -346,7 +346,7 @@ export default {
           },
         },
         {
-          title: "编号",
+          title: "番号",
           dataIndex: "number",
           key: "number",
           scopedSlots: { customRender: "number" },

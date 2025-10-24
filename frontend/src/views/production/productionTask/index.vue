@@ -9,7 +9,7 @@
           <a-input v-model="searchForm.search" placeholder="生产单号, 销售单号" allowClear @pressEnter="search" />
         </a-col>
         <a-col :span="24" style="width: 84px;">
-          <a-button type="primary" icon="search" @click="search">查询</a-button>
+          <a-button type="primary" icon="search" @click="search">照会</a-button>
         </a-col>
       </a-row>
 
@@ -51,7 +51,7 @@ export default {
       items: [],
       columns: [
         {
-          title: "序号",
+          title: "番号",
           dataIndex: "index",
           width: 60,
           fixed: "left",

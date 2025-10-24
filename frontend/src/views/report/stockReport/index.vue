@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card title="库存报表">
+    <a-card title="在庫レポート">
       <div style="display: flex;flex-direction: row;">
         <div id="kucun_echarts" style="width: 100%;height: 250px;"></div>
       </div>
@@ -52,7 +52,7 @@
       return {
         columns: [
           {
-            title: '序号',
+            title: '番号',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {

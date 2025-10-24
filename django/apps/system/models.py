@@ -7,11 +7,11 @@ from extensions.models import *
 
 class Team(Model):
 
-    number = CharField(max_length=32, verbose_name='编号')
+    number = CharField(max_length=32, verbose_name='番号')
     expiry_time = DateTimeField(verbose_name='到期时间')
-    create_time = DateTimeField(auto_now_add=True, verbose_name='创建时间')
+    create_time = DateTimeField(auto_now_add=True, verbose_name='作成日時')
     user_quantity = IntegerField(default=10, verbose_name='用户数量')
-    remark = CharField(max_length=256, blank=True, null=True, verbose_name='备注')
+    remark = CharField(max_length=256, blank=True, null=True, verbose_name='備考')
     enable_auto_stock_in = BooleanField(default=False, verbose_name='启用自动入库')
     enable_auto_stock_out = BooleanField(default=False, verbose_name='启用自动出库')
 
@@ -67,8 +67,8 @@ class Role(Model):
     """角色"""
 
     name = CharField(max_length=64, verbose_name='名称')
-    remark = CharField(max_length=256, null=True, blank=True, verbose_name='备注')
-    permissions = ManyToManyField('system.Permission', blank=True, related_name='roles', verbose_name='权限')
+    remark = CharField(max_length=256, null=True, blank=True, verbose_name='備考')
+    permissions = ManyToManyField('system.Permission', blank=True, related_name='roles', verbose_name='権限')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='roles')
 
     class Meta:
@@ -100,10 +100,10 @@ class User(AbstractUser):
     phone = CharField(max_length=32, null=True, blank=True, verbose_name='手机号')
     email = EmailField(max_length=254, null=True, blank=True, verbose_name='邮箱')
     sex = CharField(max_length=32, choices=Sex.choices, verbose_name='性别')
-    roles = ManyToManyField('system.Role', blank=True, related_name='users', verbose_name='角色')
-    permissions = JSONField(default=list, verbose_name='权限')
+    roles = ManyToManyField('system.Role', blank=True, related_name='users', verbose_name='ロール')
+    permissions = JSONField(default=list, verbose_name='権限')
     is_manager = BooleanField(default=False, verbose_name='管理员状态')
-    create_time = DateTimeField(auto_now_add=True, verbose_name='创建时间')
+    create_time = DateTimeField(auto_now_add=True, verbose_name='作成日時')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='users')
 
     class Meta(AbstractUser.Meta):

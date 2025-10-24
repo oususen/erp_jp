@@ -6,7 +6,7 @@
           <a-input v-model="searchForm.search" placeholder="产品名称, 编码, 条码" allowClear @pressEnter="search" />
         </a-col>
         <a-space>
-          <a-button type="primary" icon="search" @click="search">查询</a-button>
+          <a-button type="primary" icon="search" @click="search">照会</a-button>
         </a-space>
       </a-row>
 
@@ -14,7 +14,7 @@
         <a-table :data-source="items" rowKey="id" :columns="columns" :loading="loading" :pagination="pagination"
           @change="onChangeTable">
           <div slot="action" slot-scope="value, item, index">
-            <a-button size="small" @click="select(item)">选择</a-button>
+            <a-button size="small" @click="select(item)">選択</a-button>
           </div>
         </a-table>
       </div>

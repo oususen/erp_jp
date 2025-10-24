@@ -1,3 +1,12 @@
+1) 環境 & 依存関係
+使用中の仮想環境:
+C:\Users\user\.virtualenvs\django-KssZbzz_
+
+有効化:
+& C:/Users/user/.virtualenvs/django-KssZbzz_/Scripts/Activate.ps1
+
+
+
 django仮想環境入って次の指令を実行
 (django) PS D:\erp-main\django> python manage.py runserver
 

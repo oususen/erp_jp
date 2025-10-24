@@ -1,6 +1,6 @@
 export default [
   {
-    title: '序号',
+    title: '番号',
     dataIndex: 'index',
     key: 'index',
     customRender: (value, item, index) => {
@@ -13,7 +13,7 @@ export default [
     sorter: true,
   },
   {
-    title: '备注',
+    title: '備考',
     dataIndex: 'remark',
     ellipsis: true,
   },

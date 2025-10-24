@@ -6,9 +6,9 @@
         <!-- <a-select v-model="taskType" size="small" @change="changeTask"
           style="width: 160px; float: right;">
           <a-select-option value="purchase">采购入库</a-select-option>
-          <a-select-option value="purchaseReturn">采购退货</a-select-option>
+          <a-select-option value="purchaseReturn">購買返品</a-select-option>
           <a-select-option value="sales">销售出库</a-select-option>
-          <a-select-option value="salesReturn">销售退货</a-select-option>
+          <a-select-option value="salesReturn">販売返品</a-select-option>
         </a-select> -->
       </div>
       
@@ -44,7 +44,7 @@
         loading: false,
         columns: [
           {
-            title: '编号',
+            title: '番号',
             dataIndex: 'number',
             key: 'number',
           },

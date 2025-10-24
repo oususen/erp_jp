@@ -6,7 +6,7 @@ export default {
     {
       path: 'role',
       name: 'role',
-      meta: { title: '角色管理', permission: 'role' },
+      meta: { title: 'ロール管理', permission: 'role' },
       component: () => import('@/views/role/Role'),
     },
     {
@@ -18,7 +18,7 @@ export default {
     {
       path: 'config',
       name: 'config', 
-      meta: { title: '系统配置', permission: 'config' },
+      meta: { title: 'システム設定', permission: 'config' },
       component: () => import('@/views/config/Config'),
     },
   ],

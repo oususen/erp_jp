@@ -26,7 +26,7 @@
           },
           {
             key: 'inStockRecord',
-            tab: '入库记录',
+            tab: '入庫記録',
           },
         ],
         currentTab: undefined,

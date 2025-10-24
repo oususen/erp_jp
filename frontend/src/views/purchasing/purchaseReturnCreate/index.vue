@@ -56,14 +56,14 @@
               </a-form-model-item>
             </a-col> -->
             <a-col :span="6" style="width: 320px;">
-              <a-form-model-item prop="remark" label="备注">
+              <a-form-model-item prop="remark" label="備考">
                 <a-input v-model="form.remark" allowClear />
               </a-form-model-item>
             </a-col>
           </a-row>
         </a-form-model>
 
-        <a-divider orientation="left">产品信息</a-divider>
+        <a-divider orientation="left">製品情報</a-divider>
 
         <div>
           <a-row :gutter="16">
@@ -104,7 +104,7 @@
               </a-form-model-item>
             </a-col>
             <a-col :span="4">
-              <a-form-model-item label="结算账户" :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }">
+              <a-form-model-item label="決済アカウント" :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }">
                 <a-select v-model="purchase_return_account_item.account" style="width: 100%">
                   <a-select-option v-for="Account in accountsItems" :key="Account.id" :value="Account.id">
                     {{ Account.name }}
@@ -194,7 +194,7 @@ export default {
   },
   data() {
     return {
-      description: "新增",
+      description: "新規追加",
       purchaseOrdersItems: [],
       warehouseItems: [],
       handlerItems: [],
@@ -216,7 +216,7 @@ export default {
       },
       columns: [
         {
-          title: "序号",
+          title: "番号",
           dataIndex: "index",
           key: "index",
           width: 45,
@@ -231,7 +231,7 @@ export default {
           width: 150,
         },
         {
-          title: "编号",
+          title: "番号",
           dataIndex: "number",
           key: "number",
           width: 150,
@@ -298,7 +298,7 @@ export default {
       materialItems: [],
       columnsAccount: [
         {
-          title: "序号",
+          title: "番号",
           dataIndex: "index",
           key: "index",
           width: 45,
@@ -307,7 +307,7 @@ export default {
           },
         },
         {
-          title: "结算账户",
+          title: "決済アカウント",
           dataIndex: "account",
           key: "account",
           width: 200,

@@ -7,12 +7,12 @@
           <a-form-model-item prop="name" label="名称">
             <a-input v-model="form.name" />
           </a-form-model-item>
-          <a-form-model-item prop="remark" label="备注">
+          <a-form-model-item prop="remark" label="備考">
             <a-input v-model="form.remark" allowClear />
           </a-form-model-item>
 
           <!-- <a-checkbox-group v-model="form.permissions">
-            <a-descriptions size="small" title="权限" bordered>
+            <a-descriptions size="small" title="権限" bordered>
               <a-descriptions-item v-for="permissionTypeItem in $parent.permissionItems" :key="permissionTypeItem.id" :label="permissionTypeItem.name" :span="3">
                 <a-row>
                   <a-col v-for="item in permissionTypeItem.permission_items" :key="item.id" :span="24">
@@ -25,7 +25,7 @@
 
 
           <a-checkbox-group v-model="form.permissions">
-            <a-descriptions size="small" title="权限" bordered>
+            <a-descriptions size="small" title="権限" bordered>
               <a-descriptions-item
                 v-for="permissionTypeItem in $parent.permissionItems"
                 :key="permissionTypeItem.id"

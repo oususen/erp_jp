@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card title="资金流水">
+    <a-card title="資金履歴">
       <a-row gutter="16">
         <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
           <a-input-search v-model="searchForm.search" placeholder="账户名称/编号" allowClear @search="search" />
@@ -32,7 +32,7 @@
       return {
         columns: [
           {
-            title: '序号',
+            title: '番号',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {
@@ -41,7 +41,7 @@
             width: 45
           },
           {
-            title: '创建人',
+            title: '作成者',
             dataIndex: 'creator_name',
           },
           {

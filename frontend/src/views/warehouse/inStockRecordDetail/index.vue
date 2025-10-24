@@ -1,8 +1,8 @@
 <template>
   <div>
     <a-card title="入库记录详情">
-      <a-button slot="extra" type="primary" style="margin-right: 8px;" ghost v-print="'#printContent'"> <a-icon type="printer" />打印</a-button>
-      <a-button slot="extra" type="primary" ghost @click="() => { this.$router.go(-1); }"> <a-icon type="left" />返回</a-button>
+      <a-button slot="extra" type="primary" style="margin-right: 8px;" ghost v-print="'#printContent'"> <a-icon type="printer" />印刷</a-button>
+      <a-button slot="extra" type="primary" ghost @click="() => { this.$router.go(-1); }"> <a-icon type="left" />戻る</a-button>
       <section id="printContent">
         <a-spin :spinning="loading">
           <img id="barcode" style="float: right" />
@@ -22,11 +22,11 @@
             <a-descriptions-item label="处理日期">
               {{ info.handle_time }}
             </a-descriptions-item>
-            <a-descriptions-item label="备注">
+            <a-descriptions-item label="備考">
               {{ info.remark }}
             </a-descriptions-item>
           </a-descriptions>
-          <a-divider orientation="left" style="margin-top: 30px;">产品信息</a-divider>
+          <a-divider orientation="left" style="margin-top: 30px;">製品情報</a-divider>
           <a-table
             rowKey="id"
             size="middle"
@@ -52,7 +52,7 @@
         info: {},
         columns: [
           {
-            title: '序号',
+            title: '番号',
             dataIndex: 'index',
             key: 'index',
             width: 45,
@@ -109,7 +109,7 @@
             width: 120,
           },
           // {
-          //   title: '金额',
+          //   title: '金額',
           //   dataIndex: 'totalAmount',
           //   key: 'totalAmount',
           //   width: 200,

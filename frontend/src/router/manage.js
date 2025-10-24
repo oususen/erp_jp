@@ -6,7 +6,7 @@ export default {
     // {
     //   path: 'warehouse',
     //   name: 'warehouse',
-    //   meta: { title: '仓库管理', permission: 'warehouse' },
+    //   meta: { title: '倉庫管理', permission: 'warehouse' },
     //   component: () => import('@/views/warehouse/Warehouse'),
     // },
   ],

@@ -186,9 +186,12 @@ class SalesTrendViewSet(BaseViewSet, ListModelMixin):
 
     @extend_schema(parameters=[SalesTrendParameter], responses={200: SalesTrendResponse})
     def list(self, request, *args, **kwargs):
+        from django.db.models.functions import TruncDate
+
         queryset = self.filter_queryset(self.get_queryset())
         queryset = queryset.select_related('warehouse')
-        queryset = queryset.extra(select={'date': connection.ops.date_trunc_sql('day', 'create_time')})
+        # Django 5.1 対応: TruncDate を使用
+        queryset = queryset.annotate(date=TruncDate('create_time'))
         queryset = queryset.values('warehouse', 'date').annotate(
             warehouse_number=F('warehouse__number'), warehouse_name=F('warehouse__name'),
             total_sales_amount=Coalesce(Sum('total_amount'), Value(0, output_field=AmountField())),

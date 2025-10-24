@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card title="批次报表">
+    <a-card title="バッチレポート">
       <a-row gutter="16">
         <a-col :span="24" :md="6" :xl="4" style="max-width: 256px; margin-bottom: 12px;">
           <a-input-search v-model="searchForm.search" placeholder="产品编号/名称" allowClear @search="search" />
@@ -30,7 +30,7 @@
           @change="tableChange"
         >
           <div slot="is_active" slot-scope="value">
-            <a-tag :color="value ? 'green' : 'red'">{{ value ? "激活" : "冻结" }}</a-tag>
+            <a-tag :color="value ? 'green' : 'red'">{{ value ? "有効" : "無効" }}</a-tag>
           </div>
         </a-table>
       </a-row>
@@ -50,7 +50,7 @@ export default {
     return {
       columns: [
         {
-          title: "序号",
+          title: "番号",
           dataIndex: "index",
           key: "index",
           width: 60,
@@ -59,7 +59,7 @@ export default {
           },
         },
         {
-          title: "编号",
+          title: "番号",
           dataIndex: "number",
         },
         {

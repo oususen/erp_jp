@@ -18,7 +18,7 @@ class SuperUser(AbstractBaseUser):
 class Device(Model):
     """设备"""
 
-    number = CharField(max_length=32, verbose_name='编号')
+    number = CharField(max_length=32, verbose_name='番号')
     name = CharField(max_length=64, verbose_name='名称')
     model = CharField(max_length=64, null=True, blank=True, verbose_name='型号')
     serial_number = CharField(max_length=256, null=True, blank=True, verbose_name='序列号')

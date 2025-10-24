@@ -9,7 +9,7 @@
           <a-input v-model="searchForm.search" placeholder="生产单号, 销售单号" allowClear @pressEnter="search" />
         </a-col>
         <a-col :span="24" style="width: 84px;">
-          <a-button type="primary" icon="search" @click="search">查询</a-button>
+          <a-button type="primary" icon="search" @click="search">照会</a-button>
         </a-col>
 
         <div style="margin-bottom: 12px; float: right">
@@ -30,7 +30,7 @@
         >
           <div slot="action" slot-scope="value, item, index">
             <a-button-group size="small">
-              <a-button v-if="item.status == 'in_plan'" @click="openCreateModal(item)">编辑</a-button>
+              <a-button v-if="item.status == 'in_plan'" @click="openCreateModal(item)">編集</a-button>
               <a-button @click="detial(item)">详情</a-button>
               <a-popconfirm v-if="item.status == 'in_plan'" title="确定发布吗?" @confirm="issue(item)">
                 <a-button type="primary">发布工单</a-button>
@@ -39,7 +39,7 @@
                 <a-button type="primary">关闭工单</a-button>
               </a-popconfirm>
               <a-popconfirm v-if="item.status == 'in_plan'" title="确定删除吗?" @confirm="destroy(item)">
-                <a-button type="danger">删除</a-button>
+                <a-button type="danger">削除</a-button>
               </a-popconfirm>
             </a-button-group>
           </div>
@@ -71,7 +71,7 @@ export default {
       items: [],
       columns: [
         {
-          title: "序号",
+          title: "番号",
           dataIndex: "index",
           width: 60,
           fixed: "left",
@@ -89,7 +89,7 @@ export default {
           dataIndex: "sales_order_number",
         },
         {
-          title: "状态",
+          title: "ステータス",
           dataIndex: "status_display",
           width: 100,
         },

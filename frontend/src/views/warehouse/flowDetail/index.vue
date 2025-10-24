@@ -1,14 +1,14 @@
 <template>
   <div>
     <a-card title="库存流水详情">
-      <a-button slot="extra" type="primary" ghost @click="() => { this.$router.go(-1); }"> <a-icon type="left" />返回</a-button>
+      <a-button slot="extra" type="primary" ghost @click="() => { this.$router.go(-1); }"> <a-icon type="left" />戻る</a-button>
       <section id="pdfDom">
         <a-spin :spinning="loading">
           <a-descriptions bordered>
-            <a-descriptions-item label="创建人">
+            <a-descriptions-item label="作成者">
               {{ info.creator_name }}
             </a-descriptions-item>
-            <a-descriptions-item label="创建时间">
+            <a-descriptions-item label="作成日時">
               {{ info.create_time }}
             </a-descriptions-item>
             <a-descriptions-item label="仓库">

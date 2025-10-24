@@ -21,7 +21,7 @@ export default {
     },
     {
       path: 'settlement_account',
-      meta: { title: '结算账户', permission: 'settlement_account' },
+      meta: { title: '決済アカウント', permission: 'settlement_account' },
       component: () => import('@/views/basicData/settlementAccount/index'),
     },
     {

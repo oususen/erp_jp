@@ -10,7 +10,7 @@ export default [
     sorter: true,
   },
   {
-    title: '产品单位',
+    title: '製品単位',
     dataIndex: 'unit_name',
   },
   {

@@ -138,13 +138,15 @@ AUTH_USER_MODEL = 'system.User'
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ja'  # 日本語に変更
 
-TIME_ZONE = 'Asia/Shanghai'
+TIME_ZONE = 'Asia/Tokyo'  # 東京タイムゾーンに変更
 
 USE_I18N = True
 
-USE_L10N = True
+# USE_L10N is deprecated in Django 4.0 and removed in Django 5.0
+# Localization is now always enabled when USE_I18N is True
+# USE_L10N = True
 
 USE_TZ = True
 
@@ -217,18 +219,10 @@ LOGGING = {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
         },
- 	'file': {
-            'level': 'ERROR',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': BASE_DIR / 'logs/debug.log',
-            'when': 'D',
-            'interval': 1,
-            'backupCount': 100,
-        }
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],  # ファイルログを一時的に無効化（Windows対応）
             'level': 'INFO',
             'propagate': True,
         },
