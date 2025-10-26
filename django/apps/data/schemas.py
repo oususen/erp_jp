@@ -2,15 +2,15 @@ from extensions.serializers import *
 
 
 class NumberResponse(Serializer):
-    number = CharField(label='编号')
+    number = CharField(label='番号')
 
 
 class DownloadResponse(Serializer):
-    file = FileField(label='Excel文件')
+    file = FileField(label='Excelファイル')
 
 
 class UploadRequest(Serializer):
-    file = FileField(label='Excel文件')
+    file = FileField(label='Excelファイル')
 
 
 __all__ = [

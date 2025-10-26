@@ -26,12 +26,12 @@ class ProductionOrderViewSet(ModelViewSet):
     def perform_update(self, serializer):
         instance = serializer.instance
         if instance.status != ProductionOrder.Status.IN_PLAN:
-            raise ValidationError(f'工单{instance.number}{instance.get_status_display()}, 无法编辑')
+            raise ValidationError(f'作業指示書{instance.number}{instance.get_status_display()}、編集できません')
         return super().perform_update(serializer)
 
     def perform_destroy(self, instance):
         if instance.status != ProductionOrder.Status.IN_PLAN:
-            raise ValidationError(f'工单{instance.number}{instance.get_status_display()}, 无法删除')
+            raise ValidationError(f'作業指示書{instance.number}{instance.get_status_display()}、削除できません')
         return super().perform_destroy(instance)
 
     @extend_schema(responses={200: NumberResponse})
@@ -45,11 +45,11 @@ class ProductionOrderViewSet(ModelViewSet):
     @extend_schema(responses={200: ProductionOrderSerializer})
     @action(detail=True, methods=['post'])
     def issue(self, request, *args, **kwargs):
-        """发布工单"""
+        """发布作業指示書"""
 
         instance = self.get_object()
         if instance.status != ProductionOrder.Status.IN_PLAN:
-            raise ValidationError(f'工单{instance.number}{instance.get_status_display()}, 无法发布工单')
+            raise ValidationError(f'作業指示書{instance.number}{instance.get_status_display()}, 无法发布作業指示書')
 
         instance.status = ProductionOrder.Status.IN_PROGRESS
         instance.save(update_fields=['status'])
@@ -60,11 +60,11 @@ class ProductionOrderViewSet(ModelViewSet):
     @extend_schema(responses={200: ProductionOrderSerializer})
     @action(detail=True, methods=['post'])
     def close(self, request, *args, **kwargs):
-        """关闭工单"""
+        """关闭作業指示書"""
 
         instance = self.get_object()
         if instance.status != ProductionOrder.Status.IN_PROGRESS:
-            raise ValidationError(f'工单{instance.number}{instance.get_status_display()}, 无法关闭工单')
+            raise ValidationError(f'作業指示書{instance.number}{instance.get_status_display()}, 无法关闭作業指示書')
 
         instance.status = ProductionOrder.Status.CLOSED
         instance.save(update_fields=['status'])
@@ -91,7 +91,7 @@ class ProductionRecordViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, C
         production_quantity = validated_data['production_quantity']
 
         if production_order.remain_quantity < production_quantity:
-            raise ValidationError('生产数量错误')
+            raise ValidationError('生産数量が間違っています')
 
         production_order.quantity_produced = NP.plus(production_order.quantity_produced, production_quantity)
         production_order.remain_quantity = NP.minus(production_order.remain_quantity, production_quantity)

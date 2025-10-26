@@ -7,8 +7,8 @@ from apps.sales.models import *
 
 # Goods
 class BatchOptionFilter(FilterSet):
-    warehouse = NumberFilter(field_name='warehouse', required=True, label='仓库')
-    goods = NumberFilter(field_name='goods', required=True, label='产品')
+    warehouse = NumberFilter(field_name='warehouse', required=True, label='倉庫')
+    goods = NumberFilter(field_name='goods', required=True, label='商品')
 
     class Meta:
         model = Batch
@@ -16,10 +16,10 @@ class BatchOptionFilter(FilterSet):
 
 
 class InventoryOptionFilter(FilterSet):
-    warehouse = NumberFilter(field_name='warehouse', required=True, label='仓库')
-    category = NumberFilter(field_name='goods__category', label='产品分类')
-    is_active = BooleanFilter(field_name='goods__is_active', label='产品激活状态')
-    goods_number = CharFilter(field_name='goods__number', label='产品编号')
+    warehouse = NumberFilter(field_name='warehouse', required=True, label='倉庫')
+    category = NumberFilter(field_name='goods__category', label='商品カテゴリー')
+    is_active = BooleanFilter(field_name='goods__is_active', label='商品有効状態')
+    goods_number = CharFilter(field_name='goods__number', label='商品コード')
 
     class Meta:
         model = Inventory
@@ -28,8 +28,8 @@ class InventoryOptionFilter(FilterSet):
 
 # Purchase
 class PurchaseOrderOptionFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='終了日')
 
     class Meta:
         model = PurchaseOrder
@@ -39,8 +39,8 @@ class PurchaseOrderOptionFilter(FilterSet):
 
 # Sales
 class SalesOrderOptionFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='終了日')
 
     class Meta:
         model = SalesOrder

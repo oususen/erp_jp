@@ -11,7 +11,7 @@ from rest_framework.viewsets import ViewSet
 
 
 class FunctionViewSet(ViewSet):
-    """功能视图"""
+    """機能ビュー"""
 
     @property
     def team(self):
@@ -59,50 +59,50 @@ class SafeDestroyMixin(DestroyModelMixin):
         try:
             instance.delete()
         except ProtectedError:
-            raise ValidationError('已被数据引用, 无法删除')
+            raise ValidationError('データから参照されているため削除できません')
 
 
 class ModelViewSet(BaseViewSet, ListModelMixin, CreateModelMixin,
                    RetrieveModelMixin, UpdateModelMixin, SafeDestroyMixin):
-    """模型视图"""
+    """モデルビュー"""
 
 
 class PersonalViewSet(BaseViewSet):
-    """个人试图"""
+    """個人ビュー"""
 
     def get_queryset(self):
         return super().get_queryset().filter(creator=self.user)
 
 
 class LimitedOptionViewSet(BaseViewSet, ListModelMixin):
-    """有限选项视图"""
+    """有限オプションビュー"""
 
 
 class InfiniteOptionViewSet(BaseViewSet, ListModelMixin):
-    """无限选项视图"""
+    """無限オプションビュー"""
 
     pagination_class = InfinitePagination
 
 
 class ReadOnlyMixin(RetrieveModelMixin, ListModelMixin):
-    """只读"""
+    """読み取り専用"""
 
 
 class ExportMixin:
-    """导出"""
+    """エクスポート"""
 
     def get_export_response(self, serializer_class, data=None):
-        """获取导出Excel文件响应
+        """エクスポートExcelファイルレスポンスを取得
 
         Args:
-            serializer_class (BaseSerializer): 序列化类
-            data (list): 数据
+            serializer_class (BaseSerializer): シリアライザークラス
+            data (list): データ
 
-            serializer (BaseSerializer): 序列化器
-            field_items (List): 字段属性
+            serializer (BaseSerializer): シリアライザー
+            field_items (List): フィールド属性
 
         Returns:
-            HttpResponse: 文件响应
+            HttpResponse: ファイルレスポンス
         """
 
         workbook = Workbook()
@@ -116,11 +116,11 @@ class ExportMixin:
             results = serializer.data
         field_items = serializer_class().get_fields().items()
 
-        # 创建表头
+        # テーブルヘッダーを作成
         for index, (field_name, field_class) in enumerate(field_items, start=1):
             work_sheet.cell(row=1, column=index, value=field_class.label)
 
-        # 填充数据
+        # データを入力
         for row, item in enumerate(results, start=2):
             for column, (field_name, field_class) in enumerate(field_items, start=1):
                 work_sheet.cell(row=row, column=column, value=item.get(field_name, ''))
@@ -133,22 +133,22 @@ class ExportMixin:
 
 
 class ImportMixin:
-    """导入"""
+    """インポート"""
 
     def get_template_response(self, serializer_class):
-        """获取Excel模板响应
+        """Excelテンプレートレスポンスを取得
 
         Args:
-            serializer_class (BaseSerializer): 序列化类
+            serializer_class (BaseSerializer): シリアライザークラス
 
         Returns:
-            HttpResponse: 文件响应
+            HttpResponse: ファイルレスポンス
         """
 
         workbook = Workbook()
         work_sheet = workbook.active
 
-        # 创建表头
+        # テーブルヘッダーを作成
         field_items = serializer_class().get_fields().items()
         for index, (_, field_class) in enumerate(field_items, start=1):
             work_sheet.cell(row=1, column=index, value=field_class.label)
@@ -166,7 +166,7 @@ class ImportMixin:
 
         for column, (field_name, field_class) in enumerate(field_items):
             if work_sheet[1][column].value != field_class.label:
-                raise ValidationError('格式错误')
+                raise ValidationError('フォーマットエラー')
 
         data = []
         for row in range(2, work_sheet.max_row + 1):

@@ -36,7 +36,7 @@ class SuperUserActionViewSet(ViewSet):
         password = validated_data['password']
 
         if not (super_user := auth.authenticate(username=username, password=password)):
-            raise ValidationError('账号密码错误')
+            raise ValidationError('アカウントまたはパスワードが間違っています')
 
         auth.login(request, super_user)
         return Response(status=status.HTTP_204_NO_CONTENT)

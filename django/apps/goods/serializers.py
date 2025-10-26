@@ -13,13 +13,13 @@ class GoodsCategorySerializer(BaseSerializer):
         fields = ['name', 'remark', *read_only_fields]
 
     def validate_name(self, value):
-        self.validate_unique({'name': value}, message=f'名称[{value}]已存在')
+        self.validate_unique({'name': value}, message=f'名称[{value}]は既に存在します')
         return value
 
 
 class GoodsCategoryImportExportSerializer(BaseSerializer):
-    name = CharField(label='分类名称(必填唯一)')
-    remark = CharField(required=False, label='备注')
+    name = CharField(label='分類名(必須・一意)')
+    remark = CharField(required=False, label='備考')
 
     class Meta:
         model = GoodsCategory
@@ -34,13 +34,13 @@ class GoodsUnitSerializer(BaseSerializer):
         fields = ['name', 'remark', *read_only_fields]
 
     def validate_name(self, value):
-        self.validate_unique({'name': value}, message=f'名称[{value}]已存在')
+        self.validate_unique({'name': value}, message=f'名称[{value}]は既に存在します')
         return value
 
 
 class GoodsUnitImportExportSerializer(BaseSerializer):
-    name = CharField(label='单位名称(必填唯一)')
-    remark = CharField(required=False, label='备注')
+    name = CharField(label='単位名(必須・一意)')
+    remark = CharField(required=False, label='備考')
 
     class Meta:
         model = GoodsUnit
@@ -52,7 +52,7 @@ class GoodsSerializer(BaseSerializer):
     class InventoryItemSerializer(BaseSerializer):
 
         class BatchItemSerializer(BaseSerializer):
-            id = IntegerField(required=False, label='批次ID')
+            id = IntegerField(required=False, label='ロットID')
 
             class Meta:
                 model = Batch
@@ -61,12 +61,12 @@ class GoodsSerializer(BaseSerializer):
 
             def validate_initial_quantity(self, value):
                 if value < 0:
-                    raise ValidationError('初始库存数量小于零')
+                    raise ValidationError('初期在庫数量がゼロ未満です')
                 return value
 
-        warehouse_number = CharField(source='warehouse.number', read_only=True, label='仓库编号')
-        warehouse_name = CharField(source='warehouse.name', read_only=True, label='仓库名称')
-        batch_items = BatchItemSerializer(source='batchs', required=False, many=True, label='批次Item')
+        warehouse_number = CharField(source='warehouse.number', read_only=True, label='入庫コード')
+        warehouse_name = CharField(source='warehouse.name', read_only=True, label='入庫名')
+        batch_items = BatchItemSerializer(source='batchs', required=False, many=True, label='ロットItem')
 
         class Meta:
             model = Inventory
@@ -74,12 +74,12 @@ class GoodsSerializer(BaseSerializer):
             fields = ['warehouse', 'initial_quantity', 'batch_items', *read_only_fields]
 
         def validate_warehouse(self, instance):
-            instance = self.validate_foreign_key(Warehouse, instance, message='仓库不存在')
+            instance = self.validate_foreign_key(Warehouse, instance, message='入庫は存在しません')
             return instance
 
         def validate_initial_quantity(self, value):
             if value < 0:
-                raise ValidationError('库存数量小于零')
+                raise ValidationError('在庫数量がゼロ未満です')
             return value
 
     class GoodsImageItemSerializer(BaseSerializer):
@@ -88,12 +88,12 @@ class GoodsSerializer(BaseSerializer):
             model = GoodsImage
             fields = ['id', 'name', 'file']
 
-    category_name = CharField(source='category.name', read_only=True, label='分类名称')
-    unit_name = CharField(source='unit.name', read_only=True, label='单位名称')
+    category_name = CharField(source='category.name', read_only=True, label='分類名')
+    unit_name = CharField(source='unit.name', read_only=True, label='単位名')
     inventory_items = InventoryItemSerializer(
-        source='inventories', required=False, many=True, label='库存Item')
+        source='inventories', required=False, many=True, label='在庫Item')
     goods_image_items = GoodsImageItemSerializer(
-        source='goods_images', many=True, read_only=True, label='产品图片Item')
+        source='goods_images', many=True, read_only=True, label='商品画像Item')
 
     class Meta:
         model = Goods
@@ -106,24 +106,24 @@ class GoodsSerializer(BaseSerializer):
         extra_kwargs = {'goods_images': {'required': False}}
 
     def validate_number(self, value):
-        self.validate_unique({'number': value}, message=f'编号[{value}]已存在')
+        self.validate_unique({'number': value}, message=f'コード[{value}]は既に存在します')
         return value
 
     def validate_category(self, instance):
-        instance = self.validate_foreign_key(GoodsCategory, instance, message='产品分类不存在')
+        instance = self.validate_foreign_key(GoodsCategory, instance, message='商品カテゴリが存在しません')
         return instance
 
     def validate_unit(self, instance):
-        instance = self.validate_foreign_key(GoodsUnit, instance, message='产品单位不存在')
+        instance = self.validate_foreign_key(GoodsUnit, instance, message='商品単位が存在しません')
         return instance
 
     def validate_enable_batch_control(self, value):
         if value and (self.team.enable_auto_stock_in or self.team.enable_auto_stock_out):
-            raise ValidationError('只有同时关闭自动入库、自动出库, 才可以开启产品的批次控制')
+            raise ValidationError('自動入庫と自動出庫を両方無効にしないと、商品のロット制御を有効にできません')
         return value
 
     def validate_goods_images(self, instances):
-        instances = self.validate_foreign_key_set(GoodsImage, instances, message='产品图片不存在')
+        instances = self.validate_foreign_key_set(GoodsImage, instances, message='商品画像が存在しません')
         return instances
 
     @transaction.atomic
@@ -131,7 +131,7 @@ class GoodsSerializer(BaseSerializer):
         inventory_items = validated_data.pop('inventories', [])
         goods = super().create(validated_data)
 
-        # 同步库存
+        # 在庫を同期
         batchs = []
         for warehouse in Warehouse.objects.filter(team=self.team):
             for inventory_item in inventory_items:
@@ -145,7 +145,7 @@ class GoodsSerializer(BaseSerializer):
 
                     total_initial_quantity = 0
 
-                    # 产品开启批次控制, 创建批次
+                    # 商品のロット制御が有効な場合、ロットを作成
                     batch_items = inventory_item.get('batchs')
                     if goods.enable_batch_control and batch_items:
                         for batch_item in batch_items:
@@ -175,7 +175,7 @@ class GoodsSerializer(BaseSerializer):
                                 inventory.initial_quantity = total_initial_quantity
                                 inventory.total_quantity = total_initial_quantity
                                 if inventory.total_quantity < 0:
-                                    raise ValidationError(f'产品[{inventory.goods.name}]库存不足')
+                                    raise ValidationError(f'商品[{inventory.goods.name}]の在庫が不足しています')
                                 inventory.has_stock = inventory.total_quantity > 0
                                 inventory.save(update_fields=['initial_quantity', 'total_quantity', 'has_stock'])
                     break
@@ -191,7 +191,7 @@ class GoodsSerializer(BaseSerializer):
         inventory_items = validated_data.pop('inventories', [])
         goods = super().update(instance, validated_data)
 
-        # 同步批次
+        # ロットを同期
         enable_batch_control = validated_data.get('enable_batch_control')
         if enable_batch_control is not None:
             if enable_batch_control != goods.enable_batch_control:
@@ -210,7 +210,7 @@ class GoodsSerializer(BaseSerializer):
                 else:
                     instance.batchs.all().delete()
 
-        # 同步库存
+        # 在庫を同期
         create_batchs = []
         update_batchs = []
         for inventory in Inventory.objects.filter(goods=goods, team=self.team):
@@ -239,7 +239,7 @@ class GoodsSerializer(BaseSerializer):
                                                              goods=goods, team=self.team).first()
                                 if not batch:
                                     batch_number = batch_item['number']
-                                    raise ValidationError(f'批次[{batch_number}]不存在')
+                                    raise ValidationError(f'ロット[{batch_number}]が存在しません')
 
                                 batch.number = batch_item['number']
                                 batch.total_quantity = NP.minus(batch.total_quantity, batch.initial_quantity)
@@ -257,7 +257,7 @@ class GoodsSerializer(BaseSerializer):
                                 if Batch.objects.filter(number=batch_item['number'], warehouse=warehouse,
                                                         goods=goods, team=self.team).exists():
                                     batch_number = batch_item['number']
-                                    raise ValidationError(f'批次[{batch_number}]已存在')
+                                    raise ValidationError(f'ロット[{batch_number}]は既に存在します')
 
                                 has_stock = batch_initial_quantity > 0
                                 create_batchs.append(Batch(
@@ -274,7 +274,7 @@ class GoodsSerializer(BaseSerializer):
                             inventory.initial_quantity = total_initial_quantity
                             inventory.total_quantity = NP.plus(inventory.total_quantity, inventory.initial_quantity)
                             if inventory.total_quantity < 0:
-                                raise ValidationError(f'产品[{inventory.goods.name}]库存不足')
+                                raise ValidationError(f'商品[{inventory.goods.name}]の在庫が不足しています')
                             inventory.has_stock = inventory.total_quantity > 0
                             inventory.save(update_fields=['initial_quantity', 'total_quantity', 'has_stock'])
                     else:
@@ -282,7 +282,7 @@ class GoodsSerializer(BaseSerializer):
                         inventory.initial_quantity = inventory_initial_quantity
                         inventory.total_quantity = NP.plus(inventory.total_quantity, inventory.initial_quantity)
                         if inventory.total_quantity < 0:
-                            raise ValidationError(f'产品[{inventory.goods.name}]库存不足')
+                            raise ValidationError(f'商品[{inventory.goods.name}]の在庫が不足しています')
                         inventory.has_stock = inventory.total_quantity > 0
                         inventory.save(update_fields=['initial_quantity', 'total_quantity', 'has_stock'])
 
@@ -299,25 +299,25 @@ class GoodsSerializer(BaseSerializer):
 
 
 class GoodsImportExportSerializer(BaseSerializer):
-    number = CharField(label='产品编号(唯一必填)')
-    name = CharField(label='产品名称(必填)')
-    barcode = CharField(required=False, label='条码')
-    category = CharField(source='category.name', required=False, label='分类')
-    unit = CharField(source='unit.name', required=False, label='单位')
-    spec = CharField(required=False, label='规格')
-    enable_batch_control = BooleanField(required=False, label='启用批次控制[TRUE/FALSE](默认: FALSE)')
-    shelf_life_days = IntegerField(required=False, label='保质期天数')
-    shelf_life_warning_days = IntegerField(required=False, label='保质期预警天数')
-    enable_inventory_warning = BooleanField(required=False, label='启用库存警告[TRUE/FALSE](默认: FALSE)')
-    inventory_upper = FloatField(required=False, label='库存上限')
-    inventory_lower = FloatField(required=False, label='库存下限')
-    purchase_price = FloatField(required=False, label='采购价')
-    retail_price = FloatField(required=False, label='零售价')
-    level_price1 = FloatField(required=False, label='等级价一')
-    level_price2 = FloatField(required=False, label='等级价二')
-    level_price3 = FloatField(required=False, label='等级价三')
-    remark = CharField(required=False, label='备注')
-    is_active = BooleanField(required=False, label='激活状态[TRUE/FALSE](默认: TRUE)')
+    number = CharField(label='商品コード(一意・必須)')
+    name = CharField(label='商品名(必須)')
+    barcode = CharField(required=False, label='バーコード')
+    category = CharField(source='category.name', required=False, label='分類')
+    unit = CharField(source='unit.name', required=False, label='単位')
+    spec = CharField(required=False, label='仕様')
+    enable_batch_control = BooleanField(required=False, label='ロット制御を有効化[TRUE/FALSE](デフォルト: FALSE)')
+    shelf_life_days = IntegerField(required=False, label='品質保証期間日数')
+    shelf_life_warning_days = IntegerField(required=False, label='期限切れ間近警告日')
+    enable_inventory_warning = BooleanField(required=False, label='在庫警告を有効化[TRUE/FALSE](デフォルト: FALSE)')
+    inventory_upper = FloatField(required=False, label='在庫上限')
+    inventory_lower = FloatField(required=False, label='在庫下限')
+    purchase_price = FloatField(required=False, label='購買価格')
+    retail_price = FloatField(required=False, label='小売価格')
+    level_price1 = FloatField(required=False, label='等級価格1')
+    level_price2 = FloatField(required=False, label='等級価格2')
+    level_price3 = FloatField(required=False, label='等級価格3')
+    remark = CharField(required=False, label='備考')
+    is_active = BooleanField(required=False, label='有効状態[TRUE/FALSE](デフォルト: TRUE)')
 
     class Meta:
         model = Goods
@@ -341,12 +341,12 @@ class GoodsImageSerializer(BaseSerializer):
 
 
 class BatchSerializer(BaseSerializer):
-    warehouse_number = CharField(source='warehouse.number', read_only=True, label='仓库编号')
-    warehouse_name = CharField(source='warehouse.name', read_only=True, label='仓库名称')
-    goods_number = CharField(source='goods.number', read_only=True, label='产品编号')
-    goods_name = CharField(source='goods.name', read_only=True, label='产品名称')
-    goods_barcode = CharField(source='goods.barcode', read_only=True, label='产品条码')
-    unit_name = CharField(source='goods.unit.name', read_only=True, label='单位名称')
+    warehouse_number = CharField(source='warehouse.number', read_only=True, label='入庫コード')
+    warehouse_name = CharField(source='warehouse.name', read_only=True, label='入庫名')
+    goods_number = CharField(source='goods.number', read_only=True, label='商品コード')
+    goods_name = CharField(source='goods.name', read_only=True, label='商品名')
+    goods_barcode = CharField(source='goods.barcode', read_only=True, label='商品バーコード')
+    unit_name = CharField(source='goods.unit.name', read_only=True, label='単位名')
 
     class Meta:
         model = Batch
@@ -357,12 +357,12 @@ class BatchSerializer(BaseSerializer):
 
 
 class InventorySerializer(BaseSerializer):
-    warehouse_number = CharField(source='warehouse.number', read_only=True, label='仓库编号')
-    warehouse_name = CharField(source='warehouse.name', read_only=True, label='仓库名称')
-    goods_number = CharField(source='goods.number', read_only=True, label='产品编号')
-    goods_name = CharField(source='goods.name', read_only=True, label='产品名称')
-    goods_barcode = CharField(source='goods.barcode', read_only=True, label='产品条码')
-    unit_name = CharField(source='goods.unit.name', read_only=True, label='单位名称')
+    warehouse_number = CharField(source='warehouse.number', read_only=True, label='入庫コード')
+    warehouse_name = CharField(source='warehouse.name', read_only=True, label='入庫名')
+    goods_number = CharField(source='goods.number', read_only=True, label='商品コード')
+    goods_name = CharField(source='goods.name', read_only=True, label='商品名')
+    goods_barcode = CharField(source='goods.barcode', read_only=True, label='商品バーコード')
+    unit_name = CharField(source='goods.unit.name', read_only=True, label='単位名')
 
     class Meta:
         model = Inventory

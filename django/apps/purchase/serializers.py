@@ -9,15 +9,15 @@ from apps.system.models import *
 
 
 class PurchaseOrderSerializer(BaseSerializer):
-    """采购单据"""
+    """購買伝票"""
 
     class PurchaseGoodsItemSerializer(BaseSerializer):
-        """采购产品"""
+        """購買商品"""
 
-        goods_number = CharField(source='goods.number', read_only=True, label='产品编号')
-        goods_name = CharField(source='goods.name', read_only=True, label='产品名称')
-        goods_barcode = CharField(source='goods.barcode', read_only=True, label='产品条码')
-        unit_name = CharField(source='goods.unit.name', read_only=True, label='单位名称')
+        goods_number = CharField(source='goods.number', read_only=True, label='商品コード')
+        goods_name = CharField(source='goods.name', read_only=True, label='商品名')
+        goods_barcode = CharField(source='goods.barcode', read_only=True, label='商品バーコード')
+        unit_name = CharField(source='goods.unit.name', read_only=True, label='単位名')
 
         class Meta:
             model = PurchaseGoods
@@ -26,26 +26,26 @@ class PurchaseOrderSerializer(BaseSerializer):
             fields = ['goods', 'purchase_quantity', 'purchase_price', *read_only_fields]
 
         def validate_goods(self, instance):
-            instance = self.validate_foreign_key(Goods, instance, message='产品不存在')
+            instance = self.validate_foreign_key(Goods, instance, message='商品が存在しません')
             if not instance.is_active:
-                raise ValidationError(f'产品[{instance.name}]未激活')
+                raise ValidationError(f'商品[{instance.name}]が有効化されていません')
             return instance
 
         def validate_purchase_quantity(self, value):
             if value <= 0:
-                raise ValidationError('采购数量小于或等于零')
+                raise ValidationError('購買数量がゼロ以下です')
             return value
 
         def validate_purchase_price(self, value):
             if value <= 0:
-                raise ValidationError('采购单价小于或等于零')
+                raise ValidationError('購買単価がゼロ以下です')
             return value
 
     class PurchaseAccountItemSerializer(BaseSerializer):
-        """采购结算账户"""
+        """購買決済口座"""
 
-        account_number = CharField(source='account.number', read_only=True, label='账户编号')
-        account_name = CharField(source='account.name', read_only=True, label='账户名称')
+        account_number = CharField(source='account.number', read_only=True, label='口座コード')
+        account_name = CharField(source='account.name', read_only=True, label='口座名')
 
         class Meta:
             model = PurchaseAccount
@@ -53,26 +53,26 @@ class PurchaseOrderSerializer(BaseSerializer):
             fields = ['account', 'payment_amount', *read_only_fields]
 
         def validate_account(self, instance):
-            instance = self.validate_foreign_key(Account, instance, message='账户不存在')
+            instance = self.validate_foreign_key(Account, instance, message='口座が存在しません')
             if not instance.is_active:
-                raise ValidationError(f'账户[{instance.name}]未激活')
+                raise ValidationError(f'口座[{instance.name}]が有効化されていません')
             return instance
 
         def validate_payment_amount(self, value):
             if value <= 0:
-                raise ValidationError('付款金额小于或等于零')
+                raise ValidationError('支払金額がゼロ以下です')
             return value
 
-    warehouse_number = CharField(source='warehouse.number', read_only=True, label='仓库编号')
-    warehouse_name = CharField(source='warehouse.name', read_only=True, label='仓库名称')
-    supplier_number = CharField(source='supplier.number', read_only=True, label='供应商编号')
-    supplier_name = CharField(source='supplier.name', read_only=True, label='供应商名称')
-    handler_name = CharField(source='handler.name', read_only=True, label='经手人名称')
-    creator_name = CharField(source='creator.name', read_only=True, label='创建人名称')
+    warehouse_number = CharField(source='warehouse.number', read_only=True, label='倉庫コード')
+    warehouse_name = CharField(source='warehouse.name', read_only=True, label='倉庫名')
+    supplier_number = CharField(source='supplier.number', read_only=True, label='仕入先コード')
+    supplier_name = CharField(source='supplier.name', read_only=True, label='仕入先名')
+    handler_name = CharField(source='handler.name', read_only=True, label='担当者名')
+    creator_name = CharField(source='creator.name', read_only=True, label='作成者名')
     purchase_goods_items = PurchaseGoodsItemSerializer(
-        source='purchase_goods_set', many=True, label='采购产品Item')
+        source='purchase_goods_set', many=True, label='購買商品Item')
     purchase_account_items = PurchaseAccountItemSerializer(
-        source='purchase_accounts', required=False, many=True, label='采购结算账户Item')
+        source='purchase_accounts', required=False, many=True, label='購買決済口座Item')
 
     class Meta:
         model = PurchaseOrder
@@ -84,31 +84,31 @@ class PurchaseOrderSerializer(BaseSerializer):
                   'purchase_goods_items', 'purchase_account_items', *read_only_fields]
 
     def validate_number(self, value):
-        self.validate_unique({'number': value}, message=f'编号[{value}]已存在')
+        self.validate_unique({'number': value}, message=f'番号[{value}]は既に存在します')
         return value
 
     def validate_warehouse(self, instance):
-        instance = self.validate_foreign_key(Warehouse, instance, message='仓库不存在')
+        instance = self.validate_foreign_key(Warehouse, instance, message='倉庫が存在しません')
         if not instance.is_active:
-            raise ValidationError(f'仓库[{instance.name}]未激活')
+            raise ValidationError(f'倉庫[{instance.name}]が有効化されていません')
 
         return instance
 
     def validate_supplier(self, instance):
-        instance = self.validate_foreign_key(Supplier, instance, message='供应商不存在')
+        instance = self.validate_foreign_key(Supplier, instance, message='仕入先が存在しません')
         if not instance.is_active:
-            raise ValidationError(f'供应商[{instance.name}]未激活')
+            raise ValidationError(f'仕入先[{instance.name}]が有効化されていません')
         return instance
 
     def validate_handler(self, instance):
-        instance = self.validate_foreign_key(User, instance, message='经手人不存在')
+        instance = self.validate_foreign_key(User, instance, message='担当者が存在しません')
         if not instance.is_active:
-            raise ValidationError(f'经手人[{instance.name}]未激活')
+            raise ValidationError(f'担当者[{instance.name}]が有効化されていません')
         return instance
 
     def validate_other_amount(self, value):
         if value < 0:
-            raise ValidationError('其他费用小于零')
+            raise ValidationError('その他費用がゼロ未満です')
         return value
 
     @transaction.atomic
@@ -123,7 +123,7 @@ class PurchaseOrderSerializer(BaseSerializer):
         total_purchase_quantity = 0
         total_purchase_amount = 0
 
-        # 创建采购产品
+        # 購買商品を作成
         purchase_goods_set = []
         for purchase_goods_item in purchase_goods_items:
             purchase_quantity = purchase_goods_item['purchase_quantity']
@@ -146,7 +146,7 @@ class PurchaseOrderSerializer(BaseSerializer):
         total_payment_amount = 0
 
         if purchase_account_items:
-            # 创建采购结算账户
+            # 購買決済口座を作成
             purchase_accounts = []
             for purchase_account_item in purchase_account_items:
                 payment_amount = purchase_account_item['payment_amount']
@@ -168,15 +168,15 @@ class PurchaseOrderSerializer(BaseSerializer):
 
 
 class PurchaseReturnOrderSerializer(BaseSerializer):
-    """采购退货单据"""
+    """購買返品伝票"""
 
     class PurchaseReturnGoodsItemSerializer(BaseSerializer):
-        """采购退货产品"""
+        """購買返品商品"""
 
-        goods_number = CharField(source='goods.number', read_only=True, label='产品编号')
-        goods_name = CharField(source='goods.name', read_only=True, label='产品名称')
-        goods_barcode = CharField(source='goods.barcode', read_only=True, label='产品条码')
-        unit_name = CharField(source='goods.unit.name', read_only=True, label='单位名称')
+        goods_number = CharField(source='goods.number', read_only=True, label='商品コード')
+        goods_name = CharField(source='goods.name', read_only=True, label='商品名')
+        goods_barcode = CharField(source='goods.barcode', read_only=True, label='商品バーコード')
+        unit_name = CharField(source='goods.unit.name', read_only=True, label='単位名')
 
         class Meta:
             model = PurchaseReturnGoods
@@ -185,30 +185,30 @@ class PurchaseReturnOrderSerializer(BaseSerializer):
             fields = ['purchase_goods', 'goods', 'return_quantity', 'return_price', *read_only_fields]
 
         def validate_purchase_goods(self, instance):
-            instance = self.validate_foreign_key(PurchaseGoods, instance, message='采购产品不存在')
+            instance = self.validate_foreign_key(PurchaseGoods, instance, message='購買商品が存在しません')
             return instance
 
         def validate_goods(self, instance):
-            instance = self.validate_foreign_key(Goods, instance, message='产品不存在')
+            instance = self.validate_foreign_key(Goods, instance, message='商品が存在しません')
             if not instance.is_active:
-                raise ValidationError(f'产品[{instance.name}]未激活')
+                raise ValidationError(f'商品[{instance.name}]が有効化されていません')
             return instance
 
         def validate_return_quantity(self, value):
             if value <= 0:
-                raise ValidationError('退货数量小于或等于零')
+                raise ValidationError('返品数量がゼロ以下です')
             return value
 
         def validate_return_price(self, value):
             if value <= 0:
-                raise ValidationError('退货单价小于或等于零')
+                raise ValidationError('返品単価がゼロ以下です')
             return value
 
     class PurchaseReturnAccountItemSerializer(BaseSerializer):
-        """采购退货结算账户"""
+        """購買返品決済口座"""
 
-        account_number = CharField(source='account.number', read_only=True, label='账户编号')
-        account_name = CharField(source='account.name', read_only=True, label='账户名称')
+        account_number = CharField(source='account.number', read_only=True, label='口座コード')
+        account_name = CharField(source='account.name', read_only=True, label='口座名')
 
         class Meta:
             model = PurchaseReturnAccount
@@ -216,27 +216,27 @@ class PurchaseReturnOrderSerializer(BaseSerializer):
             fields = ['account', 'collection_amount', *read_only_fields]
 
         def validate_account(self, instance):
-            instance = self.validate_foreign_key(Account, instance, message='账户不存在')
+            instance = self.validate_foreign_key(Account, instance, message='口座が存在しません')
             if not instance.is_active:
-                raise ValidationError(f'账户[{instance.name}]未激活')
+                raise ValidationError(f'口座[{instance.name}]が有効化されていません')
             return instance
 
         def validate_collection_amount(self, value):
             if value <= 0:
-                raise ValidationError('收款金额小于或等于零')
+                raise ValidationError('入金金額がゼロ以下です')
             return value
 
-    purchase_order_number = CharField(source='purchase_order.number', read_only=True, label='采购单据编号')
-    warehouse_number = CharField(source='warehouse.number', read_only=True, label='仓库编号')
-    warehouse_name = CharField(source='warehouse.name', read_only=True, label='仓库名称')
-    supplier_number = CharField(source='supplier.number', read_only=True, label='供应商编号')
-    supplier_name = CharField(source='supplier.name', read_only=True, label='供应商名称')
-    handler_name = CharField(source='handler.name', read_only=True, label='经手人名称')
-    creator_name = CharField(source='creator.name', read_only=True, label='创建人名称')
+    purchase_order_number = CharField(source='purchase_order.number', read_only=True, label='購買伝票コード')
+    warehouse_number = CharField(source='warehouse.number', read_only=True, label='倉庫コード')
+    warehouse_name = CharField(source='warehouse.name', read_only=True, label='倉庫名')
+    supplier_number = CharField(source='supplier.number', read_only=True, label='仕入先コード')
+    supplier_name = CharField(source='supplier.name', read_only=True, label='仕入先名')
+    handler_name = CharField(source='handler.name', read_only=True, label='担当者名')
+    creator_name = CharField(source='creator.name', read_only=True, label='作成者名')
     purchase_return_goods_items = PurchaseReturnGoodsItemSerializer(
-        source='purchase_return_goods_set', many=True, label='采购退货产品Item')
+        source='purchase_return_goods_set', many=True, label='購買返品商品Item')
     purchase_return_account_items = PurchaseReturnAccountItemSerializer(
-        source='purchase_return_accounts', required=False, many=True, label='采购退货结算账户Item')
+        source='purchase_return_accounts', required=False, many=True, label='購買返品決済口座Item')
 
     class Meta:
         model = PurchaseReturnOrder
@@ -249,41 +249,41 @@ class PurchaseReturnOrderSerializer(BaseSerializer):
                   'purchase_return_account_items', *read_only_fields]
 
     def validate_number(self, value):
-        self.validate_unique({'number': value}, message=f'编号[{value}]已存在')
+        self.validate_unique({'number': value}, message=f'番号[{value}]は既に存在します')
         return value
 
     def validate_purchase_order(self, instance):
-        instance = self.validate_foreign_key(PurchaseOrder, instance, message='采购单据不存在')
+        instance = self.validate_foreign_key(PurchaseOrder, instance, message='購買伝票が存在しません')
         if instance.is_void:
-            raise ValidationError(f'采购单据[{instance.name}]已作废')
+            raise ValidationError(f'購買伝票[{instance.name}]は無効化されています')
         return instance
 
     def validate_warehouse(self, instance):
-        instance = self.validate_foreign_key(Warehouse, instance, message='仓库不存在')
+        instance = self.validate_foreign_key(Warehouse, instance, message='倉庫が存在しません')
         if not instance.is_active:
-            raise ValidationError(f'仓库[{instance.name}]未激活')
+            raise ValidationError(f'倉庫[{instance.name}]が有効化されていません')
 
         return instance
 
     def validate_supplier(self, instance):
-        instance = self.validate_foreign_key(Supplier, instance, message='供应商不存在')
+        instance = self.validate_foreign_key(Supplier, instance, message='仕入先が存在しません')
         if not instance.is_active:
-            raise ValidationError(f'供应商[{instance.name}]未激活')
+            raise ValidationError(f'仕入先[{instance.name}]が有効化されていません')
         return instance
 
     def validate_handler(self, instance):
-        instance = self.validate_foreign_key(User, instance, message='经手人不存在')
+        instance = self.validate_foreign_key(User, instance, message='担当者が存在しません')
         if not instance.is_active:
-            raise ValidationError(f'经手人[{instance.name}]未激活')
+            raise ValidationError(f'担当者[{instance.name}]が有効化されていません')
         return instance
 
     def validate(self, attrs):
         if purchase_order := attrs.get('purchase_order'):
             if purchase_order.warehouse != attrs['warehouse']:
-                raise ValidationError(f'采购单据[{purchase_order.number}]选择错误')
+                raise ValidationError(f'購買伝票[{purchase_order.number}]の選択が間違っています')
 
             if purchase_order.supplier != attrs['supplier']:
-                raise ValidationError(f'采购单据[{purchase_order.number}]选择错误')
+                raise ValidationError(f'購買伝票[{purchase_order.number}]の選択が間違っています')
 
         return super().validate(attrs)
 
@@ -299,7 +299,7 @@ class PurchaseReturnOrderSerializer(BaseSerializer):
         total_return_quantity = 0
         total_return_amount = 0
 
-        # 创建采购退货产品
+        # 購買返品商品を作成
         purchase_return_goods_set = []
         for purchase_return_goods_item in purchase_return_goods_items:
             goods = purchase_return_goods_item['goods']
@@ -308,13 +308,13 @@ class PurchaseReturnOrderSerializer(BaseSerializer):
             purchase_goods = None
             if purchase_order := purchase_return_order.purchase_order:
                 if not (purchase_goods := purchase_return_goods_item.get('purchase_goods')):
-                    raise ValidationError(f'采购单据[{purchase_order.number}]不存在产品[{goods.name}]')
+                    raise ValidationError(f'購買伝票[{purchase_order.number}]に商品[{goods.name}]が存在しません')
 
                 purchase_goods.return_quantity = NP.plus(purchase_goods.return_quantity, return_quantity)
                 if purchase_goods.return_quantity > purchase_goods.purchase_quantity:
-                    raise ValidationError(f'退货产品[{goods.name}]退货数量错误')
+                    raise ValidationError(f'返品商品[{goods.name}]の返品数量が間違っています')
 
-                # 同步采购产品退货数量
+                # 購買商品の返品数量を同期
                 purchase_goods.save(update_fields=['return_quantity'])
 
             return_price = purchase_return_goods_item['return_price']
@@ -336,7 +336,7 @@ class PurchaseReturnOrderSerializer(BaseSerializer):
         total_collection_amount = 0
 
         if purchase_return_account_items:
-            # 创建采购退货结算账户
+            # 購買返品決済口座を作成
             purchase_return_accounts = []
             for purchase_return_account_item in purchase_return_account_items:
                 collection_amount = purchase_return_account_item['collection_amount']

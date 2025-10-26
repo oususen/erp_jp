@@ -9,15 +9,15 @@ from apps.finance.models import *
 
 
 class SalesOrderSerializer(BaseSerializer):
-    """销售单据"""
+    """販売伝票"""
 
     class SalesGoodsItemSerializer(BaseSerializer):
-        """销售产品"""
+        """販売商品"""
 
-        goods_number = CharField(source='goods.number', read_only=True, label='产品编号')
-        goods_name = CharField(source='goods.name', read_only=True, label='产品名称')
-        goods_barcode = CharField(source='goods.barcode', read_only=True, label='产品条码')
-        unit_name = CharField(source='goods.unit.name', read_only=True, label='单位名称')
+        goods_number = CharField(source='goods.number', read_only=True, label='商品コード')
+        goods_name = CharField(source='goods.name', read_only=True, label='商品名')
+        goods_barcode = CharField(source='goods.barcode', read_only=True, label='商品バーコード')
+        unit_name = CharField(source='goods.unit.name', read_only=True, label='単位名')
 
         class Meta:
             model = SalesGoods
@@ -26,26 +26,26 @@ class SalesOrderSerializer(BaseSerializer):
             fields = ['goods', 'sales_quantity', 'sales_price', *read_only_fields]
 
         def validate_goods(self, instance):
-            instance = self.validate_foreign_key(Goods, instance, message='产品不存在')
+            instance = self.validate_foreign_key(Goods, instance, message='商品が存在しません')
             if not instance.is_active:
-                raise ValidationError(f'产品[{instance.name}]未激活')
+                raise ValidationError(f'商品[{instance.name}]は有効化されていません')
             return instance
 
         def validate_sales_quantity(self, value):
             if value <= 0:
-                raise ValidationError('销售数量小于或等于零')
+                raise ValidationError('販売数量がゼロ以下です')
             return value
 
         def validate_sales_price(self, value):
             if value <= 0:
-                raise ValidationError('销售单价小于或等于零')
+                raise ValidationError('販売単価がゼロ以下です')
             return value
 
     class SalesAccountItemSerializer(BaseSerializer):
-        """销售结算账户"""
+        """販売決済口座"""
 
-        account_number = CharField(source='account.number', read_only=True, label='账户编号')
-        account_name = CharField(source='account.name', read_only=True, label='账户名称')
+        account_number = CharField(source='account.number', read_only=True, label='口座コード')
+        account_name = CharField(source='account.name', read_only=True, label='口座名')
 
         class Meta:
             model = SalesAccount
@@ -53,26 +53,26 @@ class SalesOrderSerializer(BaseSerializer):
             fields = ['account', 'collection_amount', *read_only_fields]
 
         def validate_account(self, instance):
-            instance = self.validate_foreign_key(Account, instance, message='账户不存在')
+            instance = self.validate_foreign_key(Account, instance, message='口座が存在しません')
             if not instance.is_active:
-                raise ValidationError(f'账户[{instance.name}]未激活')
+                raise ValidationError(f'口座[{instance.name}]は有効化されていません')
             return instance
 
         def validate_collection_amount(self, value):
             if value <= 0:
-                raise ValidationError('收款金额小于或等于零')
+                raise ValidationError('入金金額がゼロ以下です')
             return value
 
-    warehouse_number = CharField(source='warehouse.number', read_only=True, label='仓库编号')
-    warehouse_name = CharField(source='warehouse.name', read_only=True, label='仓库名称')
-    client_number = CharField(source='client.number', read_only=True, label='客户编号')
-    client_name = CharField(source='client.name', read_only=True, label='客户名称')
-    handler_name = CharField(source='handler.name', read_only=True, label='经手人名称')
-    creator_name = CharField(source='creator.name', read_only=True, label='创建人名称')
+    warehouse_number = CharField(source='warehouse.number', read_only=True, label='倉庫コード')
+    warehouse_name = CharField(source='warehouse.name', read_only=True, label='倉庫名')
+    client_number = CharField(source='client.number', read_only=True, label='顧客コード')
+    client_name = CharField(source='client.name', read_only=True, label='顧客名')
+    handler_name = CharField(source='handler.name', read_only=True, label='担当者名')
+    creator_name = CharField(source='creator.name', read_only=True, label='作成者名')
     sales_goods_items = SalesGoodsItemSerializer(
-        source='sales_goods_set', many=True, label='销售产品Item')
+        source='sales_goods_set', many=True, label='販売商品Item')
     sales_account_items = SalesAccountItemSerializer(
-        source='sales_accounts', required=False, many=True, label='销售结算账户Item')
+        source='sales_accounts', required=False, many=True, label='販売決済口座Item')
 
     class Meta:
         model = SalesOrder
@@ -84,36 +84,36 @@ class SalesOrderSerializer(BaseSerializer):
                   'remark', 'sales_goods_items', 'sales_account_items', *read_only_fields]
 
     def validate_number(self, value):
-        self.validate_unique({'number': value}, message=f'编号[{value}]已存在')
+        self.validate_unique({'number': value}, message=f'番号[{value}]は既に存在します')
         return value
 
     def validate_warehouse(self, instance):
-        instance = self.validate_foreign_key(Warehouse, instance, message='仓库不存在')
+        instance = self.validate_foreign_key(Warehouse, instance, message='倉庫が存在しません')
         if not instance.is_active:
-            raise ValidationError(f'仓库[{instance.name}]未激活')
+            raise ValidationError(f'倉庫[{instance.name}]は有効化されていません')
 
         return instance
 
     def validate_client(self, instance):
-        instance = self.validate_foreign_key(Client, instance, message='客户不存在')
+        instance = self.validate_foreign_key(Client, instance, message='顧客が存在しません')
         if not instance.is_active:
-            raise ValidationError(f'客户[{instance.name}]未激活')
+            raise ValidationError(f'顧客[{instance.name}]は有効化されていません')
         return instance
 
     def validate_handler(self, instance):
-        instance = self.validate_foreign_key(User, instance, message='经手人不存在')
+        instance = self.validate_foreign_key(User, instance, message='担当者が存在しません')
         if not instance.is_active:
-            raise ValidationError(f'经手人[{instance.name}]未激活')
+            raise ValidationError(f'担当者[{instance.name}]は有効化されていません')
         return instance
 
     def validate_discount(self, value):
         if value <= 0:
-            raise ValidationError('整单折扣小于或等于零')
+            raise ValidationError('全伝票割引がゼロ以下です')
         return value
 
     def validate_other_amount(self, value):
         if value < 0:
-            raise ValidationError('其他费用小于零')
+            raise ValidationError('その他費用がゼロ未満です')
         return value
 
     @transaction.atomic
@@ -128,7 +128,7 @@ class SalesOrderSerializer(BaseSerializer):
         total_sales_quantity = 0
         total_sales_amount = 0
 
-        # 创建销售产品
+        # 販売商品を作成
         sales_goods_set = []
         for sales_goods_item in sales_goods_items:
             sales_quantity = sales_goods_item['sales_quantity']
@@ -151,7 +151,7 @@ class SalesOrderSerializer(BaseSerializer):
         total_collection_amount = 0
 
         if sales_account_items:
-            # 创建销售结算账户
+            # 販売決済口座を作成
             sales_accounts = []
             for sales_account_item in sales_account_items:
                 collection_amount = sales_account_item['collection_amount']
@@ -172,15 +172,15 @@ class SalesOrderSerializer(BaseSerializer):
 
 
 class SalesReturnOrderSerializer(BaseSerializer):
-    """销售退货单据"""
+    """販売返品伝票"""
 
     class SalesReturnGoodsItemSerializer(BaseSerializer):
-        """销售退货产品"""
+        """販売返品商品"""
 
-        goods_number = CharField(source='goods.number', read_only=True, label='产品编号')
-        goods_name = CharField(source='goods.name', read_only=True, label='产品名称')
-        goods_barcode = CharField(source='goods.barcode', read_only=True, label='产品条码')
-        unit_name = CharField(source='goods.unit.name', read_only=True, label='单位名称')
+        goods_number = CharField(source='goods.number', read_only=True, label='商品コード')
+        goods_name = CharField(source='goods.name', read_only=True, label='商品名')
+        goods_barcode = CharField(source='goods.barcode', read_only=True, label='商品バーコード')
+        unit_name = CharField(source='goods.unit.name', read_only=True, label='単位名')
 
         class Meta:
             model = SalesReturnGoods
@@ -189,30 +189,30 @@ class SalesReturnOrderSerializer(BaseSerializer):
             fields = ['sales_goods', 'goods', 'return_quantity', 'return_price', *read_only_fields]
 
         def validate_sales_goods(self, instance):
-            instance = self.validate_foreign_key(SalesGoods, instance, message='销售产品不存在')
+            instance = self.validate_foreign_key(SalesGoods, instance, message='販売商品が存在しません')
             return instance
 
         def validate_goods(self, instance):
-            instance = self.validate_foreign_key(Goods, instance, message='产品不存在')
+            instance = self.validate_foreign_key(Goods, instance, message='商品が存在しません')
             if not instance.is_active:
-                raise ValidationError(f'产品[{instance.name}]未激活')
+                raise ValidationError(f'商品[{instance.name}]は有効化されていません')
             return instance
 
         def validate_return_quantity(self, value):
             if value <= 0:
-                raise ValidationError('退货数量小于或等于零')
+                raise ValidationError('返品数量がゼロ以下です')
             return value
 
         def validate_return_price(self, value):
             if value <= 0:
-                raise ValidationError('退货单价小于或等于零')
+                raise ValidationError('返品単価がゼロ以下です')
             return value
 
     class SalesReturnAccountItemSerializer(BaseSerializer):
-        """销售退货结算账户"""
+        """販売返品決済口座"""
 
-        account_number = CharField(source='account.number', read_only=True, label='账户编号')
-        account_name = CharField(source='account.name', read_only=True, label='账户名称')
+        account_number = CharField(source='account.number', read_only=True, label='口座コード')
+        account_name = CharField(source='account.name', read_only=True, label='口座名')
 
         class Meta:
             model = SalesReturnAccount
@@ -220,27 +220,27 @@ class SalesReturnOrderSerializer(BaseSerializer):
             fields = ['account', 'payment_amount', *read_only_fields]
 
         def validate_account(self, instance):
-            instance = self.validate_foreign_key(Account, instance, message='账户不存在')
+            instance = self.validate_foreign_key(Account, instance, message='口座が存在しません')
             if not instance.is_active:
-                raise ValidationError(f'账户[{instance.name}]未激活')
+                raise ValidationError(f'口座[{instance.name}]は有効化されていません')
             return instance
 
         def validate_payment_amount(self, value):
             if value <= 0:
-                raise ValidationError('付款金额小于或等于零')
+                raise ValidationError('支払金額がゼロ以下です')
             return value
 
-    sales_order_number = CharField(source='sales_order.number', read_only=True, label='销售单据编号')
-    warehouse_number = CharField(source='warehouse.number', read_only=True, label='仓库编号')
-    warehouse_name = CharField(source='warehouse.name', read_only=True, label='仓库名称')
-    client_number = CharField(source='client.number', read_only=True, label='客户编号')
-    client_name = CharField(source='client.name', read_only=True, label='客户名称')
-    handler_name = CharField(source='handler.name', read_only=True, label='经手人名称')
-    creator_name = CharField(source='creator.name', read_only=True, label='创建人名称')
+    sales_order_number = CharField(source='sales_order.number', read_only=True, label='販売伝票番号')
+    warehouse_number = CharField(source='warehouse.number', read_only=True, label='倉庫コード')
+    warehouse_name = CharField(source='warehouse.name', read_only=True, label='倉庫名')
+    client_number = CharField(source='client.number', read_only=True, label='顧客コード')
+    client_name = CharField(source='client.name', read_only=True, label='顧客名')
+    handler_name = CharField(source='handler.name', read_only=True, label='担当者名')
+    creator_name = CharField(source='creator.name', read_only=True, label='作成者名')
     sales_return_goods_items = SalesReturnGoodsItemSerializer(
-        source='sales_return_goods_set', many=True, label='销售退货产品')
+        source='sales_return_goods_set', many=True, label='販売返品商品')
     sales_return_account_items = SalesReturnAccountItemSerializer(
-        source='sales_return_accounts', required=False, many=True, label='销售退货结算账户')
+        source='sales_return_accounts', required=False, many=True, label='販売返品決済口座')
 
     class Meta:
         model = SalesReturnOrder
@@ -253,46 +253,46 @@ class SalesReturnOrderSerializer(BaseSerializer):
                   'sales_return_account_items', *read_only_fields]
 
     def validate_number(self, value):
-        self.validate_unique({'number': value}, message=f'编号[{value}]已存在')
+        self.validate_unique({'number': value}, message=f'番号[{value}]は既に存在します')
         return value
 
     def validate_sales_order(self, instance):
-        instance = self.validate_foreign_key(SalesOrder, instance, message='销售单据不存在')
+        instance = self.validate_foreign_key(SalesOrder, instance, message='販売伝票が存在しません')
         if instance.is_void:
-            raise ValidationError(f'销售单据[{instance.name}]已作废')
+            raise ValidationError(f'販売伝票[{instance.number}]は無効化されています')
         return instance
 
     def validate_warehouse(self, instance):
-        instance = self.validate_foreign_key(Warehouse, instance, message='仓库不存在')
+        instance = self.validate_foreign_key(Warehouse, instance, message='倉庫が存在しません')
         if not instance.is_active:
-            raise ValidationError(f'仓库[{instance.name}]未激活')
+            raise ValidationError(f'倉庫[{instance.name}]は有効化されていません')
 
         return instance
 
     def validate_client(self, instance):
-        instance = self.validate_foreign_key(Client, instance, message='客户不存在')
+        instance = self.validate_foreign_key(Client, instance, message='顧客が存在しません')
         if not instance.is_active:
-            raise ValidationError(f'客户[{instance.name}]未激活')
+            raise ValidationError(f'顧客[{instance.name}]は有効化されていません')
         return instance
 
     def validate_handler(self, instance):
-        instance = self.validate_foreign_key(User, instance, message='经手人不存在')
+        instance = self.validate_foreign_key(User, instance, message='担当者が存在しません')
         if not instance.is_active:
-            raise ValidationError(f'经手人[{instance.name}]未激活')
+            raise ValidationError(f'担当者[{instance.name}]は有効化されていません')
         return instance
 
     def validate_other_amount(self, value):
         if value < 0:
-            raise ValidationError('其他费用小于零')
+            raise ValidationError('その他費用がゼロ未満です')
         return value
 
     def validate(self, attrs):
         if sales_order := attrs.get('sales_order'):
             if sales_order.warehouse != attrs['warehouse']:
-                raise ValidationError(f'销售单据[{sales_order.number}]选择错误')
+                raise ValidationError(f'販売伝票[{sales_order.number}]の選択が間違っています')
 
             if sales_order.client != attrs['client']:
-                raise ValidationError(f'销售单据[{sales_order.number}]选择错误')
+                raise ValidationError(f'販売伝票[{sales_order.number}]の選択が間違っています')
 
         return super().validate(attrs)
 
@@ -308,7 +308,7 @@ class SalesReturnOrderSerializer(BaseSerializer):
         total_return_quantity = 0
         total_return_amount = 0
 
-        # 创建销售退货产品
+        # 販売返品商品を作成
         sales_return_goods_set = []
         for sales_return_goods_item in sales_return_goods_items:
             goods = sales_return_goods_item['goods']
@@ -317,13 +317,13 @@ class SalesReturnOrderSerializer(BaseSerializer):
             sales_goods = None
             if sales_order := sales_return_order.sales_order:
                 if not (sales_goods := sales_return_goods_item.get('sales_goods')):
-                    raise ValidationError(f'销售单据[{sales_order.number}]不存在产品[{goods.name}]')
+                    raise ValidationError(f'販売伝票[{sales_order.number}]に商品[{goods.name}]が存在しません')
 
                 sales_goods.return_quantity = NP.plus(sales_goods.return_quantity, return_quantity)
                 if sales_goods.return_quantity > sales_goods.sales_quantity:
-                    raise ValidationError(f'退货产品[{goods.name}]退货数量错误')
+                    raise ValidationError(f'返品商品[{goods.name}]の返品数量が間違っています')
 
-                # 同步销售产品退货数量
+                # 販売商品返品数量を同期
                 sales_goods.save(update_fields=['return_quantity'])
 
             return_price = sales_return_goods_item['return_price']
@@ -345,7 +345,7 @@ class SalesReturnOrderSerializer(BaseSerializer):
         total_payment_amount = 0
 
         if sales_return_account_items:
-            # 创建销售退货结算账户
+            # 販売返品決済口座を作成
             sales_return_accounts = []
             for sales_return_account_item in sales_return_account_items:
                 payment_amount = sales_return_account_item['payment_amount']

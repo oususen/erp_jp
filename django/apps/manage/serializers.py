@@ -18,7 +18,7 @@ class TeamSerializer(ModelSerializer):
             queryset = queryset.exclude(id=self.instance.id)
 
         if queryset.exists():
-            raise ValidationError(f'公司编号[{value}]已存在')
+            raise ValidationError(f'チームコード[{value}]は既に存在します')
         return value
 
 

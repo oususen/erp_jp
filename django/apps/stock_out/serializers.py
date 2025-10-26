@@ -12,29 +12,29 @@ class StockOutOrderSerializer(BaseSerializer):
     class StockOutGoodsItemSerializer(BaseSerializer):
         """出库产品"""
 
-        goods_number = CharField(source='goods.number', read_only=True, label='产品编号')
-        goods_name = CharField(source='goods.name', read_only=True, label='产品名称')
-        goods_barcode = CharField(source='goods.barcode', read_only=True, label='产品条码')
-        unit_name = CharField(source='goods.unit.name', read_only=True, label='单位名称')
+        goods_number = CharField(source='goods.number', read_only=True, label='商品コード')
+        goods_name = CharField(source='goods.name', read_only=True, label='商品名')
+        goods_barcode = CharField(source='goods.barcode', read_only=True, label='商品バーコード')
+        unit_name = CharField(source='goods.unit.name', read_only=True, label='単位名')
         enable_batch_control = BooleanField(source='goods.enable_batch_control',
-                                            read_only=True, label='启用批次控制')
+                                            read_only=True, label='ロット制御を有効化')
 
         class Meta:
             model = StockOutGoods
             fields = ['id', 'goods', 'goods_number', 'goods_name', 'goods_barcode', 'stock_out_quantity',
                       'remain_quantity', 'unit_name', 'enable_batch_control', 'is_completed']
 
-    warehouse_number = CharField(source='warehouse.number', read_only=True, label='仓库编号')
-    warehouse_name = CharField(source='warehouse.name', read_only=True, label='仓库名称')
-    type_display = CharField(source='get_type_display', read_only=True, label='出库类型')
-    sales_order_number = CharField(source='sales_order.number', read_only=True, label='销售单据编号')
+    warehouse_number = CharField(source='warehouse.number', read_only=True, label='倉庫コード')
+    warehouse_name = CharField(source='warehouse.name', read_only=True, label='倉庫名')
+    type_display = CharField(source='get_type_display', read_only=True, label='出庫タイプ')
+    sales_order_number = CharField(source='sales_order.number', read_only=True, label='販売伝票番号')
     purchase_return_order_number = CharField(source='purchase_return_order.number',
-                                             read_only=True, label='采购退货单据编号')
+                                             read_only=True, label='購買返品伝票番号')
     stock_transfer_order_number = CharField(source='stock_transfer_order.number',
-                                            read_only=True, label='调拨单据编号')
-    creator_name = CharField(source='creator.name', read_only=True, label='创建人名称')
+                                            read_only=True, label='在庫振替伝票番号')
+    creator_name = CharField(source='creator.name', read_only=True, label='作成者名')
     stock_out_goods_items = StockOutGoodsItemSerializer(
-        source='stock_out_goods_set', many=True, label='出库产品')
+        source='stock_out_goods_set', many=True, label='出庫商品')
 
     class Meta:
         model = StockOutOrder
@@ -46,18 +46,18 @@ class StockOutOrderSerializer(BaseSerializer):
 
 
 class StockOutRecordSerializer(BaseSerializer):
-    """出库记录"""
+    """出庫記録"""
 
     class StockOutRecordGoodsSerializer(BaseSerializer):
         """出库记录产品"""
 
-        goods_number = CharField(source='goods.number', read_only=True, label='产品编号')
-        goods_name = CharField(source='goods.name', read_only=True, label='产品名称')
-        goods_barcode = CharField(source='goods.barcode', read_only=True, label='产品条码')
-        unit_name = CharField(source='goods.unit.name', read_only=True, label='单位名称')
+        goods_number = CharField(source='goods.number', read_only=True, label='商品コード')
+        goods_name = CharField(source='goods.name', read_only=True, label='商品名')
+        goods_barcode = CharField(source='goods.barcode', read_only=True, label='商品バーコード')
+        unit_name = CharField(source='goods.unit.name', read_only=True, label='単位名')
         enable_batch_control = BooleanField(source='goods.enable_batch_control',
-                                            read_only=True, label='启用批次控制')
-        batch_number = CharField(source='batch.number', read_only=True, label='批次编号')
+                                            read_only=True, label='ロット制御を有効化')
+        batch_number = CharField(source='batch.number', read_only=True, label='ロットコード')
 
         class Meta:
             model = StockOutRecordGoods
@@ -66,20 +66,20 @@ class StockOutRecordSerializer(BaseSerializer):
             fields = ['stock_out_goods', 'stock_out_quantity', 'batch', *read_only_fields]
 
         def validate_stock_out_goods(self, instance):
-            instance = self.validate_foreign_key(StockOutGoods, instance, message='出库产品不存在')
+            instance = self.validate_foreign_key(StockOutGoods, instance, message='出庫商品が存在しません')
             if instance.is_completed:
-                raise ValidationError(f'出库产品[{instance.goods.name}]已完成')
+                raise ValidationError(f'出庫商品[{instance.goods.name}]已完成')
             return instance
 
         def validate_stock_out_quantity(self, value):
             if value <= 0:
-                raise ValidationError('出库数量小于或等于零')
+                raise ValidationError('出庫数量がゼロ以下です')
             return value
 
         def validate_batch(self, instance):
-            instance = self.validate_foreign_key(Batch, instance, message='批次不存在')
+            instance = self.validate_foreign_key(Batch, instance, message='ロットが存在しません')
             if instance and not instance.has_stock:
-                raise ValidationError(f'批次[{instance.number}]库存不足')
+                raise ValidationError(f'ロット[{instance.number}]库存不足')
             return instance
 
         def validate(self, attrs):
@@ -88,27 +88,27 @@ class StockOutRecordSerializer(BaseSerializer):
             goods = stock_out_goods.goods
 
             if stock_out_goods.remain_quantity < attrs['stock_out_quantity']:
-                raise ValidationError(f'产品[{goods.name}]出库数量错误')
+                raise ValidationError(f'商品[{goods.name}]の出庫数量が間違っています')
 
             if goods.enable_batch_control:
                 if not (batch := attrs.get('batch')):
-                    raise ValidationError(f'产品[{goods.name}]未选择批次')
+                    raise ValidationError(f'商品[{goods.name}]のロットが選択されていません')
 
                 if batch.goods != attrs['stock_out_goods'].goods:
-                    raise ValidationError(f'批次[{batch.number}]选择错误')
+                    raise ValidationError(f'ロット[{batch.number}]の選択が間違っています')
 
                 if batch.remain_quantity < attrs['stock_out_quantity']:
-                    raise ValidationError(f'批次[{batch.number}]库存不足')
+                    raise ValidationError(f'ロット[{batch.number}]库存不足')
 
             return super().validate(attrs)
 
-    stock_out_order_number = CharField(source='stock_out_order.number', read_only=True, label='出库通知单据编号')
-    warehouse_number = CharField(source='warehouse.number', read_only=True, label='仓库编号')
-    warehouse_name = CharField(source='warehouse.name', read_only=True, label='仓库名称')
-    handler_name = CharField(source='handler.name', read_only=True, label='经手人名称')
-    creator_name = CharField(source='creator.name', read_only=True, label='创建人名称')
+    stock_out_order_number = CharField(source='stock_out_order.number', read_only=True, label='出庫通知伝票番号')
+    warehouse_number = CharField(source='warehouse.number', read_only=True, label='倉庫コード')
+    warehouse_name = CharField(source='warehouse.name', read_only=True, label='倉庫名')
+    handler_name = CharField(source='handler.name', read_only=True, label='担当者名')
+    creator_name = CharField(source='creator.name', read_only=True, label='作成者名')
     stock_out_record_goods_items = StockOutRecordGoodsSerializer(source='stock_out_record_goods_set',
-                                                                 many=True, label='出库记录产品')
+                                                                 many=True, label='出庫記録商品')
 
     class Meta:
         model = StockOutRecord
@@ -119,16 +119,16 @@ class StockOutRecordSerializer(BaseSerializer):
                   *read_only_fields]
 
     def validate_stock_out_order(self, instance):
-        instance = self.validate_foreign_key(StockOutOrder, instance, message='出库通知单据不存在')
+        instance = self.validate_foreign_key(StockOutOrder, instance, message='出庫通知伝票が存在しません')
         if instance.is_void:
-            raise ValidationError(f'出库通知单据[{instance.number}]已作废')
+            raise ValidationError(f'出庫通知伝票[{instance.number}]已作废')
 
         if instance.is_completed:
-            raise ValidationError(f'出库通知单据[{instance.number}]已完成')
+            raise ValidationError(f'出庫通知伝票[{instance.number}]已完成')
         return instance
 
     def validate_handler(self, instance):
-        instance = self.validate_foreign_key(User, instance, message='经手人不存在')
+        instance = self.validate_foreign_key(User, instance, message='担当者が存在しません')
         if not instance.is_active:
             raise ValidationError(f'经手人[{instance.name}]未激活')
         return instance
@@ -149,7 +149,7 @@ class StockOutRecordSerializer(BaseSerializer):
         for stock_out_record_goods_item in stock_out_record_goods_items:
             stock_out_goods = stock_out_record_goods_item['stock_out_goods']
             if stock_out_goods.stock_out_order != stock_out_order:
-                raise ValidationError('出库产品错误')
+                raise ValidationError('出庫商品エラー')
 
             stock_out_quantity = stock_out_record_goods_item['stock_out_quantity']
             batch = stock_out_record_goods_item.get('batch')

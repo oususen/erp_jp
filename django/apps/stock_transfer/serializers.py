@@ -8,15 +8,15 @@ from apps.system.models import *
 
 
 class StockTransferOrderSerializer(BaseSerializer):
-    """调拨单据"""
+    """在庫振替伝票"""
 
     class StockTransferGoodsItemSerializer(BaseSerializer):
-        """调拨产品"""
+        """振替商品"""
 
-        goods_number = CharField(source='goods.number', read_only=True, label='产品编号')
-        goods_name = CharField(source='goods.name', read_only=True, label='产品名称')
-        goods_barcode = CharField(source='goods.barcode', read_only=True, label='产品条码')
-        unit_name = CharField(source='goods.unit.name', read_only=True, label='单位名称')
+        goods_number = CharField(source='goods.number', read_only=True, label='商品コード')
+        goods_name = CharField(source='goods.name', read_only=True, label='商品名')
+        goods_barcode = CharField(source='goods.barcode', read_only=True, label='商品バーコード')
+        unit_name = CharField(source='goods.unit.name', read_only=True, label='単位名')
 
         class Meta:
             model = StockTransferGoods
@@ -24,24 +24,24 @@ class StockTransferOrderSerializer(BaseSerializer):
             fields = ['goods', 'stock_transfer_quantity', *read_only_fields]
 
         def validate_goods(self, instance):
-            instance = self.validate_foreign_key(Goods, instance, message='产品不存在')
+            instance = self.validate_foreign_key(Goods, instance, message='商品が存在しません')
             if not instance.is_active:
-                raise ValidationError(f'入库产品[{instance.goods.name}]已作废')
+                raise ValidationError(f'入庫商品[{instance.goods.name}]廃棄済み')
             return instance
 
         def validate_stock_transfer_quantity(self, value):
             if value <= 0:
-                raise ValidationError('调拨数量小于或等于零')
+                raise ValidationError('振替数量ゼロ以下です')
             return value
 
-    out_warehouse_number = CharField(source='out_warehouse.number', read_only=True, label='出库仓库编号')
-    out_warehouse_name = CharField(source='out_warehouse.name', read_only=True, label='出库仓库名称')
-    in_warehouse_number = CharField(source='in_warehouse.number', read_only=True, label='入库库仓库编号')
-    in_warehouse_name = CharField(source='in_warehouse.name', read_only=True, label='入库库仓库名称')
-    handler_name = CharField(source='handler.name', read_only=True, label='经手人名称')
-    creator_name = CharField(source='creator.name', read_only=True, label='创建人名称')
+    out_warehouse_number = CharField(source='out_warehouse.number', read_only=True, label='出庫倉庫コード')
+    out_warehouse_name = CharField(source='out_warehouse.name', read_only=True, label='出庫倉庫名')
+    in_warehouse_number = CharField(source='in_warehouse.number', read_only=True, label='入庫倉庫コード')
+    in_warehouse_name = CharField(source='in_warehouse.name', read_only=True, label='入庫倉庫名')
+    handler_name = CharField(source='handler.name', read_only=True, label='担当者名')
+    creator_name = CharField(source='creator.name', read_only=True, label='作成者名')
     stock_transfer_goods_items = StockTransferGoodsItemSerializer(
-        source='stock_transfer_goods_set', many=True, label='调拨产品')
+        source='stock_transfer_goods_set', many=True, label='振替商品')
 
     class Meta:
         model = StockTransferOrder
@@ -57,28 +57,28 @@ class StockTransferOrderSerializer(BaseSerializer):
         return value
 
     def validate_out_warehouse(self, instance):
-        instance = self.validate_foreign_key(Warehouse, instance, message='出库仓库不存在')
+        instance = self.validate_foreign_key(Warehouse, instance, message='出庫倉庫が存在しません')
         if not instance.is_active:
-            raise ValidationError(f'仓库[{instance.name}]未激活')
+            raise ValidationError(f'倉庫[{instance.name}]未激活')
 
         return instance
 
     def validate_in_warehouse(self, instance):
-        instance = self.validate_foreign_key(Warehouse, instance, message='入库仓库不存在')
+        instance = self.validate_foreign_key(Warehouse, instance, message='入庫倉庫が存在しません')
         if not instance.is_active:
-            raise ValidationError(f'仓库[{instance.name}]未激活')
+            raise ValidationError(f'倉庫[{instance.name}]未激活')
 
         return instance
 
     def validate_handler(self, instance):
-        instance = self.validate_foreign_key(User, instance, message='经手人不存在')
+        instance = self.validate_foreign_key(User, instance, message='担当者が存在しません')
         if not instance.is_active:
             raise ValidationError(f'经手人[{instance.name}]未激活')
         return instance
 
     def validate(self, attrs):
         if attrs['out_warehouse'] == attrs['in_warehouse']:
-            raise ValidationError('出库仓库和入库仓库相同')
+            raise ValidationError('出庫倉庫と入庫倉庫が同じです')
 
         return super().validate(attrs)
 
@@ -92,7 +92,7 @@ class StockTransferOrderSerializer(BaseSerializer):
 
         total_stock_transfer_quantity = 0
 
-        # 创建调拨产品
+        # 创建振替商品
         stock_transfer_goods_set = []
         for stock_transfer_goods_item in stock_transfer_goods_items:
             goods = stock_transfer_goods_item['goods']

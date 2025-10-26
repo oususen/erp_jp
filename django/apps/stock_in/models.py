@@ -3,29 +3,29 @@ from extensions.models import *
 
 
 class StockInOrder(Model):
-    """入库通知单据"""
+    """入庫通知伝票"""
 
     class Type(TextChoices):
-        """入库类型"""
+        """入庫タイプ"""
 
-        PURCHASE = ('purchase', '采购')
-        SALES_RETURN = ('sales_return', '销售退货')
-        STOCK_TRANSFER = ('stock_transfer', '调拨')
+        PURCHASE = ('purchase', '購買')
+        SALES_RETURN = ('sales_return', '販売返品')
+        STOCK_TRANSFER = ('stock_transfer', '在庫振替')
 
     number = CharField(max_length=32, verbose_name='番号')
     warehouse = ForeignKey('data.Warehouse', on_delete=PROTECT,
-                           related_name='stock_in_orders', verbose_name='仓库')
-    type = CharField(max_length=32, choices=Type.choices, verbose_name='入库类型')
+                           related_name='stock_in_orders', verbose_name='倉庫')
+    type = CharField(max_length=32, choices=Type.choices, verbose_name='入庫タイプ')
     purchase_order = OneToOneField('purchase.PurchaseOrder', on_delete=CASCADE, null=True,
-                                   related_name='stock_in_order', verbose_name='采购单据')
+                                   related_name='stock_in_order', verbose_name='購買伝票')
     sales_return_order = OneToOneField('sales.SalesReturnOrder', on_delete=CASCADE, null=True,
-                                       related_name='stock_in_order', verbose_name='销售退货单据')
+                                       related_name='stock_in_order', verbose_name='販売返品伝票')
     stock_transfer_order = OneToOneField('stock_transfer.StockTransferOrder', on_delete=CASCADE, null=True,
-                                         related_name='stock_in_order', verbose_name='调拨单据')
-    total_quantity = FloatField(verbose_name='入库总数')
-    remain_quantity = FloatField(default=0, verbose_name='入库剩余数量')
-    is_completed = BooleanField(default=False, verbose_name='入库完成状态')
-    is_void = BooleanField(default=False, verbose_name='作废状态')
+                                         related_name='stock_in_order', verbose_name='在庫振替伝票')
+    total_quantity = FloatField(verbose_name='入庫総数')
+    remain_quantity = FloatField(default=0, verbose_name='入庫残数量')
+    is_completed = BooleanField(default=False, verbose_name='入庫完了状態')
+    is_void = BooleanField(default=False, verbose_name='無効状態')
     creator = ForeignKey('system.User', on_delete=PROTECT,
                          related_name='created_stock_in_orders', verbose_name='作成者')
     create_time = DateTimeField(auto_now_add=True, verbose_name='作成日時')
@@ -51,15 +51,15 @@ class StockInOrder(Model):
 
 
 class StockInGoods(Model):
-    """入库产品"""
+    """入庫商品"""
 
     stock_in_order = ForeignKey('stock_in.StockInOrder', on_delete=CASCADE,
-                                related_name='stock_in_goods_set', verbose_name='入库通知单据')
+                                related_name='stock_in_goods_set', verbose_name='入庫通知伝票')
     goods = ForeignKey('goods.Goods', on_delete=PROTECT,
                        related_name='stock_in_goods_set', verbose_name='製品')
-    stock_in_quantity = FloatField(verbose_name='入库总数')
-    remain_quantity = FloatField(default=0, verbose_name='入库剩余数量')
-    is_completed = BooleanField(default=False, verbose_name='完成状态')
+    stock_in_quantity = FloatField(verbose_name='入庫総数')
+    remain_quantity = FloatField(default=0, verbose_name='入庫残数量')
+    is_completed = BooleanField(default=False, verbose_name='完了状態')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='stock_in_goods_set')
 
     class Meta:
@@ -67,18 +67,18 @@ class StockInGoods(Model):
 
 
 class StockInRecord(Model):
-    """入库记录"""
+    """入庫記録"""
 
     stock_in_order = ForeignKey('stock_in.StockInOrder', on_delete=CASCADE,
-                                related_name='stock_in_records', verbose_name='入库通知单据')
+                                related_name='stock_in_records', verbose_name='入庫通知伝票')
     warehouse = ForeignKey('data.Warehouse', on_delete=PROTECT,
-                           related_name='stock_in_records', verbose_name='仓库')
+                           related_name='stock_in_records', verbose_name='倉庫')
     handler = ForeignKey('system.User', on_delete=PROTECT,
-                         related_name='stock_in_records', verbose_name='经手人')
-    handle_time = DateField(verbose_name='处理时间')
+                         related_name='stock_in_records', verbose_name='担当者')
+    handle_time = DateField(verbose_name='処理時間')
     remark = CharField(max_length=256, null=True, blank=True, verbose_name='備考')
-    total_quantity = FloatField(null=True, verbose_name='入库总数')
-    is_void = BooleanField(default=False, verbose_name='作废状态')
+    total_quantity = FloatField(null=True, verbose_name='入庫総数')
+    is_void = BooleanField(default=False, verbose_name='無効状態')
     creator = ForeignKey('system.User', on_delete=PROTECT,
                          related_name='created_stock_in_records', verbose_name='作成者')
     create_time = DateTimeField(auto_now_add=True, verbose_name='作成日時')
@@ -86,15 +86,15 @@ class StockInRecord(Model):
 
 
 class StockInRecordGoods(Model):
-    """入库记录产品"""
+    """入庫記録商品"""
 
     stock_in_record = ForeignKey('stock_in.StockInRecord', on_delete=CASCADE,
                                  related_name='stock_in_record_goods_set', verbose_name='入庫記録')
     stock_in_goods = ForeignKey('stock_in.StockInGoods', on_delete=CASCADE,
-                                related_name='stock_in_record_goods_set', verbose_name='入库产品')
+                                related_name='stock_in_record_goods_set', verbose_name='入庫商品')
     goods = ForeignKey('goods.Goods', on_delete=PROTECT,
                        related_name='stock_in_record_goods_set', verbose_name='製品')
-    stock_in_quantity = FloatField(verbose_name='入库数量')
+    stock_in_quantity = FloatField(verbose_name='入庫数量')
     batch = ForeignKey('goods.Batch', on_delete=CASCADE, null=True,
                        related_name='stock_in_record_goods_set', verbose_name='バッチ')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='stock_in_record_goods_set')

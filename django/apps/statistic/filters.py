@@ -6,10 +6,10 @@ from apps.finance.models import *
 
 
 class PurchaseReportFilter(FilterSet):
-    category = NumberFilter(field_name='goods__category', label='产品分类')
+    category = NumberFilter(field_name='goods__category', label='商品カテゴリー')
     creator = NumberFilter(field_name='sales_order__creator', label='创建人')
-    start_date = DateFilter(field_name='purchase_order__create_time', required=True, lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='purchase_order__create_time', required=True, lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='purchase_order__create_time', required=True, lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='purchase_order__create_time', required=True, lookup_expr='lt', label='終了日')
 
     class Meta:
         model = PurchaseGoods
@@ -17,10 +17,10 @@ class PurchaseReportFilter(FilterSet):
 
 
 class SalesReportFilter(FilterSet):
-    category = NumberFilter(field_name='goods__category', label='产品分类')
+    category = NumberFilter(field_name='goods__category', label='商品カテゴリー')
     creator = NumberFilter(field_name='sales_order__creator', label='创建人')
-    start_date = DateFilter(field_name='sales_order__create_time', required=True, lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='sales_order__create_time', required=True, lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='sales_order__create_time', required=True, lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='sales_order__create_time', required=True, lookup_expr='lt', label='終了日')
 
     class Meta:
         model = SalesGoods
@@ -28,8 +28,8 @@ class SalesReportFilter(FilterSet):
 
 
 class SalesHotGoodsFilter(FilterSet):
-    start_date = DateFilter(field_name='sales_order__create_time', required=True, lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='sales_order__create_time', required=True, lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='sales_order__create_time', required=True, lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='sales_order__create_time', required=True, lookup_expr='lt', label='終了日')
 
     class Meta:
         model = SalesGoods
@@ -37,8 +37,8 @@ class SalesHotGoodsFilter(FilterSet):
 
 
 class SalesTrendFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='終了日')
 
     class Meta:
         model = SalesOrder
@@ -46,8 +46,8 @@ class SalesTrendFilter(FilterSet):
 
 
 class PaymentOrderDetialFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='終了日')
 
     class Meta:
         model = PaymentOrder
@@ -55,8 +55,8 @@ class PaymentOrderDetialFilter(FilterSet):
 
 
 class CollectionOrderDetialFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='終了日')
 
     class Meta:
         model = CollectionOrder
@@ -64,8 +64,8 @@ class CollectionOrderDetialFilter(FilterSet):
 
 
 class IncomeChargeOrderDetialFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='終了日')
 
     class Meta:
         model = ChargeOrder
@@ -73,8 +73,8 @@ class IncomeChargeOrderDetialFilter(FilterSet):
 
 
 class ExpenditureChargeOrderDetialFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='終了日')
 
     class Meta:
         model = ChargeOrder
@@ -82,8 +82,8 @@ class ExpenditureChargeOrderDetialFilter(FilterSet):
 
 
 class PurchasePaymentDetialFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='終了日')
 
     class Meta:
         model = PurchaseOrder
@@ -91,8 +91,8 @@ class PurchasePaymentDetialFilter(FilterSet):
 
 
 class PurchaseReturnCollectionDetialFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='終了日')
 
     class Meta:
         model = PurchaseReturnOrder
@@ -100,8 +100,8 @@ class PurchaseReturnCollectionDetialFilter(FilterSet):
 
 
 class SalesCollectionDetialFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='終了日')
 
     class Meta:
         model = SalesOrder
@@ -109,8 +109,8 @@ class SalesCollectionDetialFilter(FilterSet):
 
 
 class SalesReturnPaymentDetialFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', required=True, lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', required=True, lookup_expr='lt', label='終了日')
 
     class Meta:
         model = SalesReturnOrder

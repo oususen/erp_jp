@@ -2,35 +2,35 @@ from extensions.serializers import *
 
 
 class GetTokenRequest(Serializer):
-    number = CharField(label='Team 编号')
-    username = CharField(label='用户名')
-    password = CharField(label='密码')
+    number = CharField(label='Teamコード')
+    username = CharField(label='ユーザー名')
+    password = CharField(label='パスワード')
 
 
 class GetTokenResponse(Serializer):
-    refresh = CharField(label='刷新令牌')
-    access = CharField(label='访问令牌')
+    refresh = CharField(label='リフレッシュトークン')
+    access = CharField(label='アクセストークン')
 
 
 class RefreshTokenRequest(Serializer):
-    refresh = CharField(label='刷新令牌')
+    refresh = CharField(label='リフレッシュトークン')
 
 
 class RefreshTokenResponse(Serializer):
-    access = CharField(label='访问令牌')
+    access = CharField(label='アクセストークン')
 
 
 class UserInfoResponse(Serializer):
-    id = IntegerField(label='用户ID')
-    username = CharField(label='用户名')
+    id = IntegerField(label='ユーザーID')
+    username = CharField(label='ユーザー名')
     name = CharField(label='名称')
-    is_manager = BooleanField(label='管理员状态')
-    permissions = JSONField(label='权限')
+    is_manager = BooleanField(label='管理者ステータス')
+    permissions = JSONField(label='権限')
 
 
 class SetPasswordRequest(Serializer):
-    old_password = CharField(label='旧密码')
-    new_password = CharField(label='新密码')
+    old_password = CharField(label='旧パスワード')
+    new_password = CharField(label='新パスワード')
 
 
 __all__ = [

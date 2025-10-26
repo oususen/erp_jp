@@ -6,7 +6,7 @@ from apps.system.models import *
 
 
 class WarehouseSerializer(BaseSerializer):
-    manager_name = CharField(source='manager.name', read_only=True, label='管理员名称')
+    manager_name = CharField(source='manager.name', read_only=True, label='管理者名')
 
     class Meta:
         model = Warehouse
@@ -15,28 +15,28 @@ class WarehouseSerializer(BaseSerializer):
                   *read_only_fields]
 
     def validate_number(self, value):
-        self.validate_unique({'number': value}, message=f'编号[{value}]已存在')
+        self.validate_unique({'number': value}, message=f'番号[{value}]は既に存在します')
         return value
 
     def validate_name(self, value):
-        self.validate_unique({'name': value}, message=f'名称[{value}]已存在')
+        self.validate_unique({'name': value}, message=f'名称[{value}]は既に存在します')
         return value
 
     def validate_manager(self, instance):
-        instance = self.validate_foreign_key(User, instance, message='管理员不存在')
+        instance = self.validate_foreign_key(User, instance, message='管理者が存在しません')
         if instance and not instance.is_active:
-            raise ValidationError(f'管理员[{instance.name}]未激活')
+            raise ValidationError(f'管理者[{instance.name}]は有効化されていません')
         return instance
 
 
 class WarehouseImportExportSerializer(BaseSerializer):
-    number = CharField(label='仓库编号(必填唯一)')
-    name = CharField(label='仓库名称(必填唯一)')
-    manager = CharField(source='manager.name', required=False, label='管理员')
-    phone = CharField(required=False, label='电话')
-    address = CharField(required=False, label='地址')
-    remark = CharField(required=False, label='备注')
-    is_active = BooleanField(required=False, label='激活状态[TRUE/FALSE](默认: TRUE)')
+    number = CharField(label='倉庫番号(必須・一意)')
+    name = CharField(label='倉庫名称(必須・一意)')
+    manager = CharField(source='manager.name', required=False, label='管理者')
+    phone = CharField(required=False, label='電話')
+    address = CharField(required=False, label='住所')
+    remark = CharField(required=False, label='備考')
+    is_active = BooleanField(required=False, label='有効状態[TRUE/FALSE](デフォルト: TRUE)')
 
     class Meta:
         model = Warehouse
@@ -45,7 +45,7 @@ class WarehouseImportExportSerializer(BaseSerializer):
 
 
 class ClientSerializer(BaseSerializer):
-    level_display = CharField(source='get_level_display', read_only=True, label='等级')
+    level_display = CharField(source='get_level_display', read_only=True, label='等級')
 
     class Meta:
         model = Client
@@ -54,11 +54,11 @@ class ClientSerializer(BaseSerializer):
                   'remark', 'is_active', 'initial_arrears_amount', *read_only_fields]
 
     def validate_number(self, value):
-        self.validate_unique({'number': value}, message=f'编号[{value}]已存在')
+        self.validate_unique({'number': value}, message=f'番号[{value}]は既に存在します')
         return value
 
     def validate_name(self, value):
-        self.validate_unique({'name': value}, message=f'名称[{value}]已存在')
+        self.validate_unique({'name': value}, message=f'名称[{value}]は既に存在します')
         return value
 
     def create(self, validated_data):
@@ -77,15 +77,15 @@ class ClientSerializer(BaseSerializer):
 
 
 class ClientImportExportSerializer(BaseSerializer):
-    number = CharField(label='客户编号(必填唯一)')
-    name = CharField(label='客户名称(必填唯一)')
-    level = CharField(required=False, label='等级[0/1/2/3](默认: 0)')
-    contact = CharField(required=False, label='联系人')
-    phone = CharField(required=False, label='手机号')
-    email = CharField(required=False, label='邮箱')
-    address = CharField(required=False, label='地址')
-    remark = CharField(required=False, label='备注')
-    is_active = BooleanField(required=False, label='激活状态[TRUE/FALSE](默认: TRUE)')
+    number = CharField(label='顧客番号(必須・一意)')
+    name = CharField(label='顧客名称(必須・一意)')
+    level = CharField(required=False, label='等級[0/1/2/3](デフォルト: 0)')
+    contact = CharField(required=False, label='連絡先')
+    phone = CharField(required=False, label='携帯番号')
+    email = CharField(required=False, label='メールアドレス')
+    address = CharField(required=False, label='住所')
+    remark = CharField(required=False, label='備考')
+    is_active = BooleanField(required=False, label='有効状態[TRUE/FALSE](デフォルト: TRUE)')
 
     class Meta:
         model = Client
@@ -102,11 +102,11 @@ class SupplierSerializer(BaseSerializer):
                   'bank_name', 'remark', 'is_active', 'initial_arrears_amount', *read_only_fields]
 
     def validate_number(self, value):
-        self.validate_unique({'number': value}, message=f'编号[{value}]已存在')
+        self.validate_unique({'number': value}, message=f'番号[{value}]は既に存在します')
         return value
 
     def validate_name(self, value):
-        self.validate_unique({'name': value}, message=f'名称[{value}]已存在')
+        self.validate_unique({'name': value}, message=f'名称[{value}]は既に存在します')
         return value
 
     def create(self, validated_data):
@@ -125,16 +125,16 @@ class SupplierSerializer(BaseSerializer):
 
 
 class SupplierImportExportSerializer(BaseSerializer):
-    number = CharField(label='供应商编号(必填唯一)')
-    name = CharField(label='供应商名称(必填唯一)')
-    contact = CharField(required=False, label='联系人')
-    phone = CharField(required=False, label='手机号')
-    email = CharField(required=False, label='邮箱')
-    address = CharField(required=False, label='地址')
-    bank_account = CharField(required=False, label='银行账户')
-    bank_name = CharField(required=False, label='开户行')
-    remark = CharField(required=False, label='备注')
-    is_active = BooleanField(required=False, label='激活状态[TRUE/FALSE](默认: TRUE)')
+    number = CharField(label='仕入先番号(必須・一意)')
+    name = CharField(label='仕入先名称(必須・一意)')
+    contact = CharField(required=False, label='連絡先')
+    phone = CharField(required=False, label='携帯番号')
+    email = CharField(required=False, label='メールアドレス')
+    address = CharField(required=False, label='住所')
+    bank_account = CharField(required=False, label='銀行口座')
+    bank_name = CharField(required=False, label='取引銀行')
+    remark = CharField(required=False, label='備考')
+    is_active = BooleanField(required=False, label='有効状態[TRUE/FALSE](デフォルト: TRUE)')
 
     class Meta:
         model = Supplier
@@ -143,7 +143,7 @@ class SupplierImportExportSerializer(BaseSerializer):
 
 
 class AccountSerializer(BaseSerializer):
-    type_display = CharField(source='get_type_display', read_only=True, label='账户类型')
+    type_display = CharField(source='get_type_display', read_only=True, label='口座タイプ')
 
     class Meta:
         model = Account
@@ -152,11 +152,11 @@ class AccountSerializer(BaseSerializer):
                   'initial_balance_amount', *read_only_fields]
 
     def validate_number(self, value):
-        self.validate_unique({'number': value}, message=f'编号[{value}]已存在')
+        self.validate_unique({'number': value}, message=f'番号[{value}]は既に存在します')
         return value
 
     def validate_name(self, value):
-        self.validate_unique({'name': value}, message=f'名称[{value}]已存在')
+        self.validate_unique({'name': value}, message=f'名称[{value}]は既に存在します')
         return value
 
     def create(self, validated_data):
@@ -175,13 +175,13 @@ class AccountSerializer(BaseSerializer):
 
 
 class AccountImportExportSerializer(BaseSerializer):
-    number = CharField(label='账户编号(必填唯一)')
-    name = CharField(label='账户名称(必填唯一)')
-    type = CharField(required=False, label='账户类型[cash/alipay/wechat/bank_account/other](默认: cash)')
-    holder = CharField(required=False, label='开户人')
-    card_number = CharField(required=False, label='开户账号')
-    remark = CharField(required=False, label='备注')
-    is_active = BooleanField(required=False, label='激活状态[TRUE/FALSE](默认: TRUE)')
+    number = CharField(label='口座番号(必須・一意)')
+    name = CharField(label='口座名称(必須・一意)')
+    type = CharField(required=False, label='口座タイプ[cash/alipay/wechat/bank_account/other](デフォルト: cash)')
+    holder = CharField(required=False, label='口座名義人')
+    card_number = CharField(required=False, label='口座番号')
+    remark = CharField(required=False, label='備考')
+    is_active = BooleanField(required=False, label='有効状態[TRUE/FALSE](デフォルト: TRUE)')
 
     class Meta:
         model = Account
@@ -189,7 +189,7 @@ class AccountImportExportSerializer(BaseSerializer):
 
 
 class ChargeItemSerializer(BaseSerializer):
-    type_display = CharField(source='get_type_display', read_only=True, label='收支类型')
+    type_display = CharField(source='get_type_display', read_only=True, label='収支タイプ')
 
     class Meta:
         model = ChargeItem
@@ -197,14 +197,14 @@ class ChargeItemSerializer(BaseSerializer):
         fields = ['name', 'type', 'remark', *read_only_fields]
 
     def validate_name(self, value):
-        self.validate_unique({'name': value}, message=f'名称[{value}]已存在')
+        self.validate_unique({'name': value}, message=f'名称[{value}]は既に存在します')
         return value
 
 
 class ChargeItemImportExportSerializer(BaseSerializer):
-    name = CharField(label='收支项目(必填唯一)')
-    type = CharField(label='收支类型[income/expenditure](必填)')
-    remark = CharField(required=False, label='备注')
+    name = CharField(label='収支項目(必須・一意)')
+    type = CharField(label='収支タイプ[income/expenditure](必須)')
+    remark = CharField(required=False, label='備考')
 
     class Meta:
         model = ChargeItem

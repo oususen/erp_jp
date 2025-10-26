@@ -57,7 +57,7 @@ class ShelfLifeWarningViewSet(BaseViewSet, ListModelMixin):
 
 
 class StockInOrderReminderViewSet(BaseViewSet, ListModelMixin):
-    """入库任务提醒"""
+    """入庫タスク通知"""
 
     serializer_class = StockInOrderReminderSerializer
     permission_classes = [IsAuthenticated, StockInReminderPermission]
@@ -69,7 +69,7 @@ class StockInOrderReminderViewSet(BaseViewSet, ListModelMixin):
 
 
 class StockOutOrderReminderViewSet(BaseViewSet, ListModelMixin):
-    """出库任务提醒"""
+    """出庫タスク通知"""
 
     serializer_class = StockOutOrderReminderSerializer
     permission_classes = [IsAuthenticated, StockOutReminderPermission]

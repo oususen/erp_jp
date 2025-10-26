@@ -37,7 +37,7 @@ class SupplierArrearsViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin):
 
 
 class PaymentOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin):
-    """付款单据"""
+    """支払伝票"""
 
     serializer_class = PaymentOrderSerializer
     permission_classes = [IsAuthenticated, PaymentOrderPermission]
@@ -58,7 +58,7 @@ class PaymentOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Creat
         supplier.has_arrears = supplier.arrears_amount > 0
         supplier.save(update_fields=['arrears_amount', 'has_arrears'])
 
-        # 同步余额, 流水
+        # 残高同期、フロー
         finance_flows = []
         for payment_account in payment_order.payment_accounts.all():
             account = payment_account.account
@@ -74,7 +74,7 @@ class PaymentOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Creat
 
             account.balance_amount = amount_after
             if account.balance_amount < 0:
-                raise ValidationError(f'结算账户[{account.name}]余额不足')
+                raise ValidationError(f'決済アカウント[{account.name}]の残高が不足しています')
             account.has_balance = account.balance_amount > 0
             account.save(update_fields=['balance_amount', 'has_balance'])
         else:
@@ -83,7 +83,7 @@ class PaymentOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Creat
     @extend_schema(responses={200: NumberResponse})
     @action(detail=False, methods=['get'])
     def number(self, request, *args, **kwargs):
-        """获取编号"""
+        """番号取得"""
 
         number = PaymentOrder.get_number(self.team)
         return Response(data={'number': number}, status=status.HTTP_200_OK)
@@ -104,7 +104,7 @@ class PaymentOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Creat
         supplier.has_arrears = supplier.arrears_amount > 0
         supplier.save(update_fields=['arrears_amount', 'has_arrears'])
 
-        # 同步余额, 流水
+        # 残高同期、フロー
         finance_flows = []
         for payment_account in payment_order.payment_accounts.all():
             account = payment_account.account
@@ -120,7 +120,7 @@ class PaymentOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Creat
 
             account.balance_amount = amount_after
             if account.balance_amount < 0:
-                raise ValidationError(f'结算账户[{account.name}]余额不足')
+                raise ValidationError(f'決済アカウント[{account.name}]の残高が不足しています')
             account.has_balance = account.balance_amount > 0
             account.save(update_fields=['balance_amount', 'has_balance'])
         else:
@@ -131,7 +131,7 @@ class PaymentOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Creat
 
 
 class CollectionOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin):
-    """付款单据"""
+    """支払伝票"""
 
     serializer_class = CollectionOrderSerializer
     permission_classes = [IsAuthenticated, CollectionOrderPermission]
@@ -152,7 +152,7 @@ class CollectionOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Cr
         client.has_arrears = client.arrears_amount > 0
         client.save(update_fields=['arrears_amount', 'has_arrears'])
 
-        # 同步余额, 流水
+        # 残高同期、フロー
         finance_flows = []
         for collection_account in collection_order.collection_accounts.all():
             account = collection_account.account
@@ -168,7 +168,7 @@ class CollectionOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Cr
 
             account.balance_amount = amount_after
             if account.balance_amount < 0:
-                raise ValidationError(f'结算账户[{account.name}]余额不足')
+                raise ValidationError(f'決済アカウント[{account.name}]の残高が不足しています')
             account.has_balance = account.balance_amount > 0
             account.save(update_fields=['balance_amount', 'has_balance'])
         else:
@@ -177,7 +177,7 @@ class CollectionOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Cr
     @extend_schema(responses={200: NumberResponse})
     @action(detail=False, methods=['get'])
     def number(self, request, *args, **kwargs):
-        """获取编号"""
+        """番号取得"""
 
         number = CollectionOrder.get_number(self.team)
         return Response(data={'number': number}, status=status.HTTP_200_OK)
@@ -198,7 +198,7 @@ class CollectionOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Cr
         client.has_arrears = client.arrears_amount > 0
         client.save(update_fields=['arrears_amount', 'has_arrears'])
 
-        # 同步余额, 流水
+        # 残高同期、フロー
         finance_flows = []
         for collection_account in collection_order.collection_accounts.all():
             account = collection_account.account
@@ -214,7 +214,7 @@ class CollectionOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Cr
 
             account.balance_amount = amount_after
             if account.balance_amount < 0:
-                raise ValidationError(f'结算账户[{account.name}]余额不足')
+                raise ValidationError(f'決済アカウント[{account.name}]の残高が不足しています')
             account.has_balance = account.balance_amount > 0
             account.save(update_fields=['balance_amount', 'has_balance'])
         else:
@@ -225,7 +225,7 @@ class CollectionOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Cr
 
 
 class ChargeOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin):
-    """收支单据"""
+    """収支伝票"""
 
     serializer_class = ChargeOrderSerializer
     permission_classes = [IsAuthenticated, ChargeOrderPermission]
@@ -277,14 +277,14 @@ class ChargeOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Create
 
         account.balance_amount = amount_after
         if account.balance_amount < 0:
-            raise ValidationError(f'结算账户[{account.name}]余额不足')
+            raise ValidationError(f'決済アカウント[{account.name}]の残高が不足しています')
         account.has_balance = account.balance_amount > 0
         account.save(update_fields=['balance_amount', 'has_balance'])
 
     @extend_schema(responses={200: NumberResponse})
     @action(detail=False, methods=['get'])
     def number(self, request, *args, **kwargs):
-        """获取编号"""
+        """番号取得"""
 
         number = ChargeOrder.get_number(self.team)
         return Response(data={'number': number}, status=status.HTTP_200_OK)
@@ -336,7 +336,7 @@ class ChargeOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Create
 
         account.balance_amount = amount_after
         if account.balance_amount < 0:
-            raise ValidationError(f'结算账户[{account.name}]余额不足')
+            raise ValidationError(f'決済アカウント[{account.name}]の残高が不足しています')
 
         account.has_balance = account.balance_amount > 0
         account.save(update_fields=['balance_amount', 'has_balance'])
@@ -346,7 +346,7 @@ class ChargeOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Create
 
 
 class AccountTransferRecordViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin):
-    """结算账户转账记录"""
+    """決済アカウント转账记录"""
 
     serializer_class = AccountTransferRecordSerializer
     permission_classes = [IsAuthenticated, AccountTransferRecordPermission]
@@ -374,7 +374,7 @@ class AccountTransferRecordViewSet(BaseViewSet, ListModelMixin, RetrieveModelMix
             transfer_out_amount = NP.minus(transfer_out_amount,
                                            account_transfer_record.service_charge_amount)
 
-        # 同步账户余额
+        # 口座残高同期
         finance_flows = []
         amount_before = out_account.balance_amount
         amount_change = transfer_out_amount
@@ -387,7 +387,7 @@ class AccountTransferRecordViewSet(BaseViewSet, ListModelMixin, RetrieveModelMix
 
         out_account.balance_amount = amount_after
         if out_account.balance_amount < 0:
-            raise ValidationError(f'结算账户[{out_account.name}]余额不足')
+            raise ValidationError(f'決済アカウント[{out_account.name}]の残高が不足しています')
         out_account.has_balance = out_account.balance_amount > 0
         out_account.save(update_fields=['balance_amount', 'has_balance'])
 
@@ -402,7 +402,7 @@ class AccountTransferRecordViewSet(BaseViewSet, ListModelMixin, RetrieveModelMix
 
         in_account.balance_amount = amount_after
         if in_account.balance_amount < 0:
-            raise ValidationError(f'结算账户[{in_account.name}]余额不足')
+            raise ValidationError(f'決済アカウント[{in_account.name}]の残高が不足しています')
         in_account.has_balance = in_account.balance_amount > 0
         in_account.save(update_fields=['balance_amount', 'has_balance'])
 
@@ -429,7 +429,7 @@ class AccountTransferRecordViewSet(BaseViewSet, ListModelMixin, RetrieveModelMix
             transfer_out_amount = NP.minus(transfer_out_amount,
                                            account_transfer_record.service_charge_amount)
 
-        # 同步账户余额
+        # 口座残高同期
         finance_flows = []
         amount_before = out_account.balance_amount
         amount_change = transfer_out_amount
@@ -442,7 +442,7 @@ class AccountTransferRecordViewSet(BaseViewSet, ListModelMixin, RetrieveModelMix
 
         out_account.balance_amount = amount_after
         if out_account.balance_amount < 0:
-            raise ValidationError(f'结算账户[{out_account.name}]余额不足')
+            raise ValidationError(f'決済アカウント[{out_account.name}]の残高が不足しています')
         out_account.has_balance = out_account.balance_amount > 0
         out_account.save(update_fields=['balance_amount', 'has_balance'])
 
@@ -457,7 +457,7 @@ class AccountTransferRecordViewSet(BaseViewSet, ListModelMixin, RetrieveModelMix
 
         in_account.balance_amount = amount_after
         if in_account.balance_amount < 0:
-            raise ValidationError(f'结算账户[{in_account.name}]余额不足')
+            raise ValidationError(f'決済アカウント[{in_account.name}]の残高が不足しています')
         in_account.has_balance = in_account.balance_amount > 0
         in_account.save(update_fields=['balance_amount', 'has_balance'])
 

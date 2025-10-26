@@ -4,8 +4,8 @@ from apps.stock_out.models import *
 
 
 class StockOutOrderFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='終了日')
 
     class Meta:
         model = StockOutOrder
@@ -14,8 +14,8 @@ class StockOutOrderFilter(FilterSet):
 
 
 class StockOutRecordFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='終了日')
 
     class Meta:
         model = StockOutRecord

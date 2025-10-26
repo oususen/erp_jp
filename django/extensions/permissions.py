@@ -23,23 +23,23 @@ class IsAuthenticated(BasePermission):
             return False
 
         if (expiry_time := request.user.team.expiry_time) < pendulum.now():
-            raise ValidationError(f'已到期, 到期日期: {expiry_time}')
+            raise ValidationError(f'期限切れです。有効期限: {expiry_time}')
 
         if not (request.user.is_manager or request.user.is_active):
-            raise ValidationError('账号未激活, 无法执行任何操作')
+            raise ValidationError('アカウントが有効化されていないため、操作を実行できません')
 
         return True
 
 
 class IsManagerPermission(BasePermission):
-    message = '非管理员账号'
+    message = '管理者アカウントではありません'
 
     def has_permission(self, request, view):
         return request.user.is_manager
 
 
 class ModelPermission(BasePermission):
-    message = '未添加操作权限'
+    message = '操作権限が追加されていません'
 
     def has_permission(self, request, view):
         if request.user.is_manager:
@@ -52,9 +52,9 @@ class ModelPermission(BasePermission):
 
 
 class FunctionPermission(BasePermission):
-    """功能权限"""
+    """機能権限"""
 
-    message = '未添加操作权限'
+    message = '操作権限が追加されていません'
 
     def has_permission(self, request, view):
         if request.user.is_manager:
@@ -67,7 +67,7 @@ class FunctionPermission(BasePermission):
 
 
 class DataPermission:
-    """数据权限"""
+    """データ権限"""
 
     @classmethod
     def has_permission(cls, request):

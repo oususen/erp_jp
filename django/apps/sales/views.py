@@ -15,7 +15,7 @@ from apps.stock_in.models import *
 
 
 class SalesOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin):
-    """销售单据"""
+    """販売伝票"""
 
     serializer_class = SalesOrderSerializer
     permission_classes = [IsAuthenticated, SalesOrderPermission]
@@ -33,7 +33,7 @@ class SalesOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, CreateM
         sales_order = serializer.save()
 
         if sales_order.enable_auto_stock_out:
-            # 同步库存, 流水
+            # 在庫と明細を同期
             inventory_flows = []
             for sales_goods in sales_order.sales_goods_set.all():
                 inventory = Inventory.objects.get(warehouse=sales_order.warehouse,
@@ -51,13 +51,13 @@ class SalesOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, CreateM
 
                 inventory.total_quantity = quantity_after
                 if inventory.total_quantity < 0:
-                    raise ValidationError(f'产品[{inventory.goods.name}]库存不足')
+                    raise ValidationError(f'商品[{inventory.goods.name}]の在庫が不足しています')
                 inventory.has_stock = inventory.total_quantity > 0
                 inventory.save(update_fields=['total_quantity', 'has_stock'])
             else:
                 InventoryFlow.objects.bulk_create(inventory_flows)
         else:
-            # 创建出库通知单据
+            # 出庫通知伝票を作成
             stock_out_order_number = StockOutOrder.get_number(team=self.team)
             stock_out_order = StockOutOrder.objects.create(
                 number=stock_out_order_number, warehouse=sales_order.warehouse,
@@ -67,7 +67,7 @@ class SalesOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, CreateM
                 creator=self.user, team=self.team
             )
 
-            # 创建出库产品
+            # 出庫商品を作成
             stock_out_goods_set = []
             for sales_goods in sales_order.sales_goods_set.all():
                 stock_out_goods_set.append(StockOutGoods(
@@ -78,13 +78,13 @@ class SalesOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, CreateM
             else:
                 StockOutGoods.objects.bulk_create(stock_out_goods_set)
 
-        # 同步欠款
+        # 未払金を同期
         client = sales_order.client
         client.arrears_amount = NP.plus(client.arrears_amount, sales_order.arrears_amount)
         client.has_arrears = client.arrears_amount > 0
         client.save(update_fields=['arrears_amount', 'has_arrears'])
 
-        # 同步账户, 流水
+        # 口座と明細を同期
         if sales_order.collection_amount > 0:
             finance_flows = []
             for sales_account in sales_order.sales_accounts.all():
@@ -101,7 +101,7 @@ class SalesOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, CreateM
 
                 account.balance_amount = amount_after
                 if account.balance_amount < 0:
-                    raise ValidationError(f'结算账户[{account.name}]余额不足')
+                    raise ValidationError(f'決済口座[{account.name}]の残高が不足しています')
                 account.has_balance = account.balance_amount > 0
                 account.save(update_fields=['balance_amount', 'has_balance'])
             else:
@@ -110,7 +110,7 @@ class SalesOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, CreateM
     @extend_schema(responses={200: NumberResponse})
     @action(detail=False, methods=['get'])
     def number(self, request, *args, **kwargs):
-        """获取编号"""
+        """番号取得"""
 
         number = SalesOrder.get_number(self.team)
         return Response(data={'number': number}, status=status.HTTP_200_OK)
@@ -119,18 +119,18 @@ class SalesOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, CreateM
     @extend_schema(request=None, responses={200: SalesOrderSerializer})
     @action(detail=True, methods=['post'])
     def void(self, request, *args, **kwargs):
-        """作废"""
+        """無効化"""
 
         sales_order = self.get_object()
         if sales_order.is_void:
-            raise ValidationError(f'销售单据[{sales_order.number}]已作废, 无法再次作废')
+            raise ValidationError(f'販売伝票[{sales_order.number}]は既に無効化されているため、再度無効化できません')
 
-        # 同步销售单据, 销售产品
+        # 販売伝票と販売商品を同期
         sales_order.is_void = True
         sales_order.save(update_fields=['is_void'])
 
         if sales_order.enable_auto_stock_out:
-            # 同步库存, 流水
+            # 在庫と明細を同期
             inventory_flows = []
             for sales_goods in sales_order.sales_goods_set.all():
                 inventory = Inventory.objects.get(warehouse=sales_order.warehouse,
@@ -148,27 +148,27 @@ class SalesOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, CreateM
 
                 inventory.total_quantity = quantity_after
                 if inventory.total_quantity < 0:
-                    raise ValidationError(f'产品[{inventory.goods.name}]库存不足')
+                    raise ValidationError(f'商品[{inventory.goods.name}]の在庫が不足しています')
                 inventory.has_stock = inventory.total_quantity > 0
                 inventory.save(update_fields=['total_quantity', 'has_stock'])
             else:
                 InventoryFlow.objects.bulk_create(inventory_flows)
         else:
-            # 作废出库通知单据
+            # 出庫通知伝票を無効化
             stock_out_order = sales_order.stock_out_order
             if stock_out_order.total_quantity != stock_out_order.remain_quantity:
-                raise ValidationError(f'销售单据[{sales_order.number}]无法作废, 已存在出库记录')
+                raise ValidationError(f'販売伝票[{sales_order.number}]は出庫記録が存在するため無効化できません')
 
             stock_out_order.is_void = True
             stock_out_order.save(update_fields=['is_void'])
 
-        # 同步欠款
+        # 未払金を同期
         client = sales_order.client
         client.arrears_amount = NP.minus(client.arrears_amount, sales_order.arrears_amount)
         client.has_arrears = client.arrears_amount > 0
         client.save(update_fields=['arrears_amount', 'has_arrears'])
 
-        # 同步账户, 流水
+        # 口座と明細を同期
         if sales_order.collection_amount > 0:
             finance_flows = []
             for sales_account in sales_order.sales_accounts.all():
@@ -185,7 +185,7 @@ class SalesOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, CreateM
 
                 account.balance_amount = amount_after
                 if account.balance_amount < 0:
-                    raise ValidationError(f'结算账户[{account.name}]余额不足')
+                    raise ValidationError(f'決済口座[{account.name}]の残高が不足しています')
                 account.has_balance = account.balance_amount > 0
                 account.save(update_fields=['balance_amount', 'has_balance'])
             else:
@@ -196,7 +196,7 @@ class SalesOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, CreateM
 
 
 class SalesReturnOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin):
-    """销售退货单据"""
+    """販売返品伝票"""
 
     serializer_class = SalesReturnOrderSerializer
     permission_classes = [IsAuthenticated, SalesReturnOrderPermission]
@@ -214,7 +214,7 @@ class SalesReturnOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, C
         sales_return_order = serializer.save()
 
         if sales_return_order.enable_auto_stock_in:
-            # 同步库存, 流水
+            # 在庫と明細を同期
             inventory_flows = []
             for sales_return_goods in sales_return_order.sales_return_goods_set.all():
                 inventory = Inventory.objects.get(warehouse=sales_return_order.warehouse,
@@ -232,13 +232,13 @@ class SalesReturnOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, C
 
                 inventory.total_quantity = quantity_after
                 if inventory.total_quantity < 0:
-                    raise ValidationError(f'产品[{inventory.goods.name}]库存不足')
+                    raise ValidationError(f'商品[{inventory.goods.name}]の在庫が不足しています')
                 inventory.has_stock = inventory.total_quantity > 0
                 inventory.save(update_fields=['total_quantity', 'has_stock'])
             else:
                 InventoryFlow.objects.bulk_create(inventory_flows)
         else:
-            # 创建入库通知单据
+            # 入庫通知伝票を作成
             stock_in_order_number = StockInOrder.get_number(team=self.team)
             stock_in_order = StockInOrder.objects.create(
                 number=stock_in_order_number, warehouse=sales_return_order.warehouse,
@@ -248,7 +248,7 @@ class SalesReturnOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, C
                 creator=self.user, team=self.team
             )
 
-            # 创建入库产品
+            # 入庫商品を作成
             stock_in_goods_set = []
             for sales_return_goods in sales_return_order.sales_return_goods_set.all():
                 stock_in_goods_set.append(StockInGoods(
@@ -259,13 +259,13 @@ class SalesReturnOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, C
             else:
                 StockInGoods.objects.bulk_create(stock_in_goods_set)
 
-        # 同步欠款
+        # 未払金を同期
         client = sales_return_order.client
         client.arrears_amount = NP.minus(client.arrears_amount, sales_return_order.arrears_amount)
         client.has_arrears = client.arrears_amount > 0
         client.save(update_fields=['arrears_amount', 'has_arrears'])
 
-        # 同步账户, 流水
+        # 口座と明細を同期
         if sales_return_order.payment_amount > 0:
             finance_flows = []
             for sales_return_account in sales_return_order.sales_return_accounts.all():
@@ -282,7 +282,7 @@ class SalesReturnOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, C
 
                 account.balance_amount = amount_after
                 if account.balance_amount < 0:
-                    raise ValidationError(f'结算账户[{account.name}]余额不足')
+                    raise ValidationError(f'決済口座[{account.name}]の残高が不足しています')
                 account.has_balance = account.balance_amount > 0
                 account.save(update_fields=['balance_amount', 'has_balance'])
             else:
@@ -291,7 +291,7 @@ class SalesReturnOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, C
     @extend_schema(responses={200: NumberResponse})
     @action(detail=False, methods=['get'])
     def number(self, request, *args, **kwargs):
-        """获取编号"""
+        """番号取得"""
 
         number = SalesReturnOrder.get_number(self.team)
         return Response(data={'number': number}, status=status.HTTP_200_OK)
@@ -300,18 +300,18 @@ class SalesReturnOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, C
     @extend_schema(request=None, responses={200: SalesReturnOrderSerializer})
     @action(detail=True, methods=['post'])
     def void(self, request, *args, **kwargs):
-        """作废"""
+        """無効化"""
 
         sales_return_order = self.get_object()
         if sales_return_order.is_void:
-            raise ValidationError(f'销售退货单据[{sales_return_order.number}]已作废, 无法再次作废')
+            raise ValidationError(f'販売返品伝票[{sales_return_order.number}]は既に無効化されているため、再度無効化できません')
 
-        # 同步销售退货单据, 采购退货产品
+        # 販売返品伝票と購買返品商品を同期
         sales_return_order.is_void = True
         sales_return_order.save(update_fields=['is_void'])
 
         if sales_return_order.enable_auto_stock_in:
-            # 同步库存, 流水
+            # 在庫と明細を同期
             inventory_flows = []
             for sales_return_goods in sales_return_order.sales_return_goods_set.all():
                 inventory = Inventory.objects.get(warehouse=sales_return_order.warehouse,
@@ -329,11 +329,11 @@ class SalesReturnOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, C
 
                 inventory.total_quantity = quantity_after
                 if inventory.total_quantity < 0:
-                    raise ValidationError(f'产品[{inventory.goods.name}]库存不足')
+                    raise ValidationError(f'商品[{inventory.goods.name}]の在庫が不足しています')
                 inventory.has_stock = inventory.total_quantity > 0
                 inventory.save(update_fields=['total_quantity', 'has_stock'])
 
-                # 同步采购产品退货数量
+                # 購買商品返品数量を同期
                 if sales_goods := sales_return_goods.sales_goods:
                     sales_goods.return_quantity = NP.minus(sales_goods.return_quantity,
                                                            sales_return_goods.return_quantity)
@@ -341,21 +341,21 @@ class SalesReturnOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, C
             else:
                 InventoryFlow.objects.bulk_create(inventory_flows)
         else:
-            # 作废入库通知单据
+            # 入庫通知伝票を無効化
             stock_in_order = sales_return_order.stock_in_order
             if stock_in_order.total_quantity != stock_in_order.remain_quantity:
-                raise ValidationError(f'销售退货单据[{sales_return_order.number}]无法作废, 已存在出库记录')
+                raise ValidationError(f'販売返品伝票[{sales_return_order.number}]は出庫記録が存在するため無効化できません')
 
             stock_in_order.is_void = True
             stock_in_order.save(update_fields=['is_void'])
 
-        # 同步欠款
+        # 未払金を同期
         client = sales_return_order.client
         client.arrears_amount = NP.plus(client.arrears_amount, sales_return_order.arrears_amount)
         client.has_arrears = client.arrears_amount > 0
         client.save(update_fields=['arrears_amount', 'has_arrears'])
 
-        # 同步账户, 流水
+        # 口座と明細を同期
         if sales_return_order.payment_amount > 0:
             finance_flows = []
             for sales_return_account in sales_return_order.sales_return_accounts.all():
@@ -372,7 +372,7 @@ class SalesReturnOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, C
 
                 account.balance_amount = amount_after
                 if account.balance_amount < 0:
-                    raise ValidationError(f'结算账户[{account.name}]余额不足')
+                    raise ValidationError(f'決済口座[{account.name}]の残高が不足しています')
                 account.has_balance = account.balance_amount > 0
                 account.save(update_fields=['balance_amount', 'has_balance'])
             else:

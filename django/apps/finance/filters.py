@@ -4,8 +4,8 @@ from apps.finance.models import *
 
 
 class PaymentOrderFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='終了日')
 
     class Meta:
         model = PaymentOrder
@@ -14,8 +14,8 @@ class PaymentOrderFilter(FilterSet):
 
 
 class CollectionOrderFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='終了日')
 
     class Meta:
         model = CollectionOrder
@@ -24,8 +24,8 @@ class CollectionOrderFilter(FilterSet):
 
 
 class ChargeOrderFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='終了日')
 
     class Meta:
         model = ChargeOrder
@@ -34,8 +34,8 @@ class ChargeOrderFilter(FilterSet):
 
 
 class AccountTransferRecordFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='終了日')
 
     class Meta:
         model = AccountTransferRecord

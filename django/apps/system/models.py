@@ -8,12 +8,12 @@ from extensions.models import *
 class Team(Model):
 
     number = CharField(max_length=32, verbose_name='番号')
-    expiry_time = DateTimeField(verbose_name='到期时间')
+    expiry_time = DateTimeField(verbose_name='有効期限')
     create_time = DateTimeField(auto_now_add=True, verbose_name='作成日時')
-    user_quantity = IntegerField(default=10, verbose_name='用户数量')
+    user_quantity = IntegerField(default=10, verbose_name='ユーザー数')
     remark = CharField(max_length=256, blank=True, null=True, verbose_name='備考')
-    enable_auto_stock_in = BooleanField(default=False, verbose_name='启用自动入库')
-    enable_auto_stock_out = BooleanField(default=False, verbose_name='启用自动出库')
+    enable_auto_stock_in = BooleanField(default=False, verbose_name='自動入庫を有効化')
+    enable_auto_stock_out = BooleanField(default=False, verbose_name='自動出庫を有効化')
 
 
 class ERPUserManager(UserManager):
@@ -50,21 +50,21 @@ class ERPUserManager(UserManager):
 
 
 class PermissionGroup(Model):
-    """权限分组"""
+    """権限グループ"""
 
-    name = CharField(max_length=64, verbose_name='分组名称')
+    name = CharField(max_length=64, verbose_name='グループ名')
 
 
 class Permission(Model):
-    """权限"""
+    """権限"""
 
-    group = ForeignKey('system.PermissionGroup', on_delete=CASCADE, related_name='permissions', verbose_name='权限分组')
-    name = CharField(max_length=64, verbose_name='权限名称')
-    code = CharField(max_length=64, verbose_name='权限代码')
+    group = ForeignKey('system.PermissionGroup', on_delete=CASCADE, related_name='permissions', verbose_name='権限グループ')
+    name = CharField(max_length=64, verbose_name='権限名')
+    code = CharField(max_length=64, verbose_name='権限コード')
 
 
 class Role(Model):
-    """角色"""
+    """ロール"""
 
     name = CharField(max_length=64, verbose_name='名称')
     remark = CharField(max_length=256, null=True, blank=True, verbose_name='備考')
@@ -76,10 +76,10 @@ class Role(Model):
 
 
 class User(AbstractUser):
-    """用户"""
+    """ユーザー"""
 
     class Sex(TextChoices):
-        """性别"""
+        """性別"""
 
         MAN = ('man', '男')
         WOMAN = ('woman', '女')
@@ -89,20 +89,20 @@ class User(AbstractUser):
     username = CharField(
         max_length=150,
         unique=True,
-        help_text='必填。150 字以内。可包含字母、数字和 @/./+/-/_ 等字符。',
+        help_text='必須。150文字以内。文字、数字、@/./+/-/_ などの文字を含めることができます。',
         validators=[username_validator],
-        verbose_name='用户名',
+        verbose_name='ユーザー名',
     )
     REQUIRED_FIELDS = ['name']
     objects = ERPUserManager()
 
     name = CharField(max_length=64, verbose_name='名称')
-    phone = CharField(max_length=32, null=True, blank=True, verbose_name='手机号')
-    email = EmailField(max_length=254, null=True, blank=True, verbose_name='邮箱')
-    sex = CharField(max_length=32, choices=Sex.choices, verbose_name='性别')
+    phone = CharField(max_length=32, null=True, blank=True, verbose_name='携帯番号')
+    email = EmailField(max_length=254, null=True, blank=True, verbose_name='メールアドレス')
+    sex = CharField(max_length=32, choices=Sex.choices, verbose_name='性別')
     roles = ManyToManyField('system.Role', blank=True, related_name='users', verbose_name='ロール')
     permissions = JSONField(default=list, verbose_name='権限')
-    is_manager = BooleanField(default=False, verbose_name='管理员状态')
+    is_manager = BooleanField(default=False, verbose_name='管理者ステータス')
     create_time = DateTimeField(auto_now_add=True, verbose_name='作成日時')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='users')
 

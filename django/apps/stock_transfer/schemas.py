@@ -2,7 +2,7 @@ from extensions.serializers import *
 
 
 class NumberResponse(Serializer):
-    number = CharField(label='编号')
+    number = CharField(label='番号')
 
 
 __all__ = [

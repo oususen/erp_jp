@@ -3,7 +3,7 @@ from extensions.models import *
 
 
 class GoodsCategory(Model):
-    """产品分类"""
+    """商品カテゴリ"""
 
     name = CharField(max_length=64, verbose_name='名称')
     remark = CharField(max_length=256, null=True, blank=True, verbose_name='備考')
@@ -14,7 +14,7 @@ class GoodsCategory(Model):
 
 
 class GoodsUnit(Model):
-    """产品单位"""
+    """商品単位"""
 
     name = CharField(max_length=64, verbose_name='名称')
     remark = CharField(max_length=256, null=True, blank=True, verbose_name='備考')
@@ -25,30 +25,30 @@ class GoodsUnit(Model):
 
 
 class Goods(Model):
-    """产品"""
+    """商品"""
 
     number = CharField(max_length=32, verbose_name='番号')
     name = CharField(max_length=64, verbose_name='名称')
-    barcode = CharField(max_length=32, null=True, blank=True, verbose_name='条码')
+    barcode = CharField(max_length=32, null=True, blank=True, verbose_name='バーコード')
     category = ForeignKey('goods.GoodsCategory', on_delete=SET_NULL, null=True,
-                          related_name='goods_set', verbose_name='製品分類')
+                          related_name='goods_set', verbose_name='商品カテゴリ')
     unit = ForeignKey('goods.GoodsUnit', on_delete=SET_NULL, null=True,
-                      related_name='goods_set', verbose_name='製品単位')
-    spec = CharField(max_length=64, null=True, blank=True, verbose_name='规格')
-    enable_batch_control = BooleanField(default=False, verbose_name='启用批次控制')
-    shelf_life_days = IntegerField(null=True, verbose_name='保质期天数')
-    shelf_life_warning_days = IntegerField(default=0, verbose_name='保质期预警天数')
-    enable_inventory_warning = BooleanField(default=False, verbose_name='启用库存警告')
-    inventory_upper = FloatField(null=True, verbose_name='库存上限')
-    inventory_lower = FloatField(null=True, verbose_name='库存下限')
-    purchase_price = FloatField(default=0, verbose_name='采购价')
-    retail_price = FloatField(default=0, verbose_name='零售价')
-    level_price1 = FloatField(default=0, verbose_name='等级价一')
-    level_price2 = FloatField(default=0, verbose_name='等级价二')
-    level_price3 = FloatField(default=0, verbose_name='等级价三')
+                      related_name='goods_set', verbose_name='商品単位')
+    spec = CharField(max_length=64, null=True, blank=True, verbose_name='仕様')
+    enable_batch_control = BooleanField(default=False, verbose_name='ロット制御を有効化')
+    shelf_life_days = IntegerField(null=True, verbose_name='品質保証期間日数')
+    shelf_life_warning_days = IntegerField(default=0, verbose_name='期限切れ間近警告日')
+    enable_inventory_warning = BooleanField(default=False, verbose_name='在庫警告を有効化')
+    inventory_upper = FloatField(null=True, verbose_name='在庫上限')
+    inventory_lower = FloatField(null=True, verbose_name='在庫下限')
+    purchase_price = FloatField(default=0, verbose_name='購買価格')
+    retail_price = FloatField(default=0, verbose_name='小売価格')
+    level_price1 = FloatField(default=0, verbose_name='等級価格1')
+    level_price2 = FloatField(default=0, verbose_name='等級価格2')
+    level_price3 = FloatField(default=0, verbose_name='等級価格3')
 
     remark = CharField(max_length=256, null=True, blank=True, verbose_name='備考')
-    is_active = BooleanField(default=True, verbose_name='激活状态')
+    is_active = BooleanField(default=True, verbose_name='有効状態')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='goods_set')
 
     class Meta:
@@ -76,30 +76,30 @@ class Goods(Model):
 
 
 class GoodsImage(Model):
-    """产品图片"""
+    """商品画像"""
 
     goods = ForeignKey('goods.Goods', on_delete=SET_NULL, null=True,
-                       related_name='goods_images', verbose_name='製品')
-    file = ImageField(verbose_name='文件')
-    name = CharField(max_length=256, verbose_name='文件名称')
+                       related_name='goods_images', verbose_name='商品')
+    file = ImageField(verbose_name='ファイル')
+    name = CharField(max_length=256, verbose_name='ファイル名')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='goods_images')
 
 
 class Batch(Model):
-    """批次"""
+    """ロット"""
 
     number = CharField(max_length=32, verbose_name='番号')
     inventory = ForeignKey('goods.Inventory', on_delete=CASCADE, related_name='batchs', verbose_name='在庫')
-    warehouse = ForeignKey('data.Warehouse', on_delete=CASCADE, related_name='batchs', verbose_name='仓库')
-    goods = ForeignKey('goods.Goods', on_delete=CASCADE, related_name='batchs', verbose_name='製品')
-    initial_quantity = FloatField(default=0, verbose_name='初始库存')
-    total_quantity = FloatField(verbose_name='批次数量')
-    remain_quantity = FloatField(verbose_name='批次剩余数量')
-    production_date = DateField(null=True, verbose_name='生产日期')
-    shelf_life_days = IntegerField(null=True, verbose_name='保质期天数')
-    warning_date = DateField(null=True, verbose_name='预警日期')
-    expiration_date = DateField(null=True, verbose_name='过期日期')
-    has_stock = BooleanField(default=True, verbose_name='库存状态')
+    warehouse = ForeignKey('data.Warehouse', on_delete=CASCADE, related_name='batchs', verbose_name='入庫')
+    goods = ForeignKey('goods.Goods', on_delete=CASCADE, related_name='batchs', verbose_name='商品')
+    initial_quantity = FloatField(default=0, verbose_name='初期在庫')
+    total_quantity = FloatField(verbose_name='ロット数量')
+    remain_quantity = FloatField(verbose_name='ロットの残数量')
+    production_date = DateField(null=True, verbose_name='製造日')
+    shelf_life_days = IntegerField(null=True, verbose_name='品質保証期間日数')
+    warning_date = DateField(null=True, verbose_name='警告日')
+    expiration_date = DateField(null=True, verbose_name='期限切れ日')
+    has_stock = BooleanField(default=True, verbose_name='在庫状態')
     create_time = DateTimeField(auto_now_add=True, verbose_name='作成日時')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='batchs')
 
@@ -108,13 +108,13 @@ class Batch(Model):
 
 
 class Inventory(Model):
-    """库存"""
+    """在庫"""
 
-    warehouse = ForeignKey('data.Warehouse', on_delete=CASCADE, related_name='inventories', verbose_name='仓库')
-    goods = ForeignKey('goods.Goods', on_delete=CASCADE, related_name='inventories', verbose_name='製品')
-    initial_quantity = FloatField(default=0, verbose_name='初始库存')
-    total_quantity = FloatField(default=0, verbose_name='库存总数')
-    has_stock = BooleanField(default=False, verbose_name='库存状态')
+    warehouse = ForeignKey('data.Warehouse', on_delete=CASCADE, related_name='inventories', verbose_name='入庫')
+    goods = ForeignKey('goods.Goods', on_delete=CASCADE, related_name='inventories', verbose_name='商品')
+    initial_quantity = FloatField(default=0, verbose_name='初期在庫')
+    total_quantity = FloatField(default=0, verbose_name='在庫総数')
+    has_stock = BooleanField(default=False, verbose_name='在庫状態')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='inventories')
 
     class Meta:

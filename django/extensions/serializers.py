@@ -48,7 +48,7 @@ class BaseSerializer(ModelSerializer):
 
 
 class AmountField(DecimalField):
-    """金额字段"""
+    """金額フィールド"""
 
     def __init__(self, coerce_to_string=None, max_value=None, min_value=None, localize=False,
                  rounding=None, **kwargs):

@@ -7,21 +7,21 @@ from apps.finance.models import *
 
 
 class PurchaseReportDetialSerializer(BaseSerializer):
-    """采购明细"""
+    """購買詳細"""
 
-    goods_number = CharField(source='goods.number', read_only=True, label='产品编号')
-    goods_name = CharField(source='goods.name', read_only=True, label='产品名称')
-    goods_barcode = CharField(source='goods.barcode', read_only=True, label='产品条码')
-    goods_spec = CharField(source='goods.spec', read_only=True, label='产品规格')
-    category_name = CharField(source='goods.category.name', read_only=True, label='分类名称')
-    unit_name = CharField(source='goods.unit.name', read_only=True, label='单位名称')
-    purchase_order_number = CharField(source='purchase_order.number', read_only=True, label='采购单号')
-    warehouse_number = CharField(source='purchase_order.warehouse.number', read_only=True, label='仓库编号')
-    warehouse_name = CharField(source='purchase_order.warehouse.name', read_only=True, label='仓库名称')
-    supplier_number = CharField(source='purchase_order.supplier.number', read_only=True, label='供应商编号')
-    supplier_name = CharField(source='purchase_order.supplier.name', read_only=True, label='供应商名称')
-    creator_name = CharField(source='purchase_order.creator.name', read_only=True, label='创建人名称')
-    create_time = DateTimeField(source='purchase_order.create_time', read_only=True, label='创建时间')
+    goods_number = CharField(source='goods.number', read_only=True, label='商品コード')
+    goods_name = CharField(source='goods.name', read_only=True, label='商品名')
+    goods_barcode = CharField(source='goods.barcode', read_only=True, label='商品バーコード')
+    goods_spec = CharField(source='goods.spec', read_only=True, label='商品規格')
+    category_name = CharField(source='goods.category.name', read_only=True, label='カテゴリー名')
+    unit_name = CharField(source='goods.unit.name', read_only=True, label='単位名')
+    purchase_order_number = CharField(source='purchase_order.number', read_only=True, label='購買伝票番号')
+    warehouse_number = CharField(source='purchase_order.warehouse.number', read_only=True, label='倉庫コード')
+    warehouse_name = CharField(source='purchase_order.warehouse.name', read_only=True, label='倉庫名')
+    supplier_number = CharField(source='purchase_order.supplier.number', read_only=True, label='仕入先コード')
+    supplier_name = CharField(source='purchase_order.supplier.name', read_only=True, label='仕入先名')
+    creator_name = CharField(source='purchase_order.creator.name', read_only=True, label='作成者名')
+    create_time = DateTimeField(source='purchase_order.create_time', read_only=True, label='作成日時')
 
     class Meta:
         model = PurchaseGoods
@@ -32,21 +32,21 @@ class PurchaseReportDetialSerializer(BaseSerializer):
 
 
 class SalesReportDetialSerializer(BaseSerializer):
-    """销售明细"""
+    """販売詳細"""
 
-    goods_number = CharField(source='goods.number', read_only=True, label='产品编号')
-    goods_name = CharField(source='goods.name', read_only=True, label='产品名称')
-    goods_barcode = CharField(source='goods.barcode', read_only=True, label='产品条码')
-    goods_spec = CharField(source='goods.spec', read_only=True, label='产品规格')
-    category_name = CharField(source='goods.category.name', read_only=True, label='分类名称')
-    unit_name = CharField(source='goods.unit.name', read_only=True, label='单位名称')
-    sales_order_number = CharField(source='sales_order.number', read_only=True, label='采购单号')
-    warehouse_number = CharField(source='sales_order.warehouse.number', read_only=True, label='仓库编号')
-    warehouse_name = CharField(source='sales_order.warehouse.name', read_only=True, label='仓库名称')
-    client_number = CharField(source='sales_order.supplier.number', read_only=True, label='供应商编号')
-    client_name = CharField(source='sales_order.supplier.name', read_only=True, label='供应商名称')
-    creator_name = CharField(source='sales_order.creator.name', read_only=True, label='创建人名称')
-    create_time = DateTimeField(source='sales_order.create_time', read_only=True, label='创建时间')
+    goods_number = CharField(source='goods.number', read_only=True, label='商品コード')
+    goods_name = CharField(source='goods.name', read_only=True, label='商品名')
+    goods_barcode = CharField(source='goods.barcode', read_only=True, label='商品バーコード')
+    goods_spec = CharField(source='goods.spec', read_only=True, label='商品規格')
+    category_name = CharField(source='goods.category.name', read_only=True, label='カテゴリー名')
+    unit_name = CharField(source='goods.unit.name', read_only=True, label='単位名')
+    sales_order_number = CharField(source='sales_order.number', read_only=True, label='購買伝票番号')
+    warehouse_number = CharField(source='sales_order.warehouse.number', read_only=True, label='倉庫コード')
+    warehouse_name = CharField(source='sales_order.warehouse.name', read_only=True, label='倉庫名')
+    client_number = CharField(source='sales_order.supplier.number', read_only=True, label='仕入先コード')
+    client_name = CharField(source='sales_order.supplier.name', read_only=True, label='仕入先名')
+    creator_name = CharField(source='sales_order.creator.name', read_only=True, label='作成者名')
+    create_time = DateTimeField(source='sales_order.create_time', read_only=True, label='作成日時')
 
     class Meta:
         model = SalesGoods
@@ -57,10 +57,10 @@ class SalesReportDetialSerializer(BaseSerializer):
 
 
 class PaymentOrderDetialSerializer(BaseSerializer):
-    """付款明细"""
+    """支払詳細"""
 
-    supplier_number = CharField(source='supplier.number', read_only=True, label='供应商编号')
-    supplier_name = CharField(source='supplier.name', read_only=True, label='供应商名称')
+    supplier_number = CharField(source='supplier.number', read_only=True, label='仕入先コード')
+    supplier_name = CharField(source='supplier.name', read_only=True, label='仕入先名')
 
     class Meta:
         model = PaymentOrder
@@ -69,10 +69,10 @@ class PaymentOrderDetialSerializer(BaseSerializer):
 
 
 class CollectionOrderDetialSerializer(BaseSerializer):
-    """收款单据"""
+    """入金伝票"""
 
-    client_number = CharField(source='client.number', read_only=True, label='客户编号')
-    client_name = CharField(source='client.name', read_only=True, label='客户名称')
+    client_number = CharField(source='client.number', read_only=True, label='顧客コード')
+    client_name = CharField(source='client.name', read_only=True, label='顧客名')
 
     class Meta:
         model = CollectionOrder
@@ -81,12 +81,12 @@ class CollectionOrderDetialSerializer(BaseSerializer):
 
 
 class IncomeChargeOrderDetialSerializer(BaseSerializer):
-    """收入费用明细"""
+    """収入費用詳細"""
 
-    supplier_number = CharField(source='supplier.number', read_only=True, label='供应商编号')
-    supplier_name = CharField(source='supplier.name', read_only=True, label='供应商名称')
-    client_number = CharField(source='client.number', read_only=True, label='客户编号')
-    client_name = CharField(source='client.name', read_only=True, label='客户名称')
+    supplier_number = CharField(source='supplier.number', read_only=True, label='仕入先コード')
+    supplier_name = CharField(source='supplier.name', read_only=True, label='仕入先名')
+    client_number = CharField(source='client.number', read_only=True, label='顧客コード')
+    client_name = CharField(source='client.name', read_only=True, label='顧客名')
 
     class Meta:
         model = ChargeOrder
@@ -96,12 +96,12 @@ class IncomeChargeOrderDetialSerializer(BaseSerializer):
 
 
 class ExpenditureChargeOrderDetialSerializer(BaseSerializer):
-    """支出费用明细"""
+    """支出費用詳細"""
 
-    supplier_number = CharField(source='supplier.number', read_only=True, label='供应商编号')
-    supplier_name = CharField(source='supplier.name', read_only=True, label='供应商名称')
-    client_number = CharField(source='client.number', read_only=True, label='客户编号')
-    client_name = CharField(source='client.name', read_only=True, label='客户名称')
+    supplier_number = CharField(source='supplier.number', read_only=True, label='仕入先コード')
+    supplier_name = CharField(source='supplier.name', read_only=True, label='仕入先名')
+    client_number = CharField(source='client.number', read_only=True, label='顧客コード')
+    client_name = CharField(source='client.name', read_only=True, label='顧客名')
 
     class Meta:
         model = ChargeOrder
@@ -111,10 +111,10 @@ class ExpenditureChargeOrderDetialSerializer(BaseSerializer):
 
 
 class PurchasePaymentDetialSerializer(BaseSerializer):
-    """采购付款明细"""
+    """采购支払詳細"""
 
-    supplier_number = CharField(source='supplier.number', read_only=True, label='供应商编号')
-    supplier_name = CharField(source='supplier.name', read_only=True, label='供应商名称')
+    supplier_number = CharField(source='supplier.number', read_only=True, label='仕入先コード')
+    supplier_name = CharField(source='supplier.name', read_only=True, label='仕入先名')
 
     class Meta:
         model = PurchaseOrder
@@ -123,10 +123,10 @@ class PurchasePaymentDetialSerializer(BaseSerializer):
 
 
 class PurchaseReturnCollectionDetialSerializer(BaseSerializer):
-    """采购退货收款明细"""
+    """購買返品入金詳細"""
 
-    supplier_number = CharField(source='supplier.number', read_only=True, label='供应商编号')
-    supplier_name = CharField(source='supplier.name', read_only=True, label='供应商名称')
+    supplier_number = CharField(source='supplier.number', read_only=True, label='仕入先コード')
+    supplier_name = CharField(source='supplier.name', read_only=True, label='仕入先名')
 
     class Meta:
         model = PurchaseReturnOrder
@@ -135,10 +135,10 @@ class PurchaseReturnCollectionDetialSerializer(BaseSerializer):
 
 
 class SalesCollectionDetialSerializer(BaseSerializer):
-    """销售收款明细"""
+    """販売入金詳細"""
 
-    client_number = CharField(source='client.number', read_only=True, label='客户编号')
-    client_name = CharField(source='client.name', read_only=True, label='客户名称')
+    client_number = CharField(source='client.number', read_only=True, label='顧客コード')
+    client_name = CharField(source='client.name', read_only=True, label='顧客名')
 
     class Meta:
         model = SalesOrder
@@ -147,10 +147,10 @@ class SalesCollectionDetialSerializer(BaseSerializer):
 
 
 class SalesReturnPaymentDetialSerializer(BaseSerializer):
-    """销售退货付款明细"""
+    """销售退货支払詳細"""
 
-    client_number = CharField(source='client.number', read_only=True, label='客户编号')
-    client_name = CharField(source='client.name', read_only=True, label='客户名称')
+    client_number = CharField(source='client.number', read_only=True, label='顧客コード')
+    client_name = CharField(source='client.name', read_only=True, label='顧客名')
 
     class Meta:
         model = SalesReturnOrder

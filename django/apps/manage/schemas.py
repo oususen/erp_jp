@@ -16,9 +16,9 @@ class SuperUserInfoResponse(Serializer):
 
 
 class TeamCreateRequest(Serializer):
-    number = CharField(max_length=32, label='公司编号')
+    number = CharField(max_length=32, label='チームコード')
     expiry_time = DateTimeField(label='到期时间')
-    user_quantity = IntegerField(label='用户数量')
+    user_quantity = IntegerField(label='ユーザー数')
     username = CharField(max_length=32, label='用户名')
     password = CharField(max_length=256, label='密码')
     name = CharField(max_length=64, label='名称')

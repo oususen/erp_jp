@@ -75,7 +75,7 @@ class StockTransferOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin,
 
                 inventory.total_quantity = quantity_after
                 if inventory.total_quantity < 0:
-                    raise ValidationError(f'产品[{inventory.goods.name}]库存不足')
+                    raise ValidationError(f'商品[{inventory.goods.name}]库存不足')
                 inventory.has_stock = inventory.total_quantity > 0
                 inventory.save(update_fields=['total_quantity', 'has_stock'])
             else:
@@ -103,7 +103,7 @@ class StockTransferOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin,
 
                 inventory.total_quantity = quantity_after
                 if inventory.total_quantity < 0:
-                    raise ValidationError(f'产品[{inventory.goods.name}]库存不足')
+                    raise ValidationError(f'商品[{inventory.goods.name}]库存不足')
                 inventory.has_stock = inventory.total_quantity > 0
                 inventory.save(update_fields=['total_quantity', 'has_stock'])
             else:
@@ -134,7 +134,7 @@ class StockTransferOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin,
 
         stock_transfer_order = self.get_object()
         if stock_transfer_order.is_void:
-            raise ValidationError(f'调拨单据[{stock_transfer_order.number}]已作废, 无法再次作废')
+            raise ValidationError(f'在庫振替伝票[{stock_transfer_order.number}]は廃棄済みです、再度廃棄できません')
 
         # 同步调拨单据, 调拨产品
         stock_transfer_order.is_void = True
@@ -159,14 +159,14 @@ class StockTransferOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin,
 
                 inventory.total_quantity = quantity_after
                 if inventory.total_quantity < 0:
-                    raise ValidationError(f'产品[{inventory.goods.name}]库存不足')
+                    raise ValidationError(f'商品[{inventory.goods.name}]库存不足')
                 inventory.has_stock = inventory.total_quantity > 0
                 inventory.save(update_fields=['total_quantity', 'has_stock'])
         else:
             # 作废出库通知单据
             stock_out_order = stock_transfer_order.stock_out_order
             if stock_out_order.total_quantity != stock_out_order.remain_quantity:
-                raise ValidationError(f'调拨单据[{stock_transfer_order.number}]无法作废, 已存在出库记录')
+                raise ValidationError(f'在庫振替伝票[{stock_transfer_order.number}]は廃棄できません、出庫記録が存在します')
 
             stock_out_order.is_void = True
             stock_out_order.save(update_fields=['is_void'])
@@ -190,14 +190,14 @@ class StockTransferOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin,
 
                 inventory.total_quantity = quantity_after
                 if inventory.total_quantity < 0:
-                    raise ValidationError(f'产品[{inventory.goods.name}]库存不足')
+                    raise ValidationError(f'商品[{inventory.goods.name}]库存不足')
                 inventory.has_stock = inventory.total_quantity > 0
                 inventory.save(update_fields=['total_quantity', 'has_stock'])
         else:
             # 作废入库通知单据
             stock_in_order = stock_transfer_order.stock_in_order
             if stock_in_order.total_quantity != stock_in_order.remain_quantity:
-                raise ValidationError(f'调拨单据[{stock_transfer_order.number}]无法作废, 已存在入库记录')
+                raise ValidationError(f'在庫振替伝票[{stock_transfer_order.number}]は廃棄できません、入庫記録が存在します')
 
             stock_in_order.is_void = True
             stock_in_order.save(update_fields=['is_void'])

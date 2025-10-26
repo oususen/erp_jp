@@ -3,22 +3,22 @@ from extensions.models import *
 
 
 class SalesOrder(Model):
-    """销售单据"""
+    """販売伝票"""
 
     number = CharField(max_length=32, verbose_name='番号')
-    warehouse = ForeignKey('data.Warehouse', on_delete=PROTECT, related_name='sales_orders', verbose_name='仓库')
-    client = ForeignKey('data.Client', on_delete=PROTECT, related_name='sales_orders', verbose_name='客户')
-    handler = ForeignKey('system.User', on_delete=PROTECT, related_name='sales_orders', verbose_name='经手人')
-    handle_time = DateField(verbose_name='处理时间')
+    warehouse = ForeignKey('data.Warehouse', on_delete=PROTECT, related_name='sales_orders', verbose_name='倉庫')
+    client = ForeignKey('data.Client', on_delete=PROTECT, related_name='sales_orders', verbose_name='顧客')
+    handler = ForeignKey('system.User', on_delete=PROTECT, related_name='sales_orders', verbose_name='担当者')
+    handle_time = DateField(verbose_name='処理時間')
     remark = CharField(max_length=256, null=True, blank=True, verbose_name='備考')
-    total_quantity = FloatField(null=True, verbose_name='销售总数量')
-    discount = FloatField(default=1, verbose_name='整单折扣')
-    other_amount = AmountField(default=0, verbose_name='其他费用')
-    total_amount = AmountField(null=True, verbose_name='销售总金额')
-    collection_amount = AmountField(null=True, verbose_name='收款金额')
-    arrears_amount = AmountField(null=True, verbose_name='欠款金额')
-    is_void = BooleanField(default=False, verbose_name='作废状态')
-    enable_auto_stock_out = BooleanField(default=False, verbose_name='启用自动出库')
+    total_quantity = FloatField(null=True, verbose_name='販売総数量')
+    discount = FloatField(default=1, verbose_name='全伝票割引')
+    other_amount = AmountField(default=0, verbose_name='その他費用')
+    total_amount = AmountField(null=True, verbose_name='販売総金額')
+    collection_amount = AmountField(null=True, verbose_name='入金金額')
+    arrears_amount = AmountField(null=True, verbose_name='借入金額')
+    is_void = BooleanField(default=False, verbose_name='無効状態')
+    enable_auto_stock_out = BooleanField(default=False, verbose_name='自動出庫有効化')
     creator = ForeignKey('system.User', on_delete=PROTECT,
                          related_name='created_sales_orders', verbose_name='作成者')
     create_time = DateTimeField(auto_now_add=True, verbose_name='作成日時')
@@ -42,15 +42,15 @@ class SalesOrder(Model):
 
 
 class SalesGoods(Model):
-    """销售产品"""
+    """販売商品"""
 
     sales_order = ForeignKey('sales.SalesOrder', on_delete=CASCADE,
-                             related_name='sales_goods_set', verbose_name='销售单据')
+                             related_name='sales_goods_set', verbose_name='販売伝票')
     goods = ForeignKey('goods.Goods', on_delete=PROTECT, related_name='sales_goods_set', verbose_name='製品')
-    sales_quantity = FloatField(verbose_name='销售数量')
-    sales_price = FloatField(verbose_name='销售单价')
-    total_amount = AmountField(verbose_name='总金额')
-    return_quantity = FloatField(default=0, verbose_name='退货数量')
+    sales_quantity = FloatField(verbose_name='販売数量')
+    sales_price = FloatField(verbose_name='販売単価')
+    total_amount = AmountField(verbose_name='総金額')
+    return_quantity = FloatField(default=0, verbose_name='返品数量')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='sales_goods_set')
 
     class Meta:
@@ -58,12 +58,12 @@ class SalesGoods(Model):
 
 
 class SalesAccount(Model):
-    """销售结算账户"""
+    """販売決済口座"""
 
     sales_order = ForeignKey('sales.SalesOrder', on_delete=CASCADE,
-                             related_name='sales_accounts', verbose_name='销售单据')
-    account = ForeignKey('data.Account', on_delete=PROTECT, related_name='sales_accounts', verbose_name='決済アカウント')
-    collection_amount = AmountField(verbose_name='收款金额')
+                             related_name='sales_accounts', verbose_name='販売伝票')
+    account = ForeignKey('data.Account', on_delete=PROTECT, related_name='sales_accounts', verbose_name='決済口座')
+    collection_amount = AmountField(verbose_name='入金金額')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='sales_accounts')
 
     class Meta:
@@ -71,23 +71,23 @@ class SalesAccount(Model):
 
 
 class SalesReturnOrder(Model):
-    """销售退货单据"""
+    """販売返品伝票"""
 
     number = CharField(max_length=32, verbose_name='番号')
     sales_order = ForeignKey('sales.SalesOrder', on_delete=CASCADE, null=True,
-                             related_name='sales_return_orders', verbose_name='销售单据')
-    warehouse = ForeignKey('data.Warehouse', on_delete=PROTECT, related_name='sales_return_orders', verbose_name='仓库')
-    client = ForeignKey('data.Client', on_delete=PROTECT, related_name='sales_return_orders', verbose_name='客户')
-    handler = ForeignKey('system.User', on_delete=PROTECT, related_name='sales_return_orders', verbose_name='经手人')
-    handle_time = DateField(verbose_name='处理时间')
+                             related_name='sales_return_orders', verbose_name='販売伝票')
+    warehouse = ForeignKey('data.Warehouse', on_delete=PROTECT, related_name='sales_return_orders', verbose_name='倉庫')
+    client = ForeignKey('data.Client', on_delete=PROTECT, related_name='sales_return_orders', verbose_name='顧客')
+    handler = ForeignKey('system.User', on_delete=PROTECT, related_name='sales_return_orders', verbose_name='担当者')
+    handle_time = DateField(verbose_name='処理時間')
     remark = CharField(max_length=256, null=True, blank=True, verbose_name='備考')
-    total_quantity = FloatField(null=True, verbose_name='退货总数量')
-    other_amount = AmountField(default=0, verbose_name='其他费用')
-    total_amount = AmountField(null=True, verbose_name='退货总金额')
-    payment_amount = AmountField(null=True, verbose_name='付款金额')
-    arrears_amount = AmountField(null=True, verbose_name='欠款金额')
-    is_void = BooleanField(default=False, verbose_name='作废状态')
-    enable_auto_stock_in = BooleanField(default=False, verbose_name='启用自动入库')
+    total_quantity = FloatField(null=True, verbose_name='返品総数量')
+    other_amount = AmountField(default=0, verbose_name='その他費用')
+    total_amount = AmountField(null=True, verbose_name='返品総金額')
+    payment_amount = AmountField(null=True, verbose_name='支払金額')
+    arrears_amount = AmountField(null=True, verbose_name='借入金額')
+    is_void = BooleanField(default=False, verbose_name='無効状態')
+    enable_auto_stock_in = BooleanField(default=False, verbose_name='自動入庫有効化')
     creator = ForeignKey('system.User', on_delete=PROTECT,
                          related_name='created_sales_return_orders', verbose_name='作成者')
     create_time = DateTimeField(auto_now_add=True, verbose_name='作成日時')
@@ -111,16 +111,16 @@ class SalesReturnOrder(Model):
 
 
 class SalesReturnGoods(Model):
-    """销售退货产品"""
+    """販売返品商品"""
 
     sales_return_order = ForeignKey('sales.SalesReturnOrder', on_delete=CASCADE,
-                                    related_name='sales_return_goods_set', verbose_name='销售退货单据')
+                                    related_name='sales_return_goods_set', verbose_name='販売返品伝票')
     sales_goods = ForeignKey('sales.SalesGoods', on_delete=CASCADE, null=True,
-                             related_name='sales_return_goods_set', verbose_name='销售产品')
+                             related_name='sales_return_goods_set', verbose_name='販売商品')
     goods = ForeignKey('goods.Goods', on_delete=PROTECT, related_name='sales_return_goods_set', verbose_name='製品')
-    return_quantity = FloatField(verbose_name='退货数量')
-    return_price = FloatField(verbose_name='退货单价')
-    total_amount = AmountField(verbose_name='总金额')
+    return_quantity = FloatField(verbose_name='返品数量')
+    return_price = FloatField(verbose_name='返品単価')
+    total_amount = AmountField(verbose_name='総金額')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='sales_return_goods_set')
 
     class Meta:
@@ -128,12 +128,12 @@ class SalesReturnGoods(Model):
 
 
 class SalesReturnAccount(Model):
-    """销售退货结算账户"""
+    """販売返品決済口座"""
 
     sales_return_order = ForeignKey('sales.SalesReturnOrder', on_delete=CASCADE,
-                                    related_name='sales_return_accounts', verbose_name='销售退货单据')
-    account = ForeignKey('data.Account', on_delete=PROTECT, related_name='sales_return_accounts', verbose_name='決済アカウント')
-    payment_amount = AmountField(verbose_name='付款金额')
+                                    related_name='sales_return_accounts', verbose_name='販売返品伝票')
+    account = ForeignKey('data.Account', on_delete=PROTECT, related_name='sales_return_accounts', verbose_name='決済口座')
+    payment_amount = AmountField(verbose_name='支払金額')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='sales_return_accounts')
 
     class Meta:

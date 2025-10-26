@@ -6,10 +6,10 @@ from apps.stock_out.models import *
 
 
 class StockInOrderReminderSerializer(BaseSerializer):
-    """入库任务提醒"""
+    """入庫タスク通知"""
 
-    warehouse_number = CharField(source='warehouse.number', read_only=True, label='仓库编号')
-    warehouse_name = CharField(source='warehouse.name', read_only=True, label='仓库名称')
+    warehouse_number = CharField(source='warehouse.number', read_only=True, label='倉庫コード')
+    warehouse_name = CharField(source='warehouse.name', read_only=True, label='倉庫名')
 
     class Meta:
         model = StockInOrder
@@ -18,10 +18,10 @@ class StockInOrderReminderSerializer(BaseSerializer):
 
 
 class StockOutOrderReminderSerializer(BaseSerializer):
-    """出库任务提醒"""
+    """出庫タスク通知"""
 
-    warehouse_number = CharField(source='warehouse.number', read_only=True, label='仓库编号')
-    warehouse_name = CharField(source='warehouse.name', read_only=True, label='仓库名称')
+    warehouse_number = CharField(source='warehouse.number', read_only=True, label='倉庫コード')
+    warehouse_name = CharField(source='warehouse.name', read_only=True, label='倉庫名')
 
     class Meta:
         model = StockOutOrder

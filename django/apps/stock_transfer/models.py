@@ -7,17 +7,17 @@ class StockTransferOrder(Model):
 
     number = CharField(max_length=32, verbose_name='番号')
     out_warehouse = ForeignKey('data.Warehouse', on_delete=PROTECT,
-                                        related_name='out_stock_transfer_orders', verbose_name='出库仓库')
+                                        related_name='out_stock_transfer_orders', verbose_name='出庫倉庫')
     in_warehouse = ForeignKey('data.Warehouse', on_delete=PROTECT,
-                                       related_name='in_stock_transfer_orders', verbose_name='入库仓库')
+                                       related_name='in_stock_transfer_orders', verbose_name='入庫倉庫')
     handler = ForeignKey('system.User', on_delete=PROTECT,
-                         related_name='stock_transfer_orders', verbose_name='经手人')
-    handle_time = DateField(verbose_name='处理时间')
+                         related_name='stock_transfer_orders', verbose_name='担当者')
+    handle_time = DateField(verbose_name='処理時間')
     remark = CharField(max_length=256, null=True, blank=True, verbose_name='備考')
-    total_quantity = FloatField(null=True, verbose_name='调拨总数量')
-    is_void = BooleanField(default=False, verbose_name='作废状态')
-    enable_auto_stock_out = BooleanField(default=False, verbose_name='启用自动出库')
-    enable_auto_stock_in = BooleanField(default=False, verbose_name='启用自动入库')
+    total_quantity = FloatField(null=True, verbose_name='振替総数量')
+    is_void = BooleanField(default=False, verbose_name='無効状態')
+    enable_auto_stock_out = BooleanField(default=False, verbose_name='自動出庫を有効化')
+    enable_auto_stock_in = BooleanField(default=False, verbose_name='自動入庫を有効化')
     creator = ForeignKey('system.User', on_delete=PROTECT,
                          related_name='created_stock_transfer_orders', verbose_name='作成者')
     create_time = DateTimeField(auto_now_add=True, verbose_name='作成日時')
@@ -44,10 +44,10 @@ class StockTransferGoods(Model):
     """调拨产品"""
 
     stock_transfer_order = ForeignKey('stock_transfer.StockTransferOrder', on_delete=CASCADE,
-                                      related_name='stock_transfer_goods_set', verbose_name='采购单据')
+                                      related_name='stock_transfer_goods_set', verbose_name='在庫振替伝票')
     goods = ForeignKey('goods.Goods', on_delete=PROTECT,
                        related_name='stock_transfer_goods_set', verbose_name='製品')
-    stock_transfer_quantity = FloatField(verbose_name='调拨数量')
+    stock_transfer_quantity = FloatField(verbose_name='振替数量')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='stock_transfer_goods_set')
 
     class Meta:

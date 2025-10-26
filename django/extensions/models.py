@@ -9,7 +9,7 @@ from django.db import connection
 
 
 class AmountField(DecimalField):
-    """金额字段"""
+    """金額フィールド"""
 
     def __init__(self, verbose_name=None, name=None, **kwargs):
         kwargs['max_digits'], kwargs['decimal_places'] = 16, 2

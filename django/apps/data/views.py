@@ -13,7 +13,7 @@ from apps.system.models import *
 
 
 class WarehouseViewSet(ModelViewSet, ExportMixin, ImportMixin):
-    """仓库"""
+    """倉庫"""
 
     serializer_class = WarehouseSerializer
     permission_classes = [IsAuthenticated, WarehousePermission]
@@ -28,14 +28,14 @@ class WarehouseViewSet(ModelViewSet, ExportMixin, ImportMixin):
     def perform_create(self, serializer):
         warehouse = serializer.save()
 
-        # 同步库存
+        # 在庫同期
         Inventory.objects.bulk_create([Inventory(warehouse=warehouse, goods=goods, team=self.team)
                                        for goods in Goods.objects.filter(team=self.team)])
 
     @extend_schema(responses={200: NumberResponse})
     @action(detail=False, methods=['get'])
     def number(self, request, *args, **kwargs):
-        """获取编号"""
+        """番号取得"""
 
         number = Warehouse.get_number(self.team)
         return Response(data={'number': number}, status=status.HTTP_200_OK)
@@ -43,14 +43,14 @@ class WarehouseViewSet(ModelViewSet, ExportMixin, ImportMixin):
     @extend_schema(responses={200: DownloadResponse})
     @action(detail=False, methods=['get'])
     def export(self, request, *args, **kwargs):
-        """导出"""
+        """エクスポート"""
 
         return self.get_export_response(WarehouseImportExportSerializer)
 
     @extend_schema(responses={200: DownloadResponse})
     @action(detail=False, methods=['get'])
     def import_template(self, request, *args, **kwargs):
-        """导入模板"""
+        """インポートテンプレート"""
 
         return self.get_template_response(WarehouseImportExportSerializer)
 
@@ -58,7 +58,7 @@ class WarehouseViewSet(ModelViewSet, ExportMixin, ImportMixin):
     @action(detail=False, methods=['post'])
     @transaction.atomic
     def import_data(self, request, *args, **kwargs):
-        """导入数据"""
+        """データインポート"""
 
         request_serializer = UploadRequest(data=request.data)
         request_serializer.is_valid(raise_exception=True)
@@ -66,7 +66,7 @@ class WarehouseViewSet(ModelViewSet, ExportMixin, ImportMixin):
 
         import_serializer = self.load_data(validated_data['file'], WarehouseImportExportSerializer)
         if not import_serializer.is_valid(raise_exception=False):
-            raise ValidationError('数据错误')
+            raise ValidationError('データエラー')
 
         warehouse_items = import_serializer.validated_data
 
@@ -88,7 +88,7 @@ class WarehouseViewSet(ModelViewSet, ExportMixin, ImportMixin):
                         warehouse_item['manager'] = manager
                         break
                 else:
-                    raise ValidationError(f'管理员缺失[{manager_item["name"]}]')
+                    raise ValidationError(f'管理者が存在しません[{manager_item["name"]}]')
 
             for warehouse in warehouse_set:
                 if warehouse.number == warehouse_item['number']:
@@ -104,7 +104,7 @@ class WarehouseViewSet(ModelViewSet, ExportMixin, ImportMixin):
                 Warehouse.objects.bulk_update(update_warehouse_set,
                                               WarehouseImportExportSerializer.Meta.fields)
             except IntegrityError:
-                raise ValidationError('编号, 名称重复')
+                raise ValidationError('番号、名称が重複しています')
 
         new_warehouse_numbers = [instance.number for instance in create_warehouse_set]
         new_warehouse_set = Warehouse.objects.filter(number__in=new_warehouse_numbers, team=self.team)
@@ -117,7 +117,7 @@ class WarehouseViewSet(ModelViewSet, ExportMixin, ImportMixin):
 
 
 class ClientViewSet(ModelViewSet, ExportMixin, ImportMixin):
-    """客户"""
+    """顧客"""
 
     serializer_class = ClientSerializer
     permission_classes = [IsAuthenticated, ClientPermission]
@@ -130,7 +130,7 @@ class ClientViewSet(ModelViewSet, ExportMixin, ImportMixin):
     @extend_schema(responses={200: NumberResponse})
     @action(detail=False, methods=['get'])
     def number(self, request, *args, **kwargs):
-        """获取编号"""
+        """番号取得"""
 
         number = Client.get_number(self.team)
         return Response(data={'number': number}, status=status.HTTP_200_OK)
@@ -138,14 +138,14 @@ class ClientViewSet(ModelViewSet, ExportMixin, ImportMixin):
     @extend_schema(responses={200: DownloadResponse})
     @action(detail=False, methods=['get'])
     def export(self, request, *args, **kwargs):
-        """导出"""
+        """エクスポート"""
 
         return self.get_export_response(ClientImportExportSerializer)
 
     @extend_schema(responses={200: DownloadResponse})
     @action(detail=False, methods=['get'])
     def import_template(self, request, *args, **kwargs):
-        """导入模板"""
+        """インポートテンプレート"""
 
         return self.get_template_response(ClientImportExportSerializer)
 
@@ -153,7 +153,7 @@ class ClientViewSet(ModelViewSet, ExportMixin, ImportMixin):
     @action(detail=False, methods=['post'])
     @transaction.atomic
     def import_data(self, request, *args, **kwargs):
-        """导入数据"""
+        """データインポート"""
 
         request_serializer = UploadRequest(data=request.data)
         request_serializer.is_valid(raise_exception=True)
@@ -161,7 +161,7 @@ class ClientViewSet(ModelViewSet, ExportMixin, ImportMixin):
 
         import_serializer = self.load_data(validated_data['file'], ClientImportExportSerializer)
         if not import_serializer.is_valid(raise_exception=False):
-            raise ValidationError('数据错误')
+            raise ValidationError('データエラー')
 
         client_items = import_serializer.validated_data
         client_numbers = {item['number'] for item in client_items}
@@ -186,13 +186,13 @@ class ClientViewSet(ModelViewSet, ExportMixin, ImportMixin):
                 Client.objects.bulk_update(update_client_set,
                                            ClientImportExportSerializer.Meta.fields)
             except IntegrityError:
-                raise ValidationError('编号, 名称重复')
+                raise ValidationError('番号、名称が重複しています')
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class SupplierViewSet(ModelViewSet, ExportMixin, ImportMixin):
-    """供应商"""
+    """仕入先"""
 
     serializer_class = SupplierSerializer
     permission_classes = [IsAuthenticated, SupplierPermission]
@@ -205,7 +205,7 @@ class SupplierViewSet(ModelViewSet, ExportMixin, ImportMixin):
     @extend_schema(responses={200: NumberResponse})
     @action(detail=False, methods=['get'])
     def number(self, request, *args, **kwargs):
-        """获取编号"""
+        """番号取得"""
 
         number = Supplier.get_number(self.team)
         return Response(data={'number': number}, status=status.HTTP_200_OK)
@@ -213,14 +213,14 @@ class SupplierViewSet(ModelViewSet, ExportMixin, ImportMixin):
     @extend_schema(responses={200: DownloadResponse})
     @action(detail=False, methods=['get'])
     def export(self, request, *args, **kwargs):
-        """导出"""
+        """エクスポート"""
 
         return self.get_export_response(SupplierImportExportSerializer)
 
     @extend_schema(responses={200: DownloadResponse})
     @action(detail=False, methods=['get'])
     def import_template(self, request, *args, **kwargs):
-        """导入模板"""
+        """インポートテンプレート"""
 
         return self.get_template_response(SupplierImportExportSerializer)
 
@@ -228,7 +228,7 @@ class SupplierViewSet(ModelViewSet, ExportMixin, ImportMixin):
     @action(detail=False, methods=['post'])
     @transaction.atomic
     def import_data(self, request, *args, **kwargs):
-        """导入数据"""
+        """データインポート"""
 
         request_serializer = UploadRequest(data=request.data)
         request_serializer.is_valid(raise_exception=True)
@@ -236,7 +236,7 @@ class SupplierViewSet(ModelViewSet, ExportMixin, ImportMixin):
 
         import_serializer = self.load_data(validated_data['file'], SupplierImportExportSerializer)
         if not import_serializer.is_valid(raise_exception=False):
-            raise ValidationError('数据错误')
+            raise ValidationError('データエラー')
 
         supplier_items = import_serializer.validated_data
         supplier_numbers = {item['number'] for item in supplier_items}
@@ -261,13 +261,13 @@ class SupplierViewSet(ModelViewSet, ExportMixin, ImportMixin):
                 Supplier.objects.bulk_update(update_supplier_set,
                                              SupplierImportExportSerializer.Meta.fields)
             except IntegrityError:
-                raise ValidationError('编号, 名称重复')
+                raise ValidationError('番号、名称が重複しています')
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class AccountViewSet(ModelViewSet, ExportMixin, ImportMixin):
-    """结算账户"""
+    """決済口座"""
 
     serializer_class = AccountSerializer
     permission_classes = [IsAuthenticated, AccountPermission]
@@ -280,7 +280,7 @@ class AccountViewSet(ModelViewSet, ExportMixin, ImportMixin):
     @extend_schema(responses={200: NumberResponse})
     @action(detail=False, methods=['get'])
     def number(self, request, *args, **kwargs):
-        """获取编号"""
+        """番号取得"""
 
         number = Account.get_number(self.team)
         return Response(data={'number': number}, status=status.HTTP_200_OK)
@@ -288,14 +288,14 @@ class AccountViewSet(ModelViewSet, ExportMixin, ImportMixin):
     @extend_schema(responses={200: DownloadResponse})
     @action(detail=False, methods=['get'])
     def export(self, request, *args, **kwargs):
-        """导出"""
+        """エクスポート"""
 
         return self.get_export_response(AccountImportExportSerializer)
 
     @extend_schema(responses={200: DownloadResponse})
     @action(detail=False, methods=['get'])
     def import_template(self, request, *args, **kwargs):
-        """导入模板"""
+        """インポートテンプレート"""
 
         return self.get_template_response(AccountImportExportSerializer)
 
@@ -303,7 +303,7 @@ class AccountViewSet(ModelViewSet, ExportMixin, ImportMixin):
     @action(detail=False, methods=['post'])
     @transaction.atomic
     def import_data(self, request, *args, **kwargs):
-        """导入数据"""
+        """データインポート"""
 
         request_serializer = UploadRequest(data=request.data)
         request_serializer.is_valid(raise_exception=True)
@@ -311,7 +311,7 @@ class AccountViewSet(ModelViewSet, ExportMixin, ImportMixin):
 
         import_serializer = self.load_data(validated_data['file'], AccountImportExportSerializer)
         if not import_serializer.is_valid(raise_exception=False):
-            raise ValidationError('数据错误')
+            raise ValidationError('データエラー')
 
         account_items = import_serializer.validated_data
         account_numbers = {item['number'] for item in account_items}
@@ -336,13 +336,13 @@ class AccountViewSet(ModelViewSet, ExportMixin, ImportMixin):
                 Account.objects.bulk_update(update_account_set,
                                             AccountImportExportSerializer.Meta.fields)
             except IntegrityError:
-                raise ValidationError('编号, 名称重复')
+                raise ValidationError('番号、名称が重複しています')
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class ChargeItemViewSet(ModelViewSet, ExportMixin, ImportMixin):
-    """收支项目"""
+    """収支項目"""
 
     serializer_class = ChargeItemSerializer
     permission_classes = [IsAuthenticated, ChargeItemPermission]
@@ -354,14 +354,14 @@ class ChargeItemViewSet(ModelViewSet, ExportMixin, ImportMixin):
     @extend_schema(responses={200: DownloadResponse})
     @action(detail=False, methods=['get'])
     def export(self, request, *args, **kwargs):
-        """导出"""
+        """エクスポート"""
 
         return self.get_export_response(ChargeItemImportExportSerializer)
 
     @extend_schema(responses={200: DownloadResponse})
     @action(detail=False, methods=['get'])
     def import_template(self, request, *args, **kwargs):
-        """导入模板"""
+        """インポートテンプレート"""
 
         return self.get_template_response(ChargeItemImportExportSerializer)
 
@@ -369,7 +369,7 @@ class ChargeItemViewSet(ModelViewSet, ExportMixin, ImportMixin):
     @action(detail=False, methods=['post'])
     @transaction.atomic
     def import_data(self, request, *args, **kwargs):
-        """导入数据"""
+        """データインポート"""
 
         request_serializer = UploadRequest(data=request.data)
         request_serializer.is_valid(raise_exception=True)
@@ -377,7 +377,7 @@ class ChargeItemViewSet(ModelViewSet, ExportMixin, ImportMixin):
 
         import_serializer = self.load_data(validated_data['file'], ChargeItemImportExportSerializer)
         if not import_serializer.is_valid(raise_exception=False):
-            raise ValidationError('数据错误')
+            raise ValidationError('データエラー')
 
         charge_item_items = import_serializer.validated_data
         charge_item_names = {item['name'] for item in charge_item_items}
@@ -402,7 +402,7 @@ class ChargeItemViewSet(ModelViewSet, ExportMixin, ImportMixin):
                 ChargeItem.objects.bulk_update(update_charge_item_set,
                                                ChargeItemImportExportSerializer.Meta.fields)
             except IntegrityError:
-                raise ValidationError('名称重复')
+                raise ValidationError('名称が重複しています')
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 

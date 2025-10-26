@@ -14,7 +14,7 @@ from apps.flow.models import *
 
 
 class StockCheckOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin):
-    """盘点单据"""
+    """棚卸伝票"""
 
     serializer_class = StockCheckOrderSerializer
     permission_classes = [IsAuthenticated, StockCheckPermission]
@@ -38,7 +38,7 @@ class StockCheckOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Cr
         for stock_check_goods in stock_check_order.stock_check_goods_set.all():
             goods = stock_check_goods.goods
 
-            # 同步库存, 流水
+            # 在庫、推移を同期
             inventory = Inventory.objects.get(warehouse=warehouse, goods=goods, team=self.team)
             quantity_before = inventory.total_quantity
             quantity_change = stock_check_goods.surplus_quantity
@@ -53,11 +53,11 @@ class StockCheckOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Cr
 
             inventory.total_quantity = quantity_after
             if inventory.total_quantity < 0:
-                raise ValidationError(f'产品[{inventory.goods.name}]库存不足')
+                raise ValidationError(f'商品[{inventory.goods.name}]の在庫が不足しています')
             inventory.has_stock = inventory.total_quantity > 0
             update_inventories.append(inventory)
 
-            # 同步批次
+            # ロットを同期
             if goods.enable_batch_control:
                 for stock_check_batch in stock_check_goods.stock_check_batchs.all():
                     batch = Batch.objects.get(number=stock_check_batch.batch_number, warehouse=warehouse,
@@ -73,7 +73,7 @@ class StockCheckOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Cr
     @extend_schema(responses={200: NumberResponse})
     @action(detail=False, methods=['get'])
     def number(self, request, *args, **kwargs):
-        """获取编号"""
+        """番号を取得"""
 
         number = StockCheckOrder.get_number(self.team)
         return Response(data={'number': number}, status=status.HTTP_200_OK)
@@ -82,13 +82,13 @@ class StockCheckOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Cr
     @extend_schema(request=None, responses={200: StockCheckOrderSerializer})
     @action(detail=True, methods=['post'])
     def void(self, request, *args, **kwargs):
-        """作废"""
+        """無効化"""
 
         stock_check_order = self.get_object()
         warehouse = stock_check_order.warehouse
-        
+
         if stock_check_order.is_void:
-            raise ValidationError(f'盘点单据[{stock_check_order.number}]已作废, 无法再次作废')
+            raise ValidationError(f'棚卸伝票[{stock_check_order.number}]はすでに無効化されています。再度無効化できません')
         stock_check_order.is_void = True
         stock_check_order.save(update_fields=['is_void'])
 
@@ -98,7 +98,7 @@ class StockCheckOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Cr
         for stock_check_goods in stock_check_order.stock_check_goods_set.all():
             goods = stock_check_goods.goods
 
-            # 同步库存, 流水
+            # 在庫、推移を同期
             inventory = Inventory.objects.get(warehouse=warehouse, goods=goods, team=self.team)
             quantity_before = inventory.total_quantity
             quantity_change = -stock_check_goods.surplus_quantity
@@ -113,11 +113,11 @@ class StockCheckOrderViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin, Cr
 
             inventory.total_quantity = quantity_after
             if inventory.total_quantity < 0:
-                raise ValidationError(f'产品[{inventory.goods.name}]库存不足')
+                raise ValidationError(f'商品[{inventory.goods.name}]の在庫が不足しています')
             inventory.has_stock = inventory.total_quantity > 0
             update_inventories.append(inventory)
 
-            # 同步批次
+            # ロットを同期
             if goods.enable_batch_control:
                 for stock_check_batch in stock_check_goods.stock_check_batchs.all():
                     batch = stock_check_batch.batch

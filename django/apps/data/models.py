@@ -3,16 +3,16 @@ from extensions.models import *
 
 
 class Warehouse(Model):
-    """仓库"""
+    """倉庫"""
 
     number = CharField(max_length=32, verbose_name='番号')
     name = CharField(max_length=64, verbose_name='名称')
     manager = ForeignKey('system.User', on_delete=CASCADE, null=True,
-                         related_name='warehouses', verbose_name='管理员')
-    phone = CharField(max_length=32, null=True, blank=True, verbose_name='电话')
-    address = CharField(max_length=256, null=True, blank=True, verbose_name='地址')
+                         related_name='warehouses', verbose_name='管理者')
+    phone = CharField(max_length=32, null=True, blank=True, verbose_name='電話')
+    address = CharField(max_length=256, null=True, blank=True, verbose_name='住所')
     remark = CharField(max_length=256, null=True, blank=True, verbose_name='備考')
-    is_active = BooleanField(default=True, verbose_name='激活状态')
+    is_active = BooleanField(default=True, verbose_name='有効状態')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='warehouses')
 
     class Meta:
@@ -40,28 +40,28 @@ class Warehouse(Model):
 
 
 class Client(Model):
-    """客户"""
+    """顧客"""
 
     class Level(TextChoices):
-        """等级"""
+        """等級"""
 
-        LEVEL0 = ('0', '普通客户')
-        LEVEL1 = ('1', '一级客户')
-        LEVEL2 = ('2', '二级客户')
-        LEVEL3 = ('3', '三级客户')
+        LEVEL0 = ('0', '通常顧客')
+        LEVEL1 = ('1', '一級顧客')
+        LEVEL2 = ('2', '二級顧客')
+        LEVEL3 = ('3', '三級顧客')
 
     number = CharField(max_length=32, verbose_name='番号')
     name = CharField(max_length=64, verbose_name='名称')
-    level = CharField(max_length=32, choices=Level.choices, default=Level.LEVEL0, verbose_name='等级')
-    contact = CharField(max_length=64, null=True, blank=True, verbose_name='联系人')
-    phone = CharField(max_length=32, null=True, blank=True, verbose_name='手机号')
-    email = CharField(max_length=256, null=True, blank=True, verbose_name='邮箱')
-    address = CharField(max_length=256, null=True, blank=True, verbose_name='地址')
+    level = CharField(max_length=32, choices=Level.choices, default=Level.LEVEL0, verbose_name='等級')
+    contact = CharField(max_length=64, null=True, blank=True, verbose_name='連絡先')
+    phone = CharField(max_length=32, null=True, blank=True, verbose_name='携帯番号')
+    email = CharField(max_length=256, null=True, blank=True, verbose_name='メールアドレス')
+    address = CharField(max_length=256, null=True, blank=True, verbose_name='住所')
     remark = CharField(max_length=256, null=True, blank=True, verbose_name='備考')
-    is_active = BooleanField(default=True, verbose_name='激活状态')
-    initial_arrears_amount = AmountField(default=0, verbose_name='初期欠款金额')
-    arrears_amount = AmountField(default=0, verbose_name='欠款金额')
-    has_arrears = BooleanField(default=False, verbose_name='欠款状态')
+    is_active = BooleanField(default=True, verbose_name='有効状態')
+    initial_arrears_amount = AmountField(default=0, verbose_name='初期未払金額')
+    arrears_amount = AmountField(default=0, verbose_name='未払金額')
+    has_arrears = BooleanField(default=False, verbose_name='未払い状況')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='clients')
 
     class Meta:
@@ -89,21 +89,21 @@ class Client(Model):
 
 
 class Supplier(Model):
-    """供应商"""
+    """仕入先"""
 
     number = CharField(max_length=32, verbose_name='番号')
     name = CharField(max_length=64, verbose_name='名称')
-    contact = CharField(max_length=64, null=True, blank=True, verbose_name='联系人')
-    phone = CharField(max_length=32, null=True, blank=True, verbose_name='手机号')
-    email = CharField(max_length=256, null=True, blank=True, verbose_name='邮箱')
-    address = CharField(max_length=256, null=True, blank=True, verbose_name='地址')
-    bank_account = CharField(max_length=64, null=True, blank=True, verbose_name='银行账户')
-    bank_name = CharField(max_length=64, null=True, blank=True, verbose_name='开户行')
+    contact = CharField(max_length=64, null=True, blank=True, verbose_name='連絡先')
+    phone = CharField(max_length=32, null=True, blank=True, verbose_name='携帯番号')
+    email = CharField(max_length=256, null=True, blank=True, verbose_name='メールアドレス')
+    address = CharField(max_length=256, null=True, blank=True, verbose_name='住所')
+    bank_account = CharField(max_length=64, null=True, blank=True, verbose_name='銀行口座')
+    bank_name = CharField(max_length=64, null=True, blank=True, verbose_name='取引銀行')
     remark = CharField(max_length=256, null=True, blank=True, verbose_name='備考')
-    is_active = BooleanField(default=True, verbose_name='激活状态')
-    initial_arrears_amount = AmountField(default=0, verbose_name='初期欠款金额')
-    arrears_amount = AmountField(default=0, verbose_name='欠款金额')
-    has_arrears = BooleanField(default=False, verbose_name='欠款状态')
+    is_active = BooleanField(default=True, verbose_name='有効状態')
+    initial_arrears_amount = AmountField(default=0, verbose_name='初期未払金額')
+    arrears_amount = AmountField(default=0, verbose_name='未払金額')
+    has_arrears = BooleanField(default=False, verbose_name='未払い状況')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='suppliers')
 
     class Meta:
@@ -131,27 +131,27 @@ class Supplier(Model):
 
 
 class Account(Model):
-    """结算账户"""
+    """決済口座"""
 
     class Type(TextChoices):
-        """账户类型"""
+        """口座タイプ"""
 
-        CASH = ('cash', '现金')
-        ALIPAY = ('alipay', '支付宝')
-        WECHAT = ('wechat', '微信')
-        BANK_ACCOUNT = ('bank_account', '银行账户')
-        OTHER = ('other', '其他')
+        CASH = ('cash', '現金')
+        ALIPAY = ('alipay', 'Alipay')
+        WECHAT = ('wechat', 'WeChat')
+        BANK_ACCOUNT = ('bank_account', '銀行口座')
+        OTHER = ('other', 'その他')
 
     number = CharField(max_length=32, verbose_name='番号')
     name = CharField(max_length=64, verbose_name='名称')
-    type = CharField(max_length=32, choices=Type.choices, default=Type.CASH, verbose_name='账户类型')
-    holder = CharField(max_length=64, null=True, blank=True, verbose_name='开户人')
-    card_number = CharField(max_length=64, null=True, blank=True, verbose_name='开户账号')
+    type = CharField(max_length=32, choices=Type.choices, default=Type.CASH, verbose_name='口座タイプ')
+    holder = CharField(max_length=64, null=True, blank=True, verbose_name='口座名義人')
+    card_number = CharField(max_length=64, null=True, blank=True, verbose_name='口座番号')
     remark = CharField(max_length=256, null=True, blank=True, verbose_name='備考')
-    is_active = BooleanField(default=True, verbose_name='激活状态')
-    initial_balance_amount = AmountField(default=0, verbose_name='初期余额')
-    balance_amount = AmountField(default=0, verbose_name='余额')
-    has_balance = BooleanField(default=False, verbose_name='余额状态')
+    is_active = BooleanField(default=True, verbose_name='有効状態')
+    initial_balance_amount = AmountField(default=0, verbose_name='初期残高')
+    balance_amount = AmountField(default=0, verbose_name='残高')
+    has_balance = BooleanField(default=False, verbose_name='残高状態')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='accounts')
 
     class Meta:
@@ -179,16 +179,16 @@ class Account(Model):
 
 
 class ChargeItem(Model):
-    """收支项目"""
+    """収支項目"""
 
     class Type(TextChoices):
-        """收支类型"""
+        """収支タイプ"""
 
-        INCOME = ('income', '收入')
+        INCOME = ('income', '収入')
         EXPENDITURE = ('expenditure', '支出')
 
     name = CharField(max_length=64, verbose_name='名称')
-    type = CharField(max_length=32, choices=Type.choices, verbose_name='收支类型')
+    type = CharField(max_length=32, choices=Type.choices, verbose_name='収支タイプ')
     remark = CharField(max_length=256, null=True, blank=True, verbose_name='備考')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='charge_items')
 

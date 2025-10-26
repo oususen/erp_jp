@@ -4,8 +4,8 @@ from apps.sales.models import *
 
 
 class SalesOrderFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='終了日')
 
     class Meta:
         model = SalesOrder
@@ -14,8 +14,8 @@ class SalesOrderFilter(FilterSet):
 
 
 class SalesReturnOrderFilter(FilterSet):
-    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='开始日期')
-    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='结束日期')
+    start_date = DateFilter(field_name='create_time', lookup_expr='gte', label='開始日')
+    end_date = DateFilter(field_name='create_time', lookup_expr='lt', label='終了日')
 
     class Meta:
         model = SalesReturnOrder

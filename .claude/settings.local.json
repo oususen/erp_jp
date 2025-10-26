@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(for dir in stock_in stock_out stock_check stock_transfer finance flow production statistic manage message option)",
+      "Bash(do echo \"=== $dir ===\")",
+      "Bash(find:*)",
+      "Bash(done)",
+      "Bash(for file in serializers.py filters.py schemas.py)",
+      "Bash(do:*)",
+      "Bash(grep:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

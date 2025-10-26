@@ -10,23 +10,23 @@ class ProductionOrderSerializer(BaseSerializer):
     """生产单据"""
 
     class SalesGoodsItemSerializer(ModelSerializer):
-        goods_number = CharField(source='goods.number', read_only=True, label='产品编号')
-        goods_name = CharField(source='goods.name', read_only=True, label='产品名称')
-        goods_barcode = CharField(source='goods.barcode', read_only=True, label='产品条码')
-        unit_name = CharField(source='goods.unit.name', read_only=True, label='单位名称')
+        goods_number = CharField(source='goods.number', read_only=True, label='商品コード')
+        goods_name = CharField(source='goods.name', read_only=True, label='商品名')
+        goods_barcode = CharField(source='goods.barcode', read_only=True, label='商品バーコード')
+        unit_name = CharField(source='goods.unit.name', read_only=True, label='単位名')
 
         class Meta:
             model = SalesGoods
             fields = ['id', 'goods', 'goods_number', 'goods_name', 'goods_barcode', 'sales_quantity',
                       'sales_price', 'total_amount', 'return_quantity', 'unit_name']
 
-    sales_order_number = CharField(source='sales_order.number', read_only=True, label='销售单号')
+    sales_order_number = CharField(source='sales_order.number', read_only=True, label='販売伝票番号')
     sales_goods_items = SalesGoodsItemSerializer(
-        source='sales_order.sales_goods_set', many=True, read_only=True, label='销售产品Item')
-    goods_number = CharField(source='goods.number', read_only=True, label='产品编号')
-    goods_name = CharField(source='goods.name', read_only=True, label='产品名称')
-    status_display = CharField(source='get_status_display', read_only=True, label='状态')
-    creator_name = CharField(source='creator.name', read_only=True, label='创建人名称')
+        source='sales_order.sales_goods_set', many=True, read_only=True, label='販売商品Item')
+    goods_number = CharField(source='goods.number', read_only=True, label='商品コード')
+    goods_name = CharField(source='goods.name', read_only=True, label='商品名')
+    status_display = CharField(source='get_status_display', read_only=True, label='ステータス')
+    creator_name = CharField(source='creator.name', read_only=True, label='作成者名')
 
     class Meta:
         model = ProductionOrder
@@ -41,21 +41,21 @@ class ProductionOrderSerializer(BaseSerializer):
         return value
 
     def validate_sales_order(self, instance):
-        instance = self.validate_foreign_key(SalesOrder, instance, message='销售单不存在')
+        instance = self.validate_foreign_key(SalesOrder, instance, message='販売伝票が存在しません')
         return instance
 
     def validate_goods(self, instance):
-        instance = self.validate_foreign_key(Goods, instance, message='产品不存在')
+        instance = self.validate_foreign_key(Goods, instance, message='商品が存在しません')
         return instance
 
     def validate_total_quantity(self, value):
         if value <= 0:
-            raise ValidationError('生产数量小于等于零')
+            raise ValidationError('生産数量がゼロ以下です')
         return value
 
     def validate(self, attrs):
         if attrs['is_related'] and not attrs['sales_order']:
-            raise ValidationError('未关联销售单')
+            raise ValidationError('販売伝票が関連付けられていません')
         return super().validate(attrs)
 
     def create(self, validated_data):
@@ -72,9 +72,9 @@ class ProductionRecordSerializer(BaseSerializer):
     """生产记录"""
 
     production_order_number = CharField(source='production_order.number', read_only=True, label='生产单号')
-    goods_number = CharField(source='goods.number', read_only=True, label='产品编号')
-    goods_name = CharField(source='goods.name', read_only=True, label='产品名称')
-    creator_name = CharField(source='creator.name', read_only=True, label='创建人名称')
+    goods_number = CharField(source='goods.number', read_only=True, label='商品コード')
+    goods_name = CharField(source='goods.name', read_only=True, label='商品名')
+    creator_name = CharField(source='creator.name', read_only=True, label='作成者名')
 
     class Meta:
         model = ProductionRecord
@@ -85,12 +85,12 @@ class ProductionRecordSerializer(BaseSerializer):
     def validate_production_order(self, instance):
         instance = self.validate_foreign_key(ProductionOrder, instance, message='生产单不存在')
         if instance.status != ProductionOrder.Status.IN_PROGRESS:
-            raise ValidationError(f'工单{instance.number}{instance.get_status_display()}, 无法创建')
+            raise ValidationError(f'作業指示書{instance.number}{instance.get_status_display()}、作成できません')
         return instance
 
     def validate_production_quantity(self, value):
         if value <= 0:
-            raise ValidationError('生产数量小于等于零')
+            raise ValidationError('生産数量がゼロ以下です')
         return value
 
     def create(self, validated_data):
