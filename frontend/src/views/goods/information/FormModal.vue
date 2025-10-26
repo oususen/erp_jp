@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-modal v-model="visible" width="750px" :confirmLoading="loading" :maskClosable="false" @cancel="cancel" @ok="confirm">
-      <div slot="title">{{form.id ? '编辑产品信息' : '新增产品信息' }}</div>
+      <div slot="title">{{form.id ? '商品情報を編集する' : '商品情報を追加' }}</div>
       <div>
         <a-form-model
             ref="form"
@@ -11,28 +11,28 @@
             :wrapper-col="{ span: 20, md: 16 }">
           <a-row :gutter="12">
             <a-divider orientation="left" id="basic-information">
-              基本信息
+              基本情報
             </a-divider>
             <a-col :span="24" :md="12">
-              <a-form-model-item prop="barcode" label="条形码">
+              <a-form-model-item prop="barcode" label="バーコード">
                 <a-input v-model="form.barcode" />
                 <!-- <a-input-search v-model="form.barcode">
-                  <a-button slot="enterButton" type="primary" @click.native="getCode">生成条形码</a-button>
+                  <a-button slot="enterButton" type="primary" @click.native="getCode">バーコード生成</a-button>
                 </a-input-search> -->
               </a-form-model-item>
             </a-col>
             <a-col :span="24" :md="12">
-              <a-form-model-item prop="number" label="产品编号">
+              <a-form-model-item prop="number" label="商品コード">
                 <a-input v-model="form.number" />
               </a-form-model-item>
             </a-col>
             <a-col :span="24" :md="12">
-              <a-form-model-item prop="name" label="产品名称">
+              <a-form-model-item prop="name" label="商品名">
                 <a-input v-model="form.name" />
               </a-form-model-item>
             </a-col>
             <a-col :span="24" :md="12">
-              <a-form-model-item prop="category" label="分类">
+              <a-form-model-item prop="category" label="カテゴリ">
                 <a-select v-model.number="form.category" style="width: 100%" :allowClear="true">
                   <a-select-option
                       v-for="item of classificationItems"
@@ -51,7 +51,7 @@
               </a-form-model-item>
             </a-col>
             <!-- <a-col :span="24" :md="12">
-              <a-form-model-item prop="unit" label="单位">
+              <a-form-model-item prop="unit" label="単位">
                 <a-select v-model.number="form.unit" :allowClear="true">
                   <a-select-option
                       v-for="item of unitItems"
@@ -62,86 +62,86 @@
               </a-form-model-item>
             </a-col> -->
             <a-col :span="24" :md="12">
-              <a-form-model-item prop="spec" label="规格">
+              <a-form-model-item prop="spec" label="仕様">
                 <a-input v-model="form.spec" />
               </a-form-model-item>
             </a-col>
             <!-- <a-col :span="24" :md="12">
-              <a-form-model-item prop="enable_shelf_life" label="启用保质期">
+              <a-form-model-item prop="enable_shelf_life" label="保存期間を有効化">
                 <a-switch
-                  checked-children="启用"
-                  un-checked-children="禁用"
+                  checked-children="有効化"
+                  un-checked-children="無効化"
                   v-model="form.enable_shelf_life"/>
               </a-form-model-item>
             </a-col> -->
             <a-col :span="24" :md="12">
-              <a-form-model-item prop="shelf_life_days" label="保质期天数">
-                <a-input v-model="form.shelf_life_days" suffix="天" />
+              <a-form-model-item prop="shelf_life_days" label="品質保証期間日数">
+                <a-input v-model="form.shelf_life_days" suffix="日" />
               </a-form-model-item>
             </a-col>
             <a-col :span="24" :md="12">
               <a-form-model-item
                   prop="shelf_life_warning_days"
-                  label="保质期预警天数">
-                <a-input v-model="form.shelf_life_warning_days" suffix="天" />
+                  label="期限切れ間近警告日">
+                <a-input v-model="form.shelf_life_warning_days" suffix="日" />
               </a-form-model-item>
             </a-col>
             <a-col :span="24" :md="12">
-              <a-form-model-item prop="enable_batch_control" label="启用批次控制">
+              <a-form-model-item prop="enable_batch_control" label="ロット制御を有効化">
                 <a-switch
-                    checked-children="启用"
-                    un-checked-children="禁用"
+                    checked-children="有効化"
+                    un-checked-children="無効化"
                     v-model="form.enable_batch_control"
                 />
               </a-form-model-item>
             </a-col>
             <a-col :span="24" :md="12">
-              <a-form-model-item prop="is_active" label="ステータス">
+              <a-form-model-item prop="is_active" label="状態">
                 <a-select v-model="form.is_active" style="width: 100%;">
-                  <a-select-option :value="1">有効</a-select-option>
-                  <a-select-option :value="0">無効</a-select-option>
+                  <a-select-option :value="1">有効化</a-select-option>
+                  <a-select-option :value="0">凍結</a-select-option>
                 </a-select>
               </a-form-model-item>
             </a-col>
             <a-col :span="24" :md="12">
-              <a-form-model-item prop="remark" label="单位">
+              <a-form-model-item prop="remark" label="単位">
                 <a-input v-model="form.remark" allowClear />
               </a-form-model-item>
             </a-col>
           </a-row>
           <a-row :gutter="12">
             <a-divider orientation="left" id="price-management">
-              价格管理
+              価格管理
             </a-divider>
             <a-col :span="24" :md="12">
-              <a-form-model-item prop="purchase_price" label="采购价(元)">
+              <a-form-model-item prop="purchase_price" label="購買価格（円）">
                 <a-input-number v-model="form.purchase_price" style="width: 100%"/>
               </a-form-model-item>
             </a-col>
             <a-col :span="24" :md="12">
-              <a-form-model-item prop="retail_price" label="零售价(元)">
+              <a-form-model-item prop="retail_price" label="小売価格（円）">
                 <a-input-number v-model="form.retail_price" style="width: 100%" />
               </a-form-model-item>
             </a-col>
             <a-col :span="24" :md="12">
-              <a-form-model-item prop="level_price1" label="等级价一(元)">
+              <a-form-model-item prop="level_price1" label="等級価格1（円）">
                 <a-input-number v-model="form.level_price1" style="width: 100%" />
               </a-form-model-item>
             </a-col>
             <a-col :span="24" :md="12">
-              <a-form-model-item prop="level_price2" label="等级价二(元)">
+              <a-form-model-item prop="level_price2" label="等級価格2（円）">
                 <a-input-number v-model="form.level_price2" style="width: 100%" />
               </a-form-model-item>
             </a-col>
             <a-col :span="24" :md="12">
-              <a-form-model-item prop="level_price3" label="等级价三(元)">
+              <a-form-model-item prop="level_price3" label="等級価格3（円）">
                 <a-input-number v-model="form.level_price3" style="width: 100%" />
               </a-form-model-item>
             </a-col>
           </a-row>
           <a-row :gutter="12">
             <a-divider orientation="left" id="graphic-information">
-              图文信息
+              図面情報
             </a-divider>
             <a-col :span="24" :md="24">
               <a-upload
@@ -168,7 +168,7 @@
             </a-col>
             <a-col :span="24" :md="24">
               <a-textarea
-                  placeholder="产品详细介绍"
+                  placeholder="商品詳細"
                   :rows="4"
                   v-model="form.description"
               />
@@ -176,7 +176,7 @@
           </a-row>
           <a-row :gutter="12">
             <a-divider orientation="left" id="beginning-inventory">
-              期初库存
+              期首在庫
             </a-divider>
             <a-col :span="24" :md="24">
               <a-table
@@ -189,7 +189,7 @@
                 <div slot="initial_quantity" slot-scope="value, item">
                   <div v-if="!!form.enable_batch_control">
                     <a-input :value="item.initial_quantity" disabled style="width:75%;" />
-                    <a-button @click="chooseBatch(item)">批</a-button>
+                    <a-button @click="chooseBatch(item)">ロット</a-button>
                   </div>
                   <a-input-number v-else
                                   :value="item.initial_quantity"
@@ -201,30 +201,30 @@
           </a-row>
           <a-row :gutter="12">
             <a-divider orientation="left" id="inventory-warning">
-              库存预警
+              在庫アラート
             </a-divider>
             <a-col :span="24" :md="12">
-              <a-form-model-item prop="enable_inventory_warning" label="启用库存警告">
+              <a-form-model-item prop="enable_inventory_warning" label="在庫警告を有効化">
                 <a-switch
-                    checked-children="启用"
-                    un-checked-children="禁用"
+                    checked-children="有効化"
+                    un-checked-children="無効化"
                     v-model="form.enable_inventory_warning"/>
               </a-form-model-item>
             </a-col>
             <a-col :span="24" :md="12" v-if="!!form.enable_inventory_warning">
-              <a-form-model-item prop="inventory_upper" label="库存上限">
+              <a-form-model-item prop="inventory_upper" label="在庫上限">
                 <a-input-number v-model="form.inventory_upper" style="width: 100%" />
               </a-form-model-item>
             </a-col>
             <a-col :span="24" :md="12" v-if="!!form.enable_inventory_warning">
-              <a-form-model-item prop="inventory_lower" label="库存下限">
+              <a-form-model-item prop="inventory_lower" label="在庫下限">
                 <a-input-number v-model="form.inventory_lower" style="width: 100%" />
               </a-form-model-item>
             </a-col>
             <!-- <a-col :span="24" :md="12">
               <a-form-model-item
                 prop="inventory_warning_upper_limit"
-                label="库存预警上限">
+                label="在庫警告上限">
                 <a-input-number
                   v-model="form.inventory_warning_upper_limit"
                   style="width: 100%" />
@@ -233,7 +233,7 @@
             <a-col :span="24" :md="12">
               <a-form-model-item
                 prop="inventory_warning_lower_limit"
-                label="库存预警下限">
+                label="在庫警告下限">
                 <a-input-number
                   v-model="form.inventory_warning_lower_limit"
                   style="width: 100%"/>
@@ -242,7 +242,7 @@
           </a-row>
         </a-form-model>
       </div>
-      <!-- 批次 -->
+      <!-- ロット -->
       <a-modal
           :title="batchTitle"
           v-model="batchVisible"
@@ -307,17 +307,17 @@ export default {
     return {
       Cookies,
       actionUrl:config.baseURL+'goods_images/',
-      batchTitle: '管理批次',
+      batchTitle: 'ロットを管理する',
       batchVisible: false,
       loading: false,
       columns: [
         {
-          title: "仓库",
+          title: "入庫",
           dataIndex: "name",
           key: "name",
         },
         {
-          title: "初始库存",
+          title: "初期在庫",
           dataIndex: "initial_quantity",
           key: "initial_quantity",
           scopedSlots: { customRender: "initial_quantity" },
@@ -328,17 +328,17 @@ export default {
       categoryVisible: false,
       rules: {
         name: [
-          { required: true, message: "请输入产品名称", trigger: "change" },
+          { required: true, message: "商品名を入力してください", trigger: "change" },
         ],
         number: [
-          { required: true, message: "请输入产品编号", trigger: "change" },
+          { required: true, message: "商品コードを入力してください", trigger: "change" },
         ],
       },
       previewVisible: false,
       previewImage: "",
       columnsBatch: [
         {
-          title: '番号',
+          title: '連番',
           dataIndex: 'index',
           key: 'index',
           customRender: (value, item, index) => {
@@ -346,19 +346,19 @@ export default {
           },
         },
         {
-          title: "番号",
+          title: "コード",
           dataIndex: "number",
           key: "number",
           scopedSlots: { customRender: "number" },
         },
         {
-          title: "初始库存",
+          title: "初期在庫",
           dataIndex: "initial_quantity",
           key: "initial_quantity",
           scopedSlots: { customRender: "initial_quantity" },
         },
         {
-          title: "生产日期",
+          title: "製造日",
           dataIndex: "production_date",
           key: "production_date",
           scopedSlots: { customRender: "production_date" },
@@ -376,7 +376,7 @@ export default {
   },
   methods: {
     chooseBatch(item) {
-      this.batchTitle = '管理批次-' + item.name;
+      this.batchTitle = 'ロットを管理する-' + item.name;
       this.curWarehouse = item;
       if (item.batch_items) {
         this.batchItems = item.batch_items;
@@ -402,7 +402,7 @@ export default {
         }
       })
       if (ifHasEmpty) {
-        this.$message.warn('请将批次信息填写完整!');
+        this.$message.warn('ロット情報を完全に入力してください!');
         return
       }
       let tmp = {...this.curWarehouse, ...{ batch_items: this.batchItems, initial_quantity: sumAmount }}
@@ -470,7 +470,7 @@ export default {
           this.loading = true;
           let func = this.form.id ? goodsInformationUpdate : goodsInformationCreate;
           func(formatData).then(data => {
-            this.$message.success(this.form.id ? '修改成功' : '新增成功');
+            this.$message.success(this.form.id ? '更新成功' : '新規登録成功');
             this.$emit(this.form.id ? 'update' : 'create', data);
             this.cancel();
           }).finally(() => {

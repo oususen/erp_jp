@@ -3,11 +3,11 @@
     <a-card title="日常収支">
       <a-row gutter="16">
         <a-col :span="24" :md="6" :xl="4" style="max-width: 256px; margin-bottom: 12px;">
-          <a-input-search v-model="searchForm.search" placeholder="名称, 备注" allowClear @search="search" />
+          <a-input-search v-model="searchForm.search" placeholder="名称, 備考" allowClear @search="search" />
         </a-col>
 
         <div style="margin-bottom: 12px; float: right;">
-          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="openFormModal(form)">新增日常收支</a-button>
+          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="openFormModal(form)">日常収支新規登録</a-button>
         </div>
       </a-row>
 
@@ -15,12 +15,12 @@
         <a-table size="small" :columns="columns" :dataSource="items" rowKey="id" :loading="loading" :pagination="pagination"
           @change="tableChange">
           <div slot="is_active" slot-scope="value">
-            <a-tag :color="value ? 'green' : 'red'">{{value ? '有効' : '無効'}}</a-tag>
+            <a-tag :color="value ? 'green' : 'red'">{{value ? '有効化' : '凍結'}}</a-tag>
           </div>
           <div slot="action" slot-scope="value, item">
             <a-button-group>
-              <a-popconfirm title="确定作废吗?" @confirm="voidItem(item)">
-                <a-button type="danger" size="small" :disabled="item.is_void">{{ item.is_void ? '已作废' : '作废'}}</a-button>
+              <a-popconfirm title="本当に無効にしますか??" @confirm="voidItem(item)">
+                <a-button type="danger" size="small" :disabled="item.is_void">{{ item.is_void ? '無効済み' : '無効'}}</a-button>
               </a-popconfirm>
             </a-button-group>
           </div>
@@ -45,7 +45,7 @@
       return {
         columns: [
           {
-            title: '番号',
+            title: '連番',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {
@@ -53,19 +53,19 @@
             },
           },
           {
-            title: '番号',
+            title: 'コード',
             dataIndex: 'number',
           },
           {
-            title: '收支类型',
+            title: '収支タイプ',
             dataIndex: 'type_display'
           },
           {
-            title: '客户',
+            title: '顧客',
             dataIndex: 'client_name'
           },
           {
-            title: '供应商',
+            title: '仕入先',
             dataIndex: 'supplier_name'
           },
           {
@@ -73,23 +73,23 @@
             dataIndex: 'charge_item_name'
           },
           {
-            title: '決済アカウント',
+            title: '決済口座',
             dataIndex: 'account_name'
           },
           {
-            title: '应收/付金额(元)',
+            title: '売掛金/支払いい金金金額（円）',
             dataIndex: 'total_amount'
           },
           {
-            title: '实收/付金额(元)',
+            title: '実収入/支払いい金金金額（円）',
             dataIndex: 'charge_amount'
           },
           {
-            title: '经手人',
+            title: '担当者',
             dataIndex: 'handler_name'
           },
           {
-            title: '处理时间',
+            title: '処理時間',
             dataIndex: 'handle_time'
           },
           {
@@ -174,7 +174,7 @@
       },
       voidItem(item) {
         chargeOrdersVoid({ id: item.id }).then(() => {
-          this.$message.success('作废成功');
+          this.$message.success('無効化成功');
           this.list();
         });
       },

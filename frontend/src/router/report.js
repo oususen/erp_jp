@@ -21,12 +21,12 @@ export default {
     },
     {
       path: 'income_expense_statistics',
-      meta: { title: '収支統計', permission: 'income_expense_statistics' },
+      meta: { title: '収支データデータ統計', permission: 'income_expense_statistics' },
       component: () => import('@/views/report/incomeExpenseStatistics/index'),
     },
     {
       path: 'batch_report',
-      meta: { title: 'バッチレポート', permission: 'batch_report' },
+      meta: { title: 'ロットレポート', permission: 'batch_report' },
       component: () => import('@/views/report/batchReport/index'),
     },
   ],

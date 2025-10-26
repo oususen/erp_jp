@@ -29,11 +29,11 @@
         </span>
         <a-menu slot="overlay" >
           <a-menu-item @click="$router.push('/user/set_password')">
-            <span>修改密码</span>
+            <span>パスワードを変更する</span>
           </a-menu-item>
           <a-menu-divider />
           <a-menu-item @click="logout">
-            <span>退出登录</span>
+            <span>ログアウト</span>
           </a-menu-item>
         </a-menu>
       </a-dropdown>
@@ -52,7 +52,7 @@
     data() {
       return {
         warehouseItems: [],
-        currentWarehouse: '所有仓库',
+        currentWarehouse: 'すべての入庫',
         avatar:require('@/assets/avatar.png')
       };
     },
@@ -60,7 +60,7 @@
       initData() {
         // warehouseOption({ page_size: 999999 }).then(data => {
         //   console.log(data.results)
-        //   this.warehouseItems = [{ id: undefined, name: '所有仓库' }, ...data.results];
+        //   this.warehouseItems = [{ id: undefined, name: 'すべての入庫' }, ...data.results];
         // });
       },
       logout() {

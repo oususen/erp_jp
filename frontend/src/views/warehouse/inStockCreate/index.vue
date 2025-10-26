@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card title="入库单">
+    <a-card title="入庫受領書">
       <a-button
         slot="extra"
         type="primary"
@@ -18,17 +18,17 @@
           <a-form-model ref="form" :model="form" :rules="rules" :label-col="{ span: 7 }" :wrapper-col="{ span: 16 }">
             <a-row>
               <a-col :span="6" style="width: 320px;">
-                <a-form-model-item prop="number" label="番号">
+                <a-form-model-item prop="number" label="コード">
                   {{ info.number }}
                 </a-form-model-item>
               </a-col>
               <a-col :span="6" style="width: 320px;">
-                <a-form-model-item prop="warehouse_name" label="仓库">
+                <a-form-model-item prop="warehouse_name" label="入庫">
                   {{ info.warehouse_name }}
                 </a-form-model-item>
               </a-col>
               <a-col :span="6" style="width: 320px;">
-                <a-form-model-item prop="type_display" label="入库类型">
+                <a-form-model-item prop="type_display" label="入庫タイプ">
                   {{ info.type_display }}
                 </a-form-model-item>
               </a-col>
@@ -36,7 +36,7 @@
                 <a-form-model-item
                   prop=""
                   :label="
-                    info.type === 'purchase' ? '采购单据' : info.type === 'sales_return' ? '销售退货单据' : '调拨单据'
+                    info.type === 'purchase' ? '購買伝票' : info.type === 'sales_return' ? '販売返品伝票' : '在庫振替伝票'
                   "
                 >
                   {{
@@ -49,7 +49,7 @@
                 </a-form-model-item>
               </a-col>
               <a-col :span="6" style="width: 320px;">
-                <a-form-model-item prop="handler" label="经手人">
+                <a-form-model-item prop="handler" label="担当者">
                   <a-select v-model="form.handler" style="width: 100%">
                     <a-select-option v-for="item in handlerItems" :key="item.id" :value="item.id">
                       {{ item.name }}
@@ -58,7 +58,7 @@
                 </a-form-model-item>
               </a-col>
               <a-col :span="6" style="width: 320px;">
-                <a-form-model-item prop="handle_time" label="处理日期">
+                <a-form-model-item prop="handle_time" label="処理日">
                   <a-date-picker v-model="form.handle_time" valueFormat="YYYY-MM-DD" style="width: 100%" />
                 </a-form-model-item>
               </a-col>
@@ -86,7 +86,7 @@
               </div>
               <!-- <div slot="action" slot-scope="value, item, index">
                 <a-button-group v-if="!item.isTotal" size="small">
-                  <a-button type="danger" @click="removeMaterial(item)">移除</a-button>
+                  <a-button type="danger" @click="removeMaterial(item)">削除</a-button>
                 </a-button-group>
               </div> -->
             </a-table>
@@ -95,7 +95,7 @@
         <div style="width: 100%;display: flex;justify-content: center;">
           <div style="display: flex;justify-content: center;width: 100%;">
           <div style="margin-top: 32px;">
-          <a-popconfirm title="确定保存吗?" @confirm="create">
+          <a-popconfirm title="本当に保存しますか??" @confirm="create">
             <a-button type="primary" :loading="loading">保存</a-button>
           </a-popconfirm>
         </div>
@@ -120,25 +120,25 @@ export default {
       info: {},
       form: {},
       rules: {
-        // name: [{ required: true, message: '请输入名称', trigger: 'change' }],
-        // number: [{ required: true, message: '请输入编号', trigger: 'change' }],
+        // name: [{ required: true, message: '名称を入力してください', trigger: 'change' }],
+        // number: [{ required: true, message: 'コードを入力してください', trigger: 'change' }],
         // initial_arrears_amount: [
-        //   { pattern: new RegExp(/^\d{0,14}(?:\.\d{0,2})?$/), message: '初期欠款金额格式不正确', trigger: 'change' }
+        //   { pattern: new RegExp(/^\d{0,14}(?:\.\d{0,2})?$/), message: '初期未払金金金額の形式が不正です', trigger: 'change' }
         // ],
-        handler: [{ required: true, message: "请选择经手人", trigger: "change" }],
-        handle_time: [{ required: true, message: "请选择处理日期", trigger: "change" }],
+        handler: [{ required: true, message: "担当者ーを選択してください", trigger: "change" }],
+        handle_time: [{ required: true, message: "処理日を選択してください", trigger: "change" }],
       },
       warehouseItems: [],
       handlerItems: [],
       materialItems: [],
       columns: [
         {
-          title: "番号",
+          title: "連番",
           dataIndex: "index",
           key: "index",
           width: 45,
           customRender: (value, item, index) => {
-            return item.isTotal ? "合计" : index + 1;
+            return item.isTotal ? "合計" : index + 1;
           },
         },
         {
@@ -148,55 +148,55 @@ export default {
           width: 150,
         },
         {
-          title: "番号",
+          title: "コード",
           dataIndex: "goods_number",
           key: "goods_number",
           width: 150,
         },
         {
-          title: "入库数量",
+          title: "入庫数数数量",
           dataIndex: "stock_in_quantity",
           key: "stock_in_quantity",
           width: 120,
           scopedSlots: { customRender: "stock_in_quantity" },
         },
         {
-          title: "待入库数量",
+          title: "入庫予定数数数量",
           dataIndex: "remain_quantity",
           key: "remain_quantity",
           width: 120,
         },
         {
-          title: "单位",
+          title: "単位",
           dataIndex: "unit_name",
           key: "unit_name",
           width: 80,
         },
         {
-          title: "批次控制",
+          title: "ロット制御",
           dataIndex: "enable_batch_control",
           key: "enable_batch_control",
           width: 80,
           customRender: (value, item, index) => {
-            return item.isTotal ? "" : value ? "已开启" : "未开启";
+            return item.isTotal ? "" : value ? "有効化済み" : "無効";
           },
         },
         {
-          title: "バッチ",
+          title: "ロット",
           dataIndex: "batch_number",
           key: "batch_number",
           width: 120,
           scopedSlots: { customRender: "batch_number" },
         },
         {
-          title: "生产日期",
+          title: "製造日",
           dataIndex: "production_date",
           key: "production_date",
           width: 150,
           scopedSlots: { customRender: "production_date" },
         },
         {
-          title: "保质期天数",
+          title: "品質保証期間日数",
           dataIndex: "shelf_life_days",
           key: "shelf_life_days",
           width: 120,
@@ -216,7 +216,7 @@ export default {
   },
   computed: {
     goodsData() {
-      // 统计合计
+      // データデータ統計合計
       let totalQuantity = 0,
         totalAmount = 0;
       for (let item of this.materialItems) {
@@ -264,11 +264,11 @@ export default {
             }
           });
           if (ifHasEmptyAmount) {
-            this.$message.warn("请输入入库数量");
+            this.$message.warn("入庫数数数量を入力してください");
             return false;
           }
           if (ifHasEmptyBatch) {
-            this.$message.warn("开启批次控制的产品需要输入批次编号");
+            this.$message.warn("ロット制御がオンになっている商品は、ロットコードを入力する必要があります");
             return false;
           }
 
@@ -287,7 +287,7 @@ export default {
           };
           stockInCreate(formData)
             .then((data) => {
-              this.$message.success("创建成功");
+              this.$message.success("作成成功");
               this.$router.push({ path: "/warehouse/inStock" });
             })
             .finally(() => {

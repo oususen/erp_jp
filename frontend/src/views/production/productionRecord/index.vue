@@ -1,15 +1,15 @@
 <template>
   <div>
-    <a-card title="生产记录">
+    <a-card title="生産実績">
       <a-row :gutter="[12, 8]">
         <a-col :span="24" style="width: 256px;">
           <a-range-picker @change="onChangePicker" />
         </a-col>
         <a-col :span="24" style="width: 200px;">
-          <a-input v-model="searchForm.search" placeholder="生产单号, 销售单号" allowClear @pressEnter="search" />
+          <a-input v-model="searchForm.search" placeholder="生産指示コード, 販売伝票コード" allowClear @pressEnter="search" />
         </a-col>
         <a-col :span="24" style="width: 84px;">
-          <a-button type="primary" icon="search" @click="search">照会</a-button>
+          <a-button type="primary" icon="search" @click="search">検索</a-button>
         </a-col>
       </a-row>
 
@@ -39,7 +39,7 @@ export default {
       items: [],
       columns: [
         {
-          title: "番号",
+          title: "連番",
           dataIndex: "index",
           width: 60,
           fixed: "left",
@@ -48,25 +48,25 @@ export default {
           },
         },
         {
-          title: "生产计划单号",
+          title: "生産計画コード",
           dataIndex: "production_order_number",
           fixed: "left",
         },
         {
-          title: "产品编号",
+          title: "商品コード",
           dataIndex: "goods_number",
         },
         {
-          title: "产品名称",
+          title: "商品名",
           dataIndex: "goods_name",
         },
         {
-          title: "生产数量",
+          title: "生産数数量",
           dataIndex: "production_quantity",
           width: 100,
         },
         {
-          title: "作成日時",
+          title: "作成時間",
           dataIndex: "create_time",
           width: 180,
         },

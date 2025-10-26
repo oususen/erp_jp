@@ -1,13 +1,13 @@
 <template>
   <div>
-    <a-card title="口座振替">
+    <a-card title="振出元口座">
       <a-row gutter="16">
         <a-col :span="24" :md="6" :xl="4" style="max-width: 256px; margin-bottom: 12px;">
-          <a-input-search v-model="searchForm.search" placeholder="名称, 备注" allowClear @search="search" />
+          <a-input-search v-model="searchForm.search" placeholder="名称, 備考" allowClear @search="search" />
         </a-col>
 
         <div style="margin-bottom: 12px; float: right;">
-          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="openFormModal(form)">新增账户转账</a-button>
+          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="openFormModal(form)">振出元口座新規登録</a-button>
         </div>
       </a-row>
 
@@ -15,12 +15,12 @@
         <a-table size="small" :columns="columns" :dataSource="items" rowKey="id" :loading="loading" :pagination="pagination"
           @change="tableChange">
           <div slot="is_active" slot-scope="value">
-            <a-tag :color="value ? 'green' : 'red'">{{value ? '有効' : '無効'}}</a-tag>
+            <a-tag :color="value ? 'green' : 'red'">{{value ? '有効化' : '凍結'}}</a-tag>
           </div>
           <div slot="action" slot-scope="value, item">
             <a-button-group>
-              <a-popconfirm title="确定作废吗?" @confirm="voidItem(item)">
-                <a-button type="danger" size="small" :disabled="item.is_void">{{ item.is_void ? '已作废' : '作废'}}</a-button>
+              <a-popconfirm title="本当に無効にしますか??" @confirm="voidItem(item)">
+                <a-button type="danger" size="small" :disabled="item.is_void">{{ item.is_void ? '無効済み' : '無効'}}</a-button>
               </a-popconfirm>
             </a-button-group>
           </div>
@@ -44,7 +44,7 @@
       return {
         columns: [
           {
-            title: '番号',
+            title: '連番',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {
@@ -52,39 +52,39 @@
             },
           },
           {
-            title: '转出账户',
+            title: '振出元口座',
             dataIndex: 'out_account_name',
           },
           {
-            title: '转出时间',
+            title: '振出日時',
             dataIndex: 'transfer_out_time'
           },
           {
-            title: '转入账户',
+            title: '振込先口座',
             dataIndex: 'in_account_name'
           },
           {
-            title: '转入时间',
+            title: '振込日時',
             dataIndex: 'transfer_in_time'
           },
           {
-            title: '转账金额(元)',
+            title: '送金金金額（円）',
             dataIndex: 'transfer_amount'
           },
           {
-            title: '手续费金额(元)',
+            title: '手数料金金金額（円）',
             dataIndex: 'service_charge_amount'
           },
           {
-            title: '手续费支付方',
+            title: '料金支払いい者',
             dataIndex: 'service_charge_payer_display'
           },
           {
-            title: '经手人',
+            title: '担当者',
             dataIndex: 'handler_name'
           },
           {
-            title: '处理时间',
+            title: '処理時間',
             dataIndex: 'handle_time'
           },
           {
@@ -155,7 +155,7 @@
       },
       voidItem(item) {
         accountTransferOrdersVoid({ id: item.id }).then(() => {
-          this.$message.success('作废成功');
+          this.$message.success('無効化成功');
           this.list();
         });
       },

@@ -10,19 +10,19 @@
           <a-form-model-item :wrapper-col="{ span: 24 }">
             <a-radio-group v-model="radioValue" button-style="solid" @change="changeRadio" style="width: 100%;">
               <a-radio-button value="0" style="width: 25%;">今日</a-radio-button>
-              <a-radio-button value="1" style="width: 25%;">昨天</a-radio-button>
-              <a-radio-button value="-6" style="width: 25%;">近7天</a-radio-button>
-              <a-radio-button value="-29" style="width: 25%;">近30天</a-radio-button>
+              <a-radio-button value="1" style="width: 25%;">昨日</a-radio-button>
+              <a-radio-button value="-6" style="width: 25%;">過去7日間</a-radio-button>
+              <a-radio-button value="-29" style="width: 25%;">過去30日間</a-radio-button>
             </a-radio-group>
           </a-form-model-item>
         </a-col>
         <a-col :span="8">
-          <a-form-model-item label="自定义时间" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
+          <a-form-model-item label="カスタム時間" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
             <a-range-picker v-model="searchForm.dateRange" @change="changeDate" style="width: 100%;" />
           </a-form-model-item>
         </a-col>
         <a-col :span="6">
-          <a-form-model-item label="分类" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
+          <a-form-model-item label="カテゴリ" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
             <a-select v-model="searchForm.category" allowClear style="width: 100%;" @change="changeCategory">
               <a-select-option v-for="item in categoryItems" :key="item.id" :value="item.id">{{item.name}}
               </a-select-option>
@@ -32,14 +32,14 @@
       </a-row>
       <div style="width:100%;display: flex;justify-content: space-evenly;">
         <div style="font-size: 60px;display: flex;">
-          <div style="font-size: 20px;display: flex;">采购次数<span class="total">{{totalCount}}</span></div>
+          <div style="font-size: 20px;display: flex;">購買回数<span class="total">{{totalCount}}</span></div>
         </div>
         <div style="font-size: 60px;display: flex;">
-          <div style="font-size: 20px;display: flex;">采购数量<span class="total">{{totalQuantity}}</span></div>
+          <div style="font-size: 20px;display: flex;">購入数数数量<span class="total">{{totalQuantity}}</span></div>
           
         </div>
         <div style="font-size: 60px;display: flex;">
-          <div style="font-size: 20px;display: flex;">采购金额<span class="total">{{totalAmount}}</span></div>
+          <div style="font-size: 20px;display: flex;">購買金金金額<span class="total">{{totalAmount}}</span></div>
         </div>
       </div>
 

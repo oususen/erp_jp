@@ -1,9 +1,9 @@
 <template>
   <div>
-    <a-card title="販売履歴">
+    <a-card title="販売記録">
       <a-row gutter="16">
         <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
-          <a-input-search v-model="searchForm.search" placeholder="单号,供应商编号/名称" allowClear @search="search" />
+          <a-input-search v-model="searchForm.search" placeholder="伝票コード,仕入先コード/名称" allowClear @search="search" />
         </a-col>
         <!-- <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
           <a-range-picker @change="onChangePicker" />
@@ -15,9 +15,9 @@
                  @change="tableChange">
           <div slot="action" slot-scope="value, item">
             <a-button-group size="small">
-              <a-button size="small" @click="detial(item)">详情</a-button>
-              <a-popconfirm title="确定作废吗" @confirm="voidItem(item)">
-                <a-button type="danger" icon="delete" size="small">作废</a-button>
+              <a-button size="small" @click="detial(item)">詳細</a-button>
+              <a-popconfirm title="本当に無効にしますか?" @confirm="voidItem(item)">
+                <a-button type="danger" icon="delete" size="small">無効</a-button>
               </a-popconfirm>
             </a-button-group>
           </div>
@@ -38,7 +38,7 @@ export default {
     return {
       columns: [
         {
-          title: '番号',
+          title: '連番',
           dataIndex: 'index',
           key: 'index',
           customRender: (value, item, index) => {
@@ -47,40 +47,40 @@ export default {
           width: 45
         },
         {
-          title: '销售编号',
+          title: '販売回数',
           dataIndex: 'number',
           sorter: true,
         },
         {
-          title: '客户',
+          title: '顧客',
           dataIndex: 'client_name',
         },
         {
-          title: '经手人',
+          title: '担当者',
           dataIndex: 'handler_name',
         },
         {
-          title: '处理日期',
+          title: '処理日',
           dataIndex: 'handle_time',
           width: 150
         },
         {
-          title: '销售总数量',
+          title: '総販売回数数数量',
           dataIndex: 'total_quantity',
           width: 120
         },
         {
-          title: '销售总金额',
+          title: '販売総金金額',
           dataIndex: 'total_amount',
           width: 120
         },
         {
-          title: '收款金额',
+          title: '支払いい金金金額',
           dataIndex: 'collection_amount',
           width: 120
         },
         {
-          title: '其他费用',
+          title: 'そのその他費用',
           dataIndex: 'other_amount',
           width: 120
         },
@@ -137,7 +137,7 @@ export default {
     },
     voidItem(item) {
       saleOrdersVoid({ id: item.id }).then(() => {
-        this.$message.success('作废成功');
+        this.$message.success('無効化成功');
         this.list();
       });
     },

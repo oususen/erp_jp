@@ -1,18 +1,18 @@
 <template>
   <div>
-    <a-card title="振替">
+    <a-card title="在庫振替">
       <a-button slot="extra" type="primary" ghost @click="() => { this.$router.go(-1); }"> <a-icon
           type="left" />戻る</a-button>
       <a-spin :spinning="loading">
         <a-form-model ref="form" :model="form" :rules="rules" :label-col="{ span: 8 }" :wrapper-col="{ span: 16 }">
           <a-row>
             <a-col :span="6" style="width: 320px;">
-              <a-form-model-item prop="number" label="调拨编号">
+              <a-form-model-item prop="number" label="転送コード">
                 <a-input v-model="form.number" />
               </a-form-model-item>
             </a-col>
             <a-col :span="6" style="width: 320px;">
-              <a-form-model-item prop="out_warehouse" label="出库仓库">
+              <a-form-model-item prop="out_warehouse" label="出荷入庫">
                 <a-select v-model="form.out_warehouse" style="width: 100%">
                   <a-select-option v-for="item in warehouseItems" :key="item.id" :value="item.id">
                     {{ item.name }}
@@ -21,7 +21,7 @@
               </a-form-model-item>
             </a-col>
             <a-col :span="6" style="width: 320px;">
-              <a-form-model-item prop="in_warehouse" label="入库仓库">
+              <a-form-model-item prop="in_warehouse" label="入荷入庫">
                 <a-select v-model="form.in_warehouse" style="width: 100%">
                   <a-select-option v-for="item in warehouseItems" :key="item.id" :value="item.id">
                     {{ item.name }}
@@ -30,7 +30,7 @@
               </a-form-model-item>
             </a-col>
             <a-col :span="6" style="width: 320px;">
-              <a-form-model-item prop="handler" label="经手人">
+              <a-form-model-item prop="handler" label="担当者">
                 <a-select v-model="form.handler" style="width: 100%">
                   <a-select-option v-for="item in handlerItems" :key="item.id" :value="item.id">
                     {{ item.name }}
@@ -39,7 +39,7 @@
               </a-form-model-item>
             </a-col>
             <a-col :span="6" style="width: 320px;">
-              <a-form-model-item prop="handle_time" label="处理日期">
+              <a-form-model-item prop="handle_time" label="処理日">
                 <a-date-picker v-model="form.handle_time" valueFormat="YYYY-MM-DD" style="width: 100%" />
               </a-form-model-item>
             </a-col>
@@ -54,7 +54,7 @@
         <div>
           <a-row gutter="16">
             <a-space>
-              <a-button type="primary" @click="openMaterialModal">添加产品</a-button>
+              <a-button type="primary" @click="openMaterialModal">商品を追加</a-button>
             </a-space>
           </a-row>
           <div style="margin-top: 16px;">
@@ -72,7 +72,7 @@
               </div>
               <div slot="action" slot-scope="value, item, index">
                 <a-button-group v-if="!item.isTotal" size="small">
-                  <a-button type="danger" @click="removeMaterial(item)">移除</a-button>
+                  <a-button type="danger" @click="removeMaterial(item)">削除</a-button>
                 </a-button-group>
               </div>
             </a-table>
@@ -81,7 +81,7 @@
       </a-spin>
       <div style="width: 100%;display: flex;justify-content: center;">
         <div style="margin-top: 32px;">
-          <a-popconfirm title="确定保存吗?" @confirm="create">
+          <a-popconfirm title="本当に保存しますか??" @confirm="create">
             <a-button type="primary" :loading="loading">保存</a-button>
           </a-popconfirm>
         </div>
@@ -106,7 +106,7 @@ export default {
   },
   data() {
     return {
-      description: '新規追加',
+      description: '新規登録',
       warehouseItems: [],
       handlerItems: [],
       materialsSelectModalVisible: false,
@@ -115,29 +115,29 @@ export default {
       form: {},
       rules: {
         number: [
-          { required: true, message: '请输入编号', trigger: 'change' },
+          { required: true, message: 'コードを入力してください', trigger: 'change' },
         ],
         out_warehouse: [
-          { required: true, message: '请选择出库仓库', trigger: 'change' }
+          { required: true, message: '出荷入庫を選択してください', trigger: 'change' }
         ],
         in_warehouse: [
-          { required: true, message: '请选择入库仓库', trigger: 'change' }
+          { required: true, message: '保管入庫を選択してください', trigger: 'change' }
         ],
         handler: [
-          { required: true, message: '请选择经手人', trigger: 'change' }
+          { required: true, message: '担当者ーを選択してください', trigger: 'change' }
         ],
         handle_time: [
-          { required: true, message: '请选择处理日期', trigger: 'change' },
+          { required: true, message: '処理日を選択してください', trigger: 'change' },
         ],
       },
       columns: [
         {
-          title: '番号',
+          title: '連番',
           dataIndex: 'index',
           key: 'index',
           width: 45,
           customRender: (value, item, index) => {
-            return item.isTotal ? '合计' : (index + 1)
+            return item.isTotal ? '合計' : (index + 1)
           },
         },
         {
@@ -147,32 +147,32 @@ export default {
           width: 150,
         },
         {
-          title: '番号',
+          title: 'コード',
           dataIndex: 'number',
           key: 'number',
           width: 150,
         },
         {
-          title: '规格',
+          title: '仕様',
           dataIndex: 'spec',
           key: 'spec',
           width: 150,
         },
         {
-          title: '单位',
+          title: '単位',
           dataIndex: 'unit',
           key: 'unit',
           width: 80,
         },
         {
-          title: '调拨数量',
+          title: '転送数数数量',
           dataIndex: 'stock_transfer_quantity',
           key: 'stock_transfer_quantity',
           width: 120,
           scopedSlots: { customRender: 'stock_transfer_quantity' },
         },
         // {
-        //   title: 'バッチ',
+        //   title: 'ロット',
         //   dataIndex: 'batch',
         //   key: 'batch',
         //   width: 120,
@@ -191,7 +191,7 @@ export default {
   },
   computed: {
     goodsData() {
-      // 统计合计
+      // データデータ統計合計
       let totalQuantity = 0,
         totalAmount = 0;
       for (let item of this.materialItems) {
@@ -221,7 +221,7 @@ export default {
     },
     openMaterialModal() {
       if (!this.form.out_warehouse) {
-        this.$message.warn('请先选择出库仓库！');
+        this.$message.warn('最初に出荷入庫を選択してください。');
         return false;
       }
       this.materialsSelectModalVisible = true;
@@ -229,7 +229,7 @@ export default {
     onSelectMaterial(item) {
       let index = this.materialItems.findIndex(_item => _item.id == item.id);
       if (index != -1) {
-        this.$message.warn('产品已存在');
+        this.$message.warn('商品はすでに存在します');
         return
       }
       this.materialItems = this.$functions.insertItem(this.materialItems, {
@@ -254,7 +254,7 @@ export default {
         if (valid) {
           let ifHasEmptyGoods = false;
           if (this.materialItems.length == 0) {
-            this.$message.warn('未添加产品');
+            this.$message.warn('商品未登録');
             return false
           }
           this.materialItems.map(item => {
@@ -263,7 +263,7 @@ export default {
             }
           })
           if (ifHasEmptyGoods) {
-            this.$message.warn('调拨数量必填');
+            this.$message.warn('必要な転送数数数量');
             return false
           }
           this.loading = true;
@@ -277,7 +277,7 @@ export default {
             })
           };
           stockTransferCreate(formData).then(data => {
-            this.$message.success('创建成功');
+            this.$message.success('作成成功');
             this.$router.push({ path: '/warehouse/allocation' });
           }).finally(() => {
             this.loading = false;

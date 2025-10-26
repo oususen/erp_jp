@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-modal v-model="visible" :width="560" :confirmLoading="loading" :maskClosable="false" @cancel="cancel" @ok="confirm">
-      <div slot="title">{{form.id ? '编辑角色' : '新增角色' }}</div>
+      <div slot="title">{{form.id ? 'ロール編集' : 'ロール新規登録' }}</div>
       <div>
         <a-form-model ref="form" :model="form" :rules="rules" :label-col="{ span: 4 }" :wrapper-col="{ span: 16 }">
           <a-form-model-item prop="name" label="名称">
@@ -45,8 +45,8 @@
             </a-descriptions>
           </a-checkbox-group>
 
-          <!-- <a-form-model-item prop="permissions" label="角色权限">
-            <a-tree-select v-model="form.permissions" placeholder="请选择权限" :tree-data="permissionsTree" tree-checkable
+          <!-- <a-form-model-item prop="permissions" label="ロールの権限">
+            <a-tree-select v-model="form.permissions" placeholder="権限を選択してください" :tree-data="permissionsTree" tree-checkable
               treeDefaultExpandAll style="width: 100%">
             </a-tree-select>
           </a-form-model-item> -->
@@ -87,7 +87,7 @@
       
             let func = this.form.id ? roleUpdate : roleCreate;
             func({...this.form, permissions}).then(data => {
-              this.$message.success(this.form.id ? '修改成功' : '新增成功');
+              this.$message.success(this.form.id ? '更新成功' : '新規登録成功');
               this.$emit(this.form.id ? 'update' : 'create', data);
               this.cancel();
             }).finally(() => {

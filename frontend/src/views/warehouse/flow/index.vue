@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card title="在庫履歴">
+    <a-card title="在庫推移">
       <a-row :gutter="16">
         <a-col :span="2">
           <a-dropdown :trigger="['click']">
@@ -17,7 +17,7 @@
         </a-col>
 
         <a-col :span="6" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
-          <a-input-search v-model="searchForm.search" placeholder="单号" allowClear @search="search" />
+          <a-input-search v-model="searchForm.search" placeholder="伝票コード" allowClear @search="search" />
         </a-col>
       </a-row>
 
@@ -26,7 +26,7 @@
           :pagination="pagination" @change="tableChange">
           <div slot="action" slot-scope="value, item">
             <a-button-group size="small">
-              <a-button size="small" @click="detial(item)">详情</a-button>
+              <a-button size="small" @click="detial(item)">詳細</a-button>
             </a-button-group>
           </div>
         </a-table>
@@ -46,10 +46,10 @@ export default {
   data() {
     return {
       warehouseItems: [],
-      currentWarehouse: '所有仓库',
+      currentWarehouse: 'すべての入庫',
       columns: [
         {
-          title: '番号',
+          title: '連番',
           dataIndex: 'index',
           key: 'index',
           customRender: (value, item, index) => {
@@ -58,35 +58,35 @@ export default {
           width: 45
         },
         {
-          title: '仓库',
+          title: '入庫',
           dataIndex: 'warehouse_name',
         },
         {
-          title: '产品名称',
+          title: '商品名',
           dataIndex: 'goods_name',
         },
         {
-          title: '产品编号',
+          title: '商品コード',
           dataIndex: 'goods_number',
         },
         {
-          title: '流水类型',
+          title: '明細タイプ',
           dataIndex: 'type_display',
         },
         {
-          title: '变化之前数量',
+          title: '変更前数数数量',
           dataIndex: 'quantity_before',
         },
         {
-          title: '变化数量',
+          title: '変更数数数量',
           dataIndex: 'quantity_change',
         },
         {
-          title: '变化之后数量',
+          title: '変更後数数数量',
           dataIndex: 'quantity_after',
         },
         {
-          title: '创建日期',
+          title: '作成日',
           dataIndex: 'create_time',
           width: 170
         },
@@ -114,7 +114,7 @@ export default {
         this.currentWarehouse = item.name;
         // this.$store.commit('setWarehouse', item.id);
         // this.reloadPage();
-        if(item.name=='所有仓库'){
+        if(item.name=='すべての入庫'){
           this.items = this.all;
           return;
         }
@@ -130,7 +130,7 @@ export default {
       this.list();
       warehousesOption({ page_size: 999999 }).then(data => {
         console.log(data.results)
-        this.warehouseItems = [{ id: 0, name: '所有仓库' }, ...data.results];
+        this.warehouseItems = [{ id: 0, name: 'すべての入庫' }, ...data.results];
       });
     },
     list() {

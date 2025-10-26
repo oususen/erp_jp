@@ -1,9 +1,9 @@
 <template>
   <div>
-    <a-card title="資金履歴">
+    <a-card title="資金明細">
       <a-row gutter="16">
         <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
-          <a-input-search v-model="searchForm.search" placeholder="账户名称/编号" allowClear @search="search" />
+          <a-input-search v-model="searchForm.search" placeholder="口座名/コード" allowClear @search="search" />
         </a-col>
       </a-row>
 
@@ -12,7 +12,7 @@
           @change="tableChange">
           <div slot="action" slot-scope="value, item">
             <a-button-group size="small">
-              <a-button size="small" @click="detial(item)">详情</a-button>
+              <a-button size="small" @click="detial(item)">詳細</a-button>
             </a-button-group>
           </div>
         </a-table>
@@ -32,7 +32,7 @@
       return {
         columns: [
           {
-            title: '番号',
+            title: '連番',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {
@@ -45,20 +45,20 @@
             dataIndex: 'creator_name',
           },
           {
-            title: '创建日期',
+            title: '作成日',
             dataIndex: 'create_time',
             width: 170
           },
           {
-            title: '结算账户编号',
+            title: '決済口座コード',
             dataIndex: 'account_number',
           },
           {
-            title: '结算账户名称',
+            title: '決済口座名',
             dataIndex: 'account_name',
           },
           {
-            title: '流水类型',
+            title: '明細タイプ',
             dataIndex: 'type_display',
           },
           {

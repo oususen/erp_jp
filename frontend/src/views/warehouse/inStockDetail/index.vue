@@ -1,35 +1,35 @@
 <template>
   <div>
-    <a-card title="入库通知单详情">
+    <a-card title="入庫通知の詳細">
       <a-button slot="extra" type="primary" style="margin-right: 8px;" ghost v-print="'#printContent'"> <a-icon type="printer" />印刷</a-button>
       <a-button slot="extra" type="primary" ghost @click="() => { this.$router.go(-1); }"> <a-icon type="left" />戻る</a-button>
       <section id="printContent">
         <a-spin :spinning="loading">
           <img id="barcode" style="float: right" />
           <a-descriptions bordered>
-            <a-descriptions-item label="入库编号">
+            <a-descriptions-item label="入庫コード">
               {{ info.number }}
             </a-descriptions-item>
-            <a-descriptions-item label="入库类型">
+            <a-descriptions-item label="入庫タイプ">
               {{ info.type_display }}
             </a-descriptions-item>
-            <a-descriptions-item label="仓库">
+            <a-descriptions-item label="入庫">
               {{ info.warehouse_name }}
             </a-descriptions-item>
-            <a-descriptions-item :label="info.type === 'purchase' ? '采购单据' : (info.type === 'sales_return' ? '销售退货单据' : '调拨单据')">
+            <a-descriptions-item :label="info.type === 'purchase' ? '購買伝票' : (info.type === 'sales_return' ? '販売返品伝票' : '在庫振替伝票')">
               {{ info.type === 'purchase' ? info.purchase_order_number : (info.type === 'sales_return' ? info.sales_return_order_number : info.stock_transfer_order_number) }}
             </a-descriptions-item>
-            <!-- <a-descriptions-item label="处理日期">
+            <!-- <a-descriptions-item label="処理日">
               {{ info.handle_time }}
             </a-descriptions-item>
-            <a-descriptions-item label="其他费用">
+            <a-descriptions-item label="そのその他費用">
               {{ info.other_amount }}
             </a-descriptions-item>
             <a-descriptions-item label="備考">
               {{ info.remark }}
             </a-descriptions-item> -->
           </a-descriptions>
-          <a-divider orientation="left" style="margin-top: 30px;">製品情報</a-divider>
+          <a-divider orientation="left" style="margin-top: 30px;">商品情報</a-divider>
           <a-table
             rowKey="id"
             size="middle"
@@ -55,52 +55,52 @@
         info: {},
         columns: [
           {
-            title: '番号',
+            title: '連番',
             dataIndex: 'index',
             key: 'index',
             width: 45,
             customRender: (value, item, index) => {
-              return item.isTotal ? '合计' : (index + 1)
+              return item.isTotal ? '合計' : (index + 1)
             },
           },
           {
-            title: '产品名称',
+            title: '商品名',
             dataIndex: 'goods_name',
             key: 'goods_name',
             width: 150,
           },
           {
-            title: '产品编号',
+            title: '商品コード',
             dataIndex: 'goods_number',
             key: 'goods_number',
             width: 150,
           },
           {
-            title: '单位',
+            title: '単位',
             dataIndex: 'unit_name',
             key: 'unit_name',
             width: 80,
           },
           {
-            title: '入库总数',
+            title: '総入庫数',
             dataIndex: 'stock_in_quantity',
             key: 'stock_in_quantity',
             width: 120,
           },
           {
-            title: '入库剩余数量',
+            title: '入庫残数数数量',
             dataIndex: 'remain_quantity',
             key: 'remain_quantity',
             width: 120,
           },
           {
-            title: '保质期天数',
+            title: '品質保証期間日数',
             dataIndex: 'shelf_life_days',
             key: 'shelf_life_days',
             width: 120,
           },
           // {
-          //   title: '金額',
+          //   title: '金金額',
           //   dataIndex: 'totalAmount',
           //   key: 'totalAmount',
           //   width: 200,

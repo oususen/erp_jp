@@ -17,52 +17,52 @@
         NP,
         columns: [
           {
-            title: '产品编号',
+            title: '商品コード',
             dataIndex: 'goods_number',
             key: 'goods_number',
           },
           {
-            title: '产品名称',
+            title: '商品名',
             dataIndex: 'goods_name',
             key: 'goods_name',
           },
           {
-            title: '规格',
+            title: '仕様',
             dataIndex: 'goods_spec',
             key: 'goods_spec',
           },
           {
-            title: '分类名称',
+            title: '分類名',
             dataIndex: 'category_name',
             key: 'category_name',
           },
           {
-            title: '单位',
+            title: '単位',
             dataIndex: 'unit_name',
             key: 'unit_name',
           },
           {
-            title: '采购总数量',
+            title: '合計購入数数数量',
             dataIndex: 'total_purchase_quantity',
             key: 'total_purchase_quantity',
           },
           {
-            title: '采购总金额',
+            title: '購買総金金金額',
             dataIndex: 'total_purchase_amount',
             key: 'total_purchase_amount',
           },
           {
-            title: '最低采购价',
+            title: '最低購買価格',
             dataIndex: 'min_purchase_price',
             key: 'min_purchase_price',
           },
           {
-            title: '平均采购价',
+            title: '平均購買価格',
             dataIndex: 'avg_purchase_price',
             key: 'avg_purchase_price',
           },
           {
-            title: '最高采购价',
+            title: '最高購買価格',
             dataIndex: 'max_purchase_price',
             key: 'max_purchase_price',
           },

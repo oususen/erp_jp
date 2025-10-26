@@ -1,6 +1,6 @@
 <template>
   <div class="panel">
-    <a-card title="采购退款明细">
+    <a-card title="購買返金明細">
       <a-table :columns="columns" :data-source="items" :loading="loading" :pagination="false" size="small"
         @change="changeOrder" :scroll="{}">
       </a-table>
@@ -28,30 +28,30 @@
         items: [],
         columns: [
           {
-            title: '单号',
+            title: '伝票コード',
             dataIndex: 'number',
             key: 'number',
             width: 130
           },
           {
-            title: '供应商',
+            title: '仕入先',
             dataIndex: 'supplier_name',
             key: 'supplier_name',
           },
           {
-            title: '退货总金额',
+            title: '返品総金金金額',
             dataIndex: 'total_amount',
             key: 'total_amount',
             width: 100,
           },
           {
-            title: '收款金额',
+            title: '支払いい金金金額',
             dataIndex: 'collection_amount',
             key: 'collection_amount',
             width: 100,
           },
           // {
-          //   title: '创建日期',
+          //   title: '作成日',
           //   dataIndex: 'create_time',
           //   key: 'create_time',
           //   width: 100,

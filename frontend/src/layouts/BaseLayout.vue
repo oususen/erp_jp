@@ -12,7 +12,7 @@
 
         <a-layout-content>
           <router-view v-if="havePermisssion && isRouterAlive" style="padding: 8px;" />
-          <a-result v-else status="403" title="403" sub-title="抱歉，您无权访问此页面" style="margin-top: 36px;" />
+          <a-result v-else status="403" title="403" sub-title="申し訳ありませんが、このページへのアクセス権限がありません" style="margin-top: 36px;" />
         </a-layout-content>
       </a-layout>
     </a-layout>
@@ -71,11 +71,11 @@
           // this.getConfig();
           this.$store.commit('setUser', data);
 
-          // 库存预警
+          // 在庫アラート
           if (data.inventory_warnning_count > 0) {
             this.$notification.warning({
-              message: '库存预警',
-              remark: `您有 ${resp.data.inventory_warnning_count} 个产品超出库存设定范围`,
+              message: '在庫アラート',
+              remark: `未処理 ${resp.data.inventory_warnning_count} 商品が在庫設定範囲を超えています`,
             })
           }
         });

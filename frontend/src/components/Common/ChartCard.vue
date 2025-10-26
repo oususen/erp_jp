@@ -9,15 +9,15 @@
         <a-row :gutter="24">
           <a-col v-if="type == 0" :span="24">
             <span class="number">{{ finished }}</span>
-            <span class="intro">今日已完成</span>
+            <span class="intro">本日完了</span>
           </a-col>
           <a-col v-if="type == 0" :span="24">
             <span class="number" style="color: #FFC107;">{{ total }}</span>
-            <span class="intro">待入库</span>
+            <span class="intro">入庫待ち</span>
           </a-col>
           <a-col v-if="type == 1" :span="24">
             <span class="number" style="color: #FFC107;">{{ occupy }}</span>
-            <span class="intro">占用</span>
+            <span class="intro">占有</span>
           </a-col>
           <a-col v-if="type == 1" :span="24">
             <span class="percent">{{ percent }}</span>
@@ -132,7 +132,7 @@ import MiniProgress from './MiniProgress'
       text-align: left;
       color: #f44336;
       &::before{
-        content:"占用率:";
+        content:"使用率:";
         font-size: 12px;
       }
       &::after{

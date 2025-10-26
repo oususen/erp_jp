@@ -121,7 +121,7 @@ class UserActionViewSet(FunctionViewSet):
     """用户操作"""
 
     @extend_schema(request=GetTokenRequest, responses={200: GetTokenResponse})
-    @action(detail=False, methods=['post'])
+    @action(detail=False, methods=['post'], permission_classes=[], authentication_classes=[])
     def get_token(self, request, *args, **kwargs):
         """获取令牌"""
 
@@ -130,11 +130,10 @@ class UserActionViewSet(FunctionViewSet):
 
         validated_data = serializer.validated_data
 
-
         if not (user := User.objects.filter(team__number=validated_data['number'],
                                             username=validated_data['username']).first()):
             raise ValidationError('用户不存在')
-        print(make_password(validated_data['password']))
+
         if not check_password(validated_data['password'], user.password):
             raise AuthenticationFailed('密码错误')
 
@@ -148,7 +147,7 @@ class UserActionViewSet(FunctionViewSet):
         return Response(data=data, status=status.HTTP_200_OK)
 
     @extend_schema(request=RefreshTokenRequest, responses={200: RefreshTokenResponse})
-    @action(detail=False, methods=['post'])
+    @action(detail=False, methods=['post'], permission_classes=[], authentication_classes=[])
     def refresh_token(self, request, *args, **kwargs):
         """刷新令牌"""
 

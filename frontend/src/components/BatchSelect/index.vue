@@ -2,7 +2,7 @@
   <div>
     <a-row gutter="12">
       <a-col :span="24">
-        <a-select v-model="batch" placeholder="バッチ" :loading="batchLoading" :disabled="batchLoading"
+        <a-select v-model="batch" placeholder="ロット" :loading="batchLoading" :disabled="batchLoading"
           style="width: 100%;" @change="onChangeBatch">
           <a-select-option v-for="item in batchItems" :key="item.id" :value="item.id">
             {{ item.number }}
@@ -10,7 +10,7 @@
         </a-select>
       </a-col>
       <a-col :span="24">
-        <a-select v-model="shelveRecord" placeholder="上架记录" :loading="shelveRecordLoading" :disabled="shelveRecordLoading"
+        <a-select v-model="shelveRecord" placeholder="棚卸記録" :loading="shelveRecordLoading" :disabled="shelveRecordLoading"
           style="width: 100%;" @change="onChangeShelveRecord">
           <a-select-option v-for="item in shelveRecordItems" :key="item.id" :value="item.id">
             {{ item.warehouse_name }} - {{item.location_number}}: {{item.remain_quantity}}

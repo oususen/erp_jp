@@ -3,24 +3,24 @@
         <a-row :gutter="8" style="margin-top:8px;">
             <a-col :span="6">
                 <a-card hoverable>
-                    <a-statistic title="销售总金额(元)" :value="statistics.total_sales_amount" :loading="loading" />
+                    <a-statistic title="販売総金金額（円）" :value="statistics.total_sales_amount" :loading="loading" />
                 </a-card>
             </a-col>
             <a-col :span="6">
                 <a-card hoverable>
-                    <a-statistic title="采购总金额(元)" :value="statistics.total_purchase_amount" :loading="loading" />
-                </a-card>
-            </a-col>
-
-            <a-col :span="6">
-                <a-card hoverable>
-                    <a-statistic title="现收金额(元)" :value="statistics.total_collection" :loading="loading" />
+                    <a-statistic title="購買総金金金額（円）" :value="statistics.total_purchase_amount" :loading="loading" />
                 </a-card>
             </a-col>
 
             <a-col :span="6">
                 <a-card hoverable>
-                    <a-statistic title="现付金额(元)" :value="statistics.total_payment" :loading="loading" />
+                    <a-statistic title="現金で受け取った金金金額（円）" :value="statistics.total_collection" :loading="loading" />
+                </a-card>
+            </a-col>
+
+            <a-col :span="6">
+                <a-card hoverable>
+                    <a-statistic title="現金で支払いいった金金金額（円）" :value="statistics.total_payment" :loading="loading" />
                 </a-card>
             </a-col>
 
@@ -29,39 +29,39 @@
 
         <a-row style="margin-top: 12px;">
             <a-col :span="24">
-                <a-card title="收款业务">
+                <a-card title="入金業務">
                     <a-table size="small" :columns="collection.columns" :dataSource="collection.items" rowKey="id"
                         :loading="collection.loading" :pagination="collection.pagination" @change="collection_tableChange">
                         <div slot="action" slot-scope="value, item">
                             <a-button-group size="small">
-                                <a-button size="small" @click="collection_detial(item)">详情</a-button>
-                                <a-popconfirm title="确定作废吗?" @confirm="collection_voidItem(item)">
-                                    <a-button type="danger" :disabled="item.is_void">{{ item.is_void ? '已作废' : '作废'
+                                <a-button size="small" @click="collection_detial(item)">詳細</a-button>
+                                <a-popconfirm title="本当に無効にしますか??" @confirm="collection_voidItem(item)">
+                                    <a-button type="danger" :disabled="item.is_void">{{ item.is_void ? '無効済み' : '無効'
                                     }}</a-button>
                                 </a-popconfirm>
                             </a-button-group>
                         </div>
                     </a-table>
-                    <div>收款金额合计：<span style="color: red;">{{ collection.total_amount.toFixed(2) }}</span>（元）</div>
+                    <div>お支払いいい総金金額:<span style="color: red;">{{ collection.total_amount.toFixed(2) }}</span>（円）</div>
                 </a-card>
             </a-col>
         </a-row>
 
         <a-row style="margin-top: 12px;">
-            <a-card title="付款业务">
+            <a-card title="支払い業務">
                 <a-table size="small" :columns="payment.columns" :dataSource="payment.items" rowKey="id"
                     :loading="payment.loading" :pagination="payment.pagination" @change="payment_tableChange">
                     <div slot="action" slot-scope="value, item">
                         <a-button-group size="small">
-                            <a-button size="small" @click="payment_detial(item)">详情</a-button>
-                            <a-popconfirm title="确定作废吗?" @confirm="payment_payment_voidItem(item)">
-                                <a-button type="danger" :disabled="item.is_void">{{ item.is_void ? '已作废' : '作废'
+                            <a-button size="small" @click="payment_detial(item)">詳細</a-button>
+                            <a-popconfirm title="本当に無効にしますか??" @confirm="payment_payment_voidItem(item)">
+                                <a-button type="danger" :disabled="item.is_void">{{ item.is_void ? '無効済み' : '無効'
                                 }}</a-button>
                             </a-popconfirm>
                         </a-button-group>
                     </div>
                 </a-table>
-                <div>付款金额合计：<span style="color: red;">{{ payment.total_amount.toFixed(2) }}</span>（元）</div>
+                <div>お支払いいい総金金額:<span style="color: red;">{{ payment.total_amount.toFixed(2) }}</span>（円）</div>
             </a-card>
 
         </a-row>
@@ -85,7 +85,7 @@ export default {
             collection: {
                 columns: [
                     {
-                        title: '番号',
+                        title: '連番',
                         dataIndex: 'index',
                         key: 'index',
                         customRender: (value, item, index) => {
@@ -94,25 +94,25 @@ export default {
                         width: 45
                     },
                     {
-                        title: '收款编号',
+                        title: '入金コード',
                         dataIndex: 'number',
                         sorter: true,
                     },
                     {
-                        title: '客户',
+                        title: '顧客',
                         dataIndex: 'client_name',
                     },
                     {
-                        title: '经手人',
+                        title: '担当者',
                         dataIndex: 'handler_name',
                     },
                     {
-                        title: '处理日期',
+                        title: '処理日',
                         dataIndex: 'create_time',
                         width: 170
                     },
                     {
-                        title: '付款金额(元)',
+                        title: '支払いい金金金額（円）',
                         dataIndex: 'total',
                     },
                     {
@@ -138,7 +138,7 @@ export default {
             payment: {
                 columns: [
                     {
-                        title: '番号',
+                        title: '連番',
                         dataIndex: 'index',
                         key: 'index',
                         customRender: (value, item, index) => {
@@ -147,25 +147,25 @@ export default {
                         width: 45
                     },
                     {
-                        title: '单号',
+                        title: '伝票コード',
                         dataIndex: 'number',
                         sorter: true,
                     },
                     {
-                        title: '供应商',
+                        title: '仕入先',
                         dataIndex: 'supplier_name',
                     },
                     {
-                        title: '经手人',
+                        title: '担当者',
                         dataIndex: 'handler_name',
                     },
                     {
-                        title: '处理日期',
+                        title: '処理日',
                         dataIndex: 'create_time',
                         width: 170
                     },
                     {
-                        title: '付款金额(元)',
+                        title: '支払いい金金金額（円）',
                         dataIndex: 'total',
                     },
                     {
@@ -258,7 +258,7 @@ export default {
         },
         collection_voidItem(item) {
             collectionOrdersVoid({ id: item.id }).then(() => {
-                this.$message.success('作废成功');
+                this.$message.success('無効化成功');
                 this.collection_list();
             });
         },
@@ -298,7 +298,7 @@ export default {
         },
         payment_voidItem(item) {
             paymentOrdersVoid({ id: item.id }).then(() => {
-                this.$message.success('作废成功');
+                this.$message.success('無効化成功');
                 this.payment_list();
             });
         },

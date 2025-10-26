@@ -5,12 +5,12 @@
         <a-form-model ref="form" :model="form" :rules="rules" :label-col="{ span: 8 }" :wrapper-col="{ span: 16 }">
           <a-row>
             <a-col :span="6" style="width: 320px;">
-              <a-form-model-item prop="number" label="销售编号">
+              <a-form-model-item prop="number" label="販売回数">
                 <a-input v-model="form.number" />
               </a-form-model-item>
             </a-col>
             <a-col :span="6" style="width: 320px;">
-              <a-form-model-item prop="warehouse" label="仓库">
+              <a-form-model-item prop="warehouse" label="入庫">
                 <a-select v-model="form.warehouse" style="width: 100%">
                   <a-select-option v-for="item in warehouseItems" :key="item.id" :value="item.id">
                     {{ item.name }}
@@ -19,7 +19,7 @@
               </a-form-model-item>
             </a-col>
             <a-col :span="6" style="width: 320px;">
-              <a-form-model-item prop="client" label="客户">
+              <a-form-model-item prop="client" label="顧客">
                 <a-select v-model="form.client" style="width: 100%">
                   <a-select-option v-for="item in clientsItems" :key="item.id" :value="item.id">
                     {{ item.name }}
@@ -28,7 +28,7 @@
               </a-form-model-item>
             </a-col>
             <a-col :span="6" style="width: 320px;">
-              <a-form-model-item prop="handler" label="经手人">
+              <a-form-model-item prop="handler" label="担当者">
                 <a-select v-model="form.handler" style="width: 100%">
                   <a-select-option v-for="item in handlerItems" :key="item.id" :value="item.id">
                     {{ item.name }}
@@ -37,7 +37,7 @@
               </a-form-model-item>
             </a-col>
             <a-col :span="6" style="width: 320px;">
-              <a-form-model-item prop="handle_time" label="处理日期">
+              <a-form-model-item prop="handle_time" label="処理日">
                 <a-date-picker v-model="form.handle_time" valueFormat="YYYY-MM-DD" style="width: 100%" />
               </a-form-model-item>
             </a-col>
@@ -50,12 +50,12 @@
           </a-row>
         </a-form-model>
 
-        <a-divider orientation="left">製品情報</a-divider>
+        <a-divider orientation="left">商品情報</a-divider>
 
         <div>
           <a-row gutter="16">
             <a-space>
-              <a-button type="primary" @click="openMaterialModal">添加产品</a-button>
+              <a-button type="primary" @click="openMaterialModal">商品を追加</a-button>
             </a-space>
           </a-row>
           <div style="margin-top: 16px;">
@@ -76,34 +76,34 @@
               </div>
               <div slot="action" slot-scope="value, item, index">
                 <a-button-group v-if="!item.isTotal" size="small">
-                  <a-button type="danger" @click="removeMaterial(item)">移除</a-button>
+                  <a-button type="danger" @click="removeMaterial(item)">削除</a-button>
                 </a-button-group>
               </div>
             </a-table>
           </div>
         </div>
-        <a-divider orientation="left">账单信息</a-divider>
+        <a-divider orientation="left">請求書情報</a-divider>
         <div>
           <a-row gutter="16">
             <a-col :span="4">
-              <a-form-model-item prop="discount" label="整单折扣" :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }">
+              <a-form-model-item prop="discount" label="全伝票割引" :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }">
                 <a-input-number v-model="form.discount" style="width: 100%;" />
               </a-form-model-item>
             </a-col>
 
             <a-col :span="4">
-              <a-form-model-item prop="other_amount" label="其他费用" :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }">
+              <a-form-model-item prop="other_amount" label="そのその他費用" :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }">
                 <a-input-number v-model="form.other_amount" style="width: 100%;" />
               </a-form-model-item>
             </a-col>
             <a-col :span="4">
-              <a-form-model-item label="总计金额(元)" :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }">
+              <a-form-model-item label="合計金金金額（円）" :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }">
                 <a-input-number :value="totalAmount" :disabled="true" style="width: 100%;" />
               </a-form-model-item>
             </a-col>
 
             <a-col :span="4">
-              <a-form-model-item label="決済アカウント" :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }">
+              <a-form-model-item label="決済口座" :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }">
                 <a-select v-model="sales_account_item.account" style="width: 100%">
                   <a-select-option v-for="Account in accountsItems" :key="Account.id" :value="Account.id">
                     {{ Account.name }}
@@ -112,12 +112,12 @@
               </a-form-model-item>
             </a-col>
             <a-col :span="4">
-              <a-form-model-item label="实收金额(元)" :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }">
+              <a-form-model-item label="実際に受け取った金金金額（円）" :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }">
                 <a-input-number v-model="sales_account_item.collection_amount" style="width: 100%;" />
               </a-form-model-item>
             </a-col>
             <a-col :span="4">
-              <a-form-model-item label="本单欠款(元)" :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }">
+              <a-form-model-item label="本伝票未払金金金額（円）" :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }">
                 <a-input-number :value="amountOwed" :disabled="true" style="width: 100%;" />
               </a-form-model-item>
             </a-col>
@@ -128,7 +128,7 @@
         <!-- <div>
           <a-row gutter="16">
             <a-space>
-              <a-button type="primary" @click="handelAddAcount">添加结算账户</a-button>
+              <a-button type="primary" @click="handelAddAcount">請求先アカウント新規登録する</a-button>
             </a-space>
           </a-row>
           <div style="margin-top: 16px;">
@@ -151,7 +151,7 @@
                 </div>
                 <div slot="action" slot-scope="value, item, index">
                   <a-button-group v-if="!item.isTotal" size="small">
-                    <a-button type="danger" @click="removeAccount(item)">移除</a-button>
+                    <a-button type="danger" @click="removeAccount(item)">削除</a-button>
                   </a-button-group>
                 </div>
               </a-table>
@@ -161,7 +161,7 @@
 
       <div style="width: 100%;display: flex;justify-content: center;">
         <div style="margin-top: 32px;">
-          <a-popconfirm title="确定保存吗?" @confirm="create">
+          <a-popconfirm title="本当に保存しますか??" @confirm="create">
             <a-button type="primary" :loading="loading">保存</a-button>
           </a-popconfirm>
         </div>
@@ -186,7 +186,7 @@ export default {
   },
   data() {
     return {
-      description: "新規追加",
+      description: "新規登録",
       warehouseItems: [],
       handlerItems: [],
       clientsItems: [],
@@ -196,23 +196,23 @@ export default {
       model: {},
       form: {},
       rules: {
-        number: [{ required: true, message: "请输入编号", trigger: "change" }],
-        warehouse: [{ required: true, message: "请选择仓库", trigger: "change" }],
-        client: [{ required: true, message: "请选择客户", trigger: "change" }],
-        handler: [{ required: true, message: "请选择经手人", trigger: "change" }],
-        handle_time: [{ required: true, message: "请选择处理日期", trigger: "change" }],
+        number: [{ required: true, message: "コードを入力してください", trigger: "change" }],
+        warehouse: [{ required: true, message: "入庫を選択してください", trigger: "change" }],
+        client: [{ required: true, message: "顧客を選択してください", trigger: "change" }],
+        handler: [{ required: true, message: "担当者ーを選択してください", trigger: "change" }],
+        handle_time: [{ required: true, message: "処理日を選択してください", trigger: "change" }],
         other_amount: [
-          { pattern: new RegExp(/^\d{0,14}(?:\.\d{0,2})?$/), message: "其他费用格式不正确", trigger: "change" },
+          { pattern: new RegExp(/^\d{0,14}(?:\.\d{0,2})?$/), message: "そのその他経費の形式が正しくありません", trigger: "change" },
         ],
       },
       columns: [
         {
-          title: "番号",
+          title: "連番",
           dataIndex: "index",
           key: "index",
           width: 45,
           customRender: (value, item, index) => {
-            return item.isTotal ? "合计" : index + 1;
+            return item.isTotal ? "合計" : index + 1;
           },
         },
         {
@@ -222,32 +222,32 @@ export default {
           width: 150,
         },
         {
-          title: "番号",
+          title: "コード",
           dataIndex: "number",
           key: "number",
           width: 150,
         },
         {
-          title: "规格",
+          title: "仕様",
           dataIndex: "spec",
           key: "spec",
           width: 150,
         },
         {
-          title: "单位",
+          title: "単位",
           dataIndex: "unit",
           key: "unit",
           width: 80,
         },
         {
-          title: "销售数量",
+          title: "販売回数数数量",
           dataIndex: "sales_quantity",
           key: "sales_quantity",
           width: 120,
           scopedSlots: { customRender: "sales_quantity" },
         },
         {
-          title: "销售单价(元)",
+          title: "販売単価（円）",
           dataIndex: "sales_price",
           key: "sales_price",
           width: 120,
@@ -261,7 +261,7 @@ export default {
           scopedSlots: { customRender: "tax" },
         },
         {
-          title: "含税金额(元)",
+          title: "税込金金金額（円）",
           dataIndex: "totalAmount",
           key: "totalAmount",
           width: 200,
@@ -282,23 +282,23 @@ export default {
       materialItems: [],
       columnsAccount: [
         {
-          title: "番号",
+          title: "連番",
           dataIndex: "index",
           key: "index",
           width: 45,
           customRender: (value, item, index) => {
-            return item.isTotal ? "合计" : index + 1;
+            return item.isTotal ? "合計" : index + 1;
           },
         },
         {
-          title: "決済アカウント",
+          title: "決済口座",
           dataIndex: "account",
           key: "account",
           width: 200,
           scopedSlots: { customRender: "account" },
         },
         {
-          title: "收款金额",
+          title: "支払いい金金金額",
           dataIndex: "collection_amount",
           key: "collection_amount",
           width: 200,
@@ -332,7 +332,7 @@ export default {
       return NP.minus(this.totalAmount, this.sales_account_item.collection_amount || 0);
     },
     goodsData() {
-      // 统计合计
+      // データデータ統計合計
       let totalQuantity = 0,
         totalAmount = 0;
       for (let item of this.materialItems) {
@@ -352,7 +352,7 @@ export default {
       ];
     },
     accountsData() {
-      // 统计合计
+      // データデータ統計合計
       let totalAmount = 0;
       for (let item of this.sales_account_items) {
         totalAmount = NP.plus(totalAmount, item.collection_amount);
@@ -399,13 +399,13 @@ export default {
         return _item.account == value;
       });
       if (count.length > 1) {
-        this.$message.warn("已添加过改结算账户!");
+        this.$message.warn("決済口座変更済み!");
         this.sales_account_items[idx].account = "";
       }
     },
     openMaterialModal() {
       if (!this.form.warehouse) {
-        this.$message.warn("请先选择仓库！");
+        this.$message.warn("最初に入庫を選択してください。");
         return false;
       }
       this.materialsSelectModalVisible = true;
@@ -414,7 +414,7 @@ export default {
       let index = this.materialItems.findIndex((_item) => _item.id == item.id);
 
       if (index != -1) {
-        this.$message.warn("产品已存在");
+        this.$message.warn("商品はすでに存在します");
         return;
       }
       this.materialItems = this.$functions.insertItem(this.materialItems, {
@@ -447,12 +447,12 @@ export default {
           //   }
           // });
           // if (ifHasEmptyAccounts) {
-          //   this.$message.warn("请将结算账户信息填写完整");
+          //   this.$message.warn("決済口座情報を完全に入力してください");
           //   return false;
           // }
 
           if (this.materialItems.length == 0) {
-            this.$message.warn("未添加产品");
+            this.$message.warn("商品未登録");
             return false;
           }
           this.materialItems.map((item) => {
@@ -461,7 +461,7 @@ export default {
             }
           });
           if (ifHasEmptyGoods) {
-            this.$message.warn("销售单价和销售数量必填");
+            this.$message.warn("販売単価と販売回数数数量は必須です");
             return false;
           }
 
@@ -489,7 +489,7 @@ export default {
           formData.total_amount = this.totalAmount;
           saleOrderCreate(formData)
             .then((data) => {
-              this.$message.success("创建成功");
+              this.$message.success("作成成功");
               this.$router.push({ path: "/sale/sale_record" });
             })
             .finally(() => {

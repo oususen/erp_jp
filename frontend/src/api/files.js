@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie'
 import axios from 'axios'
 
-// 上传产品图片
+// 商品画像をアップロードする
 export function contractOriginalFiles(data) {
   return axios({
     url: '/api/goods_images/',
@@ -11,7 +11,7 @@ export function contractOriginalFiles(data) {
   })
 }
 
-// // 上传原件
+// // 原本をアップロード
 // export function contractOriginalFiles(data) {
 //   return axios({
 //     url: '/api/contract_original_files/',
@@ -21,7 +21,7 @@ export function contractOriginalFiles(data) {
 //   })
 // }
 
-// // 上传复印件
+// // コピーをアップロードする
 // export function contractCopyFiles(data) {
 //   return axios({
 //     url: '/api/contract_copy_files/',
@@ -31,7 +31,7 @@ export function contractOriginalFiles(data) {
 //   })
 // }
 
-// // 上传图纸
+// // 図面をアップロードする
 // export function contractDrawingFiles(data) {
 //   return axios({
 //     url: '/api/drawing_files/',

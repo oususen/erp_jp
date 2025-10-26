@@ -3,7 +3,7 @@
     <a-card title="売掛金">
       <a-row gutter="16">
         <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
-          <a-input-search v-model="searchForm.search" placeholder="番号" allowClear @search="search" />
+          <a-input-search v-model="searchForm.search" placeholder="コード" allowClear @search="search" />
         </a-col>
       </a-row>
 
@@ -12,7 +12,7 @@
           @change="tableChange">
           <div slot="action" slot-scope="value, item">
             <a-button-group size="small">
-              <a-button size="small" @click="detial(item)">详情</a-button>
+              <a-button size="small" @click="detial(item)">詳細</a-button>
             </a-button-group>
           </div>
         </a-table>
@@ -32,7 +32,7 @@
       return {
         columns: [
           {
-            title: '番号',
+            title: '連番',
             dataIndex: 'index',
             key: 'index',
             fixed: 'left',
@@ -42,20 +42,20 @@
             width: 45
           },
           {
-            title: '番号',
+            title: 'コード',
             dataIndex: 'number',
             fixed: 'left',
           },
           {
-            title: '初期欠款金额(元)',
+            title: '当初負債金金額（円）',
             dataIndex: 'initial_arrears_amount',
           },
           {
-            title: '欠款金额(元)',
+            title: '借入金金額（円）',
             dataIndex: 'arrears_amount',
           },
           {
-            title: '欠款状态',
+            title: '未払い状況',
             dataIndex: 'has_arrears',
           },
           {
@@ -63,23 +63,23 @@
             dataIndex: 'name',
           },
           {
-            title: '等级',
+            title: '等級',
             dataIndex: 'level_display',
           },
           {
-            title: '联系人',
+            title: '連絡先',
             dataIndex: 'contact',
           },
           {
-            title: '手机号',
+            title: '携帯コード',
             dataIndex: 'phone',
           },
           {
-            title: '邮箱',
+            title: 'メールアドレス',
             dataIndex: 'email',
           },
           {
-            title: '地址',
+            title: '住所',
             dataIndex: 'address',
           },
           {
@@ -87,7 +87,7 @@
             dataIndex: 'remark',
           },
           {
-            title: '激活状态',
+            title: '有効状態',
             dataIndex: 'is_active',
           },
         ],

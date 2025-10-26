@@ -1,10 +1,10 @@
 <template>
   <div>
     <a-modal v-model="visible" :confirmLoading="loading" :maskClosable="false" @cancel="cancel" @ok="confirm">
-      <div slot="title">生产</div>
+      <div slot="title">生産</div>
       <div>
         <a-form-model ref="form" :model="dataForm" :rules="rules" :label-col="{ span: 6 }" :wrapper-col="{ span: 16 }">
-          <a-form-model-item prop="production_quantity" label="生产数量">
+          <a-form-model-item prop="production_quantity" label="生産数数量">
             <a-input-number v-model="dataForm.production_quantity" style="width: 100%;" />
           </a-form-model-item>
         </a-form-model>
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       rules: {
-        production_quantity: [{ required: true, message: "请输入生产数量", trigger: "change" }],
+        production_quantity: [{ required: true, message: "生産数数数量を入力してください", trigger: "change" }],
       },
       loading: false,
       dataForm: {},
@@ -35,7 +35,7 @@ export default {
           this.loading = true;
           productionRecordCreate(this.dataForm)
             .then((data) => {
-              this.$message.success("生产成功");
+              this.$message.success("生産成功");
               this.$emit("create", data);
               this.cancel();
             })

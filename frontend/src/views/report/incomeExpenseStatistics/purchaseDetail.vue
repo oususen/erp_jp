@@ -1,6 +1,6 @@
 <template>
   <div class="panel">
-    <a-card title="采购支出明细">
+    <a-card title="購買支出明細">
       <a-table :columns="columns" :data-source="items" :loading="loading" :pagination="false" size="small"
         @change="changeOrder" :scroll="{}">
       </a-table>
@@ -29,30 +29,30 @@
         items: [],
         columns: [
           {
-            title: '单号',
+            title: '伝票コード',
             dataIndex: 'number',
             key: 'number',
             width: 130
           },
           {
-            title: '供应商',
+            title: '仕入先',
             dataIndex: 'supplier_name',
             key: 'supplier_name',
           },
           {
-            title: '采购总金额',
+            title: '購買総金金金額',
             dataIndex: 'total_amount',
             key: 'total_amount',
             width: 100,
           },
           {
-            title: '付款金额',
+            title: '支払いい金金金額',
             dataIndex: 'payment_amount',
             key: 'payment_amount',
             width: 100,
           },
           // {
-          //   title: '创建日期',
+          //   title: '作成日',
           //   dataIndex: 'create_time',
           //   key: 'create_time',
           //   width: 100,

@@ -3,12 +3,12 @@
     <a-card title="従業員アカウント">
       <a-row :gutter="16">
         <a-col :span="24" :md="8" :xl="6" style="margin-bottom: 12px;">
-          <a-input-search v-model="searchForm.search" placeholder="用户名, 名称, 电话" allowClear @search="search" />
+          <a-input-search v-model="searchForm.search" placeholder="ユーザー名, 名称, 電話" allowClear @search="search" />
         </a-col>
 
         <div style="margin-bottom: 12px; float: right;">
           <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="targetItem = {...form}; visible = true;">
-            新增账号</a-button>
+            アカウント新規登録</a-button>
         </div>
       </a-row>
 
@@ -18,11 +18,11 @@
           <div slot="is_active" slot-scope="value">
             <template v-if="value">
               <a-badge status="success" />
-              <span>启用</span>
+              <span>有効化</span>
             </template>
             <template v-else>
               <a-badge status="error" />
-              <span>禁用</span>
+              <span>無効化</span>
             </template>
           </div>
           <div slot="role_names" slot-scope="roleNames">
@@ -33,16 +33,16 @@
           <div slot="action" slot-scope="value, item">
             <a-button-group>
               <a-button icon="edit" size="small" @click="targetItem = {...item}; visible = true;">編集</a-button>
-              <a-popconfirm title="确定重置吗? 密码: 123456" @confirm="resetPassword(item.id)">
-                <a-button size="small" type="primary" icon="sync">重置密码</a-button>
+              <a-popconfirm title="本当にリセットしますか?? パスワード: 123456" @confirm="resetPassword(item.id)">
+                <a-button size="small" type="primary" icon="sync">パスワードリセット</a-button>
               </a-popconfirm>
-              <a-popconfirm title="确定删除吗?" @confirm="destroy(item.id)">
+              <a-popconfirm title="本当に削除しますか??" @confirm="destroy(item.id)">
                 <a-button type="danger" icon="delete" size="small">削除</a-button>
               </a-popconfirm>
             </a-button-group>
           </div>
           <!-- <div slot="expandedRowRender" slot-scope="item">
-            <div style="font-weight: bold; font-size: 15px;">拥有权限:</div>
+            <div style="font-weight: bold; font-size: 15px;">権限所有:</div>
             <a-row>
               <a-col v-for="key in item.permissions" :key="key" :span="4">{{permissions[key]}}</a-col>
             </a-row>
@@ -107,13 +107,13 @@
       destroy(id) {
         userDestroy({ id }).then(() => {
           // this.items.splice(this.items.findIndex(item => item.id == id), 1);
-          this.$message.success('删除成功');
+          this.$message.success('削除成功');
           this.list();
         });
       },
       resetPassword(id) {
         userResetPassword({ id }).then(() => {
-          this.$message.success('重置成功');
+          this.$message.success('リセット成功');
         });
       },
       search() {

@@ -2,7 +2,7 @@
   <div>
     <a-card style="height: calc(50vh - 40px);">
       <div slot="title">
-        <span>销售走势</span>
+        <span>販売動向</span>
         <a-range-picker v-model="dateRange" :ranges="ranges" :disabled="loading" :allowClear="false"
           @change="changeDateRange" style="float: right;" />
         <div id="salesTrend" style="margin-top: 36px;"></div>
@@ -20,9 +20,9 @@
     data() {
       return {
         ranges: {
-          '7天': [moment().add(-7, 'days').startOf('day'), moment().startOf('day')],
-          '15天': [moment().add(-15, 'days').startOf('day'), moment().startOf('day')],
-          '30天': [moment().add(-30, 'days').startOf('day'), moment().startOf('day')],
+          '7日': [moment().add(-7, 'days').startOf('day'), moment().startOf('day')],
+          '15日': [moment().add(-15, 'days').startOf('day'), moment().startOf('day')],
+          '30日': [moment().add(-30, 'days').startOf('day'), moment().startOf('day')],
         },
         dateRange: [moment().add(-7, 'days').startOf('day'), moment().startOf('day')],
         chart: null,

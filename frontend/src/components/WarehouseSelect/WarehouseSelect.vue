@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-select v-model="value" :placeholder="placeholder" allowClear show-search :disabled="disabled"
-      :filter-option="false" :not-found-content="loading ? undefined : '暂无数据'" style="width: 100%;" @search="search"
+      :filter-option="false" :not-found-content="loading ? undefined : 'データなし'" style="width: 100%;" @search="search"
       @change="change" @focus="focus" @popupScroll="scroll">
       <div slot="notFoundContent" style="text-align: center;">
         <a-spin size="small" :spinning="loading" />

@@ -1,10 +1,10 @@
 <template>
   <div>
     <a-modal v-model="visible" :confirmLoading="loading" :maskClosable="false" @cancel="cancel" @ok="confirm">
-      <div slot="title">{{form.id ? '编辑产品单位' : '新增产品单位' }}</div>
+      <div slot="title">{{form.id ? '商品単位の編集' : '商品単位新規登録' }}</div>
       <div>
         <a-form-model ref="form" :model="form" :rules="rules" :label-col="{ span: 4 }" :wrapper-col="{ span: 16 }">
-          <a-form-model-item prop="name" label="单位名称">
+          <a-form-model-item prop="name" label="単位名">
             <a-input v-model="form.name" />
           </a-form-model-item>
           <a-form-model-item prop="remark" label="備考">
@@ -26,7 +26,7 @@
     data() {
       return {
         rules: {
-          name: [{ required: true, message: '请输入单位名称', trigger: 'change' }]
+          name: [{ required: true, message: '単位名を入力してください', trigger: 'change' }]
         },
         loading: false,
       };
@@ -38,7 +38,7 @@
             this.loading = true;
             let func = this.form.id ? goodsUnitUpdate : goodsUnitCreate;
             func(this.form).then(data => {
-              this.$message.success(this.form.id ? '修改成功' : '新增成功');
+              this.$message.success(this.form.id ? '更新成功' : '新規登録成功');
               this.$emit(this.form.id ? 'update' : 'create', data);
               this.cancel();
             }).finally(() => {

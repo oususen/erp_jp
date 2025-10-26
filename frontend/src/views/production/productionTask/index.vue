@@ -1,15 +1,15 @@
 <template>
   <div>
-    <a-card title="生产任务">
+    <a-card title="生産タスク">
       <a-row :gutter="[12, 8]">
         <a-col :span="24" style="width: 256px;">
           <a-range-picker @change="onChangePicker" />
         </a-col>
         <a-col :span="24" style="width: 200px;">
-          <a-input v-model="searchForm.search" placeholder="生产单号, 销售单号" allowClear @pressEnter="search" />
+          <a-input v-model="searchForm.search" placeholder="生産指示コード, 販売伝票コード" allowClear @pressEnter="search" />
         </a-col>
         <a-col :span="24" style="width: 84px;">
-          <a-button type="primary" icon="search" @click="search">照会</a-button>
+          <a-button type="primary" icon="search" @click="search">検索</a-button>
         </a-col>
       </a-row>
 
@@ -24,8 +24,8 @@
         >
           <div slot="action" slot-scope="value, item, index">
             <a-button-group size="small">
-              <a-button @click="detial()">详情</a-button>
-              <a-button type="primary" @click="openCreateModal(item)">生产</a-button>
+              <a-button @click="detial()">詳細</a-button>
+              <a-button type="primary" @click="openCreateModal(item)">生産</a-button>
             </a-button-group>
           </div>
         </a-table>
@@ -51,7 +51,7 @@ export default {
       items: [],
       columns: [
         {
-          title: "番号",
+          title: "連番",
           dataIndex: "index",
           width: 60,
           fixed: "left",
@@ -60,39 +60,39 @@ export default {
           },
         },
         {
-          title: "生产计划单号",
+          title: "生産計画コード",
           dataIndex: "number",
           fixed: "left",
         },
         {
-          title: "销售单号",
+          title: "販売伝票コード",
           dataIndex: "sales_order_number",
         },
         {
-          title: "产品编号",
+          title: "商品コード",
           dataIndex: "goods_number",
         },
         {
-          title: "产品名称",
+          title: "商品名",
           dataIndex: "goods_name",
         },
         {
-          title: "计划数量",
+          title: "予定数数数量",
           dataIndex: "total_quantity",
           width: 100,
         },
         {
-          title: "完成数量",
+          title: "完了数数数量",
           dataIndex: "quantity_produced",
           width: 100,
         },
         {
-          title: "计划开始时间",
+          title: "計画開始時間",
           dataIndex: "start_time",
           width: 180,
         },
         {
-          title: "计划结束时间",
+          title: "計画終了時間",
           dataIndex: "end_time",
           width: 180,
         },

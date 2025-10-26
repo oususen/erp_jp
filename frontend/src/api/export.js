@@ -2,7 +2,7 @@ import Cookies from 'js-cookie'
 import axios from 'axios'
 
 
-// 客户
+// 顧客
 export function clientExport(params) {
   return axios({
     url: '/api/clients/export/',
@@ -13,7 +13,7 @@ export function clientExport(params) {
   })
 }
 
-// 供应商
+// 仕入先
 export function supplierExport(params) {
   return axios({
     url: '/api/suppliers/export/',
@@ -24,7 +24,7 @@ export function supplierExport(params) {
   })
 }
 
-// 仓库
+// 入庫
 export function warehouseExport(params) {
   return axios({
     url: '/api/warehouses/export/',
@@ -35,7 +35,7 @@ export function warehouseExport(params) {
   })
 }
 
-// 结算账户
+// 決済口座
 export function settlementAccountExport(params) {
   return axios({
     url: '/api/accounts/export/',
@@ -46,7 +46,7 @@ export function settlementAccountExport(params) {
   })
 }
 
-// 收支项目
+// 収支項目
 export function revenueExpenditureItemsExport(params) {
   return axios({
     url: '/api/charge_items/export/',
@@ -57,7 +57,7 @@ export function revenueExpenditureItemsExport(params) {
   })
 }
 
-// 产品分类
+// 商品カテゴリ
 export function goodsClassificationExport(params) {
   return axios({
     url: '/api/goods_categories/export/',
@@ -68,7 +68,7 @@ export function goodsClassificationExport(params) {
   })
 }
 
-// 产品信息
+// 商品情報
 export function goodsInformationExport(params) {
   return axios({
     url: '/api/goods/export/',
@@ -79,7 +79,7 @@ export function goodsInformationExport(params) {
   })
 }
 
-// 产品单位
+// 商品単位
 export function goodsUnitExport(params) {
   return axios({
     url: '/api/goods_units/export/',
@@ -90,7 +90,7 @@ export function goodsUnitExport(params) {
   })
 }
 
-// // 原料字典
+// // 原料マスタ
 // export function materialDictExport(params) {
 //   return axios({
 //     url: '/api/materials/export/',
@@ -101,7 +101,7 @@ export function goodsUnitExport(params) {
 //   })
 // }
 
-// // 成品字典
+// // 商品マスタ
 // export function productsDictExport(params) {
 //   return axios({
 //     url: '/api/products/export/',

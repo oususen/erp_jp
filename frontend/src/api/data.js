@@ -1,113 +1,113 @@
 import request from '@/utils/request';
 
 
-// 仓库
+// 入庫
 export function getWarehouseNumber(params) {
   return request({ url: `/warehouses/number/`, method: 'get', params })
 }
 
-// 供应商
+// 仕入先
 export function getSupplierNumber(params) {
   return request({ url: `/suppliers/number/`, method: 'get', params })
 }
 
-// 客户
+// 顧客
 export function getClientNumber(params) {
   return request({ url: `/clients/number/`, method: 'get', params })
 }
 
-// 结算账户
+// 決済口座
 export function getSettlementAccountNumber(params) {
   return request({ url: `/accounts/number/`, method: 'get', params })
 }
 
-// 产品信息
+// 商品情報
 export function getGoodsNumber(params) {
   return request({ url: `/goods/number/`, method: 'get', params })
 }
 
 
-// 日常采购
+// 日常購買
 export function getPurchaseNumber(params) {
   return request({ url: `/purchase_requisitions/number/`, method: 'get', params })
 }
 
-// 采购单
+// 購買伝票
 export function getPurchaseOrderNumber(params) {
   return request({ url: `/purchase_orders/number/`, method: 'get', params })
 }
 
-// 采购退货单
+// 購買返品伝票
 export function getPurchaseReturnOrderNumber(params) {
   return request({ url: `/purchase_return_orders/number/`, method: 'get', params })
 }
 
-// 销售开单
+// 販売伝票作成
 export function getSaleOrderNumber(params) {
   return request({ url: `/sales_orders/number/`, method: 'get', params })
 }
 
-// 销售退货
+// 販売返品
 export function getSaleReturnOrderNumber(params) {
   return request({ url: `/sales_return_orders/number/`, method: 'get', params })
 }
 
-// 调拨单
+// 在庫振替伝票
 export function getStockTransferOrderNumber(params) {
   return request({ url: `/stock_transfer_orders/number/`, method: 'get', params })
 }
 
-// 盘点单
+// 棚卸伝票
 export function getStockCheckOrderNumber(params) {
   return request({ url: `/stock_check_orders/number/`, method: 'get', params })
 }
 
-// 付款单
+// 支払いいい命令
 export function getPaymentOrderNumber(params) {
   return request({ url: `/payment_orders/number/`, method: 'get', params })
 }
 
-// 收款单
+// 入金伝票
 export function getCollectionOrderNumber(params) {
   return request({ url: `/collection_orders/number/`, method: 'get', params })
 }
 
-// 日常收支
+// 日常収支
 export function getChargeOrderNumber(params) {
   return request({ url: `/charge_orders/number/`, method: 'get', params })
 }
 
-// // 装箱清单
+// // 梱包明細書
 // export function getPackingNumber(params) {
 //   return request({ url: `/packing_orders/number/`, method: 'get', params })
 // }
 
-// // 原料入库
+// // 原料入庫
 // export function getMaterialStockInNumber(params) {
 //   return request({ url: `/material_stock_in_orders/number/`, method: 'get', params })
 // }
 
-// // 原料出库
+// // 原料出庫
 // export function getMaterialStockOutNumber(params) {
 //   return request({ url: `/material_stock_out_orders/number/`, method: 'get', params })
 // }
 
-// // 成品入库
+// // 完成品入庫
 // export function getProductStockInNumber(params) {
 //   return request({ url: `/product_stock_in_orders/number/`, method: 'get', params })
 // }
 
-// // 成品出库
+// // 商品出庫
 // export function getProductStockOutNumber(params) {
 //   return request({ url: `/product_stock_out_orders/number/`, method: 'get', params })
 // }
 
-// // 原料字典
+// // 原料マスタ
 // export function getmaterialDictNumber(params) {
 //   return request({ url: `/materials/number/`, method: 'get', params })
 // }
 
-// // 成品字典
+// // 商品マスタ
 // export function getproductsDictNumber(params) {
 //   return request({ url: `/products/number/`, method: 'get', params })
 // }

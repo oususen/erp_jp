@@ -1,6 +1,6 @@
 export default [
   {
-    title: '番号',
+    title: '連番',
     dataIndex: 'index',
     key: 'index',
     customRender: (value, item, index) => {

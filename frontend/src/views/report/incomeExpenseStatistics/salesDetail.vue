@@ -1,6 +1,6 @@
 <template>
   <div class="panel">
-    <a-card title="订单收款明细">
+    <a-card title="注文の支払いいい詳細">
       <a-table :columns="columns" :data-source="items" :loading="loading" :pagination="false" size="small"
         @change="changeOrder" :scroll="{}">
       </a-table>
@@ -28,30 +28,30 @@
         items: [],
         columns: [
           {
-            title: '单号',
+            title: '伝票コード',
             dataIndex: 'number',
             key: 'number',
             width: 130
           },
           {
-            title: '客户',
+            title: '顧客',
             dataIndex: 'client_name',
             key: 'client_name',
           },
           {
-            title: '销售总金额',
+            title: '販売総金金額',
             dataIndex: 'total_amount',
             key: 'total_amount',
             width: 100,
           },
           {
-            title: '收款金额',
+            title: '支払いい金金金額',
             dataIndex: 'collection_amount',
             key: 'collection_amount',
             width: 100,
           },
           // {
-          //   title: '创建日期',
+          //   title: '作成日',
           //   dataIndex: 'create_time',
           //   key: 'create_time',
           //   width: 100,

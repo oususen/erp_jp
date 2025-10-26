@@ -1,9 +1,9 @@
 <template>
   <div>
-    <a-card title="销售退货记录">
+    <a-card title="販売返品記録">
       <a-row gutter="16">
         <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
-          <a-input-search v-model="searchForm.search" placeholder="单号,供应商编号/名称" allowClear @search="search" />
+          <a-input-search v-model="searchForm.search" placeholder="伝票コード,仕入先コード/名称" allowClear @search="search" />
         </a-col>
         <!-- <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
           <a-range-picker @change="onChangePicker" />
@@ -15,7 +15,7 @@
           @change="tableChange">
           <div slot="action" slot-scope="value, item">
             <a-button-group size="small">
-              <a-button size="small" @click="detial(item)">详情</a-button>
+              <a-button size="small" @click="detial(item)">詳細</a-button>
             </a-button-group>
           </div>
         </a-table>
@@ -35,7 +35,7 @@
       return {
         columns: [
           {
-            title: '番号',
+            title: '連番',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {
@@ -44,44 +44,44 @@
             width: 45
           },
           {
-            title: '退货编号',
+            title: '戻りコード',
             dataIndex: 'number',
             sorter: true,
           },
           {
-            title: '销售单号',
+            title: '販売伝票コード',
             dataIndex: 'sales_order',
           },
           {
-            title: '客户',
+            title: '顧客',
             dataIndex: 'client_name',
           },
           {
-            title: '经手人',
+            title: '担当者',
             dataIndex: 'handler_name',
           },
           {
-            title: '处理日期',
+            title: '処理日',
             dataIndex: 'handle_time',
             width: 150
           },
           {
-            title: '退货总数量',
+            title: '返品された合計数数数量',
             dataIndex: 'total_quantity',
             width: 120
           },
           {
-            title: '退货总金额',
+            title: '返品総金金金額',
             dataIndex: 'total_amount',
             width: 120
           },
           {
-            title: '付款金额',
+            title: '支払いい金金金額',
             dataIndex: 'payment_amount',
             width: 120
           },
           {
-            title: '其他费用',
+            title: 'そのその他費用',
             dataIndex: 'other_amount',
             width: 120
           },

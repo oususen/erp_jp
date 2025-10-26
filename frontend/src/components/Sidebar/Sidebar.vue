@@ -24,11 +24,11 @@
       <a-space :size="32">
         <div style="float: left; padding-left: 32px;">
           <img :src="wechatCustomerService" width="80" style="margin-top: -6px;" />
-          <div style="text-align: center; color: #777; font-size: 14px; margin-top: 4px;">微信客服</div>
+          <div style="text-align: center; color: #777; font-size: 14px; margin-top: 4px;">WeChatカスタマーサービス</div>
         </div>
         <div style="float: left;">
           <img :src="wechatExchange" width="80" style="margin-top: -6px;" />
-          <div style="text-align: center; color: #777; font-size: 14px; margin-top: 4px;">微信交流群</div>
+          <div style="text-align: center; color: #777; font-size: 14px; margin-top: 4px;">WeChat連絡グループ</div>
         </div>
       </a-space>
     </div> -->

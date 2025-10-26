@@ -1,6 +1,6 @@
 import request from "@/utils/request";
 
-// 生产计划
+// 生産計画
 export function productionOrderList(params) {
   return request({ url: `/production_orders/`, method: "get", params });
 }
@@ -33,7 +33,7 @@ export function productionOrderClose(data) {
   return request({ url: `/production_orders/${data.id}/close/`, method: "post", data });
 }
 
-// 生产记录
+// 生産実績
 export function productionRecordList(params) {
   return request({ url: `/production_records/`, method: "get", params });
 }

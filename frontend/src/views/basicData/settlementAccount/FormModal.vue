@@ -1,38 +1,38 @@
 <template>
   <div>
     <a-modal v-model="visible" :confirmLoading="loading" :maskClosable="false" @cancel="cancel" @ok="confirm">
-      <div slot="title">{{ form.id ? "编辑结算账户" : "新增结算账户" }}</div>
+      <div slot="title">{{ form.id ? "決済口座編集" : "決済口座新規登録" }}</div>
       <div>
         <a-form-model ref="form" :model="form" :rules="rules" :label-col="{ span: 4 }" :wrapper-col="{ span: 16 }">
-          <a-form-model-item prop="name" label="账户名称">
+          <a-form-model-item prop="name" label="口座名">
             <a-input v-model="form.name" />
           </a-form-model-item>
-          <a-form-model-item prop="number" label="账户编号">
+          <a-form-model-item prop="number" label="口座コード">
             <a-input v-model="form.number" />
           </a-form-model-item>
-          <a-form-model-item prop="type" label="账户类型">
+          <a-form-model-item prop="type" label="口座タイプ">
             <a-select v-model="form.type" style="width: 100%">
               <a-select-option v-for="item in typeOptions" :key="item.id" :value="item.id">
                 {{ item.name }}
               </a-select-option>
             </a-select>
           </a-form-model-item>
-          <a-form-model-item prop="holder" label="开户人">
+          <a-form-model-item prop="holder" label="口座名義人">
             <a-input v-model="form.holder" />
           </a-form-model-item>
-          <a-form-model-item prop="card_number" label="开户账号">
+          <a-form-model-item prop="card_number" label="口座コード">
             <a-input v-model="form.card_number" />
           </a-form-model-item>
           <a-form-model-item prop="remark" label="備考">
             <a-input v-model="form.remark" allowClear />
           </a-form-model-item>
-          <a-form-model-item prop="is_active" label="ステータス">
+          <a-form-model-item prop="is_active" label="状態">
             <a-select v-model="form.is_active" style="width: 100%">
-              <a-select-option :value="true">有効</a-select-option>
-              <a-select-option :value="false">無効</a-select-option>
+              <a-select-option :value="true">有効化</a-select-option>
+              <a-select-option :value="false">凍結</a-select-option>
             </a-select>
           </a-form-model-item>
-          <a-form-model-item prop="initial_balance_amount" label="初期余额">
+          <a-form-model-item prop="initial_balance_amount" label="初期残高">
             <a-input-number v-model="form.initial_balance_amount" style="width: 100%" />
           </a-form-model-item>
         </a-form-model>
@@ -51,23 +51,23 @@ export default {
   data() {
     return {
       typeOptions: [
-        { id: "cash", name: "现金" },
-        { id: "alipay", name: "支付宝" },
-        { id: "wechat", name: "微信钱包" },
-        { id: "bank_account", name: "银行账户" },
-        { id: "other", name: "其他" },
+        { id: "cash", name: "現金" },
+        { id: "alipay", name: "Alipay" },
+        { id: "wechat", name: "WeChatウォレット" },
+        { id: "bank_account", name: "銀行口座" },
+        { id: "other", name: "その他" },
       ],
       rules: {
         name: [
-          { required: true, message: "请输入账户名称", trigger: "change" },
-          { max: 64, message: "超出最大长度 (64)", trigger: "change" },
+          { required: true, message: "口座名を入力してください", trigger: "change" },
+          { max: 64, message: "最大長を超えています（64）", trigger: "change" },
         ],
         number: [
-          { required: true, message: "请输入账户编号", trigger: "change" },
-          { max: 32, message: "超出最大长度 (32)", trigger: "change" },
+          { required: true, message: "口座コードを入力してください", trigger: "change" },
+          { max: 32, message: "最大長を超えています（32）", trigger: "change" },
         ],
         initial_balance_amount: [
-          { pattern: new RegExp(/^\d{0,14}(?:\.\d{0,2})?$/), message: "初期余额格式不正确", trigger: "change" },
+          { pattern: new RegExp(/^\d{0,14}(?:\.\d{0,2})?$/), message: "初期残高の形式が不正です", trigger: "change" },
         ],
       },
       loading: false,
@@ -81,7 +81,7 @@ export default {
           let func = this.form.id ? settlementAccountUpdate : settlementAccountCreate;
           func(this.form)
               .then((data) => {
-                this.$message.success(this.form.id ? "修改成功" : "新增成功");
+                this.$message.success(this.form.id ? "更新成功" : "新規登録成功");
                 this.$emit(this.form.id ? "update" : "create", data);
                 this.cancel();
               })

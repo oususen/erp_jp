@@ -1,21 +1,21 @@
 export let permissions = {
   'role': 'ロール管理',
-  'account': '账号管理',
-  'warehouse': '倉庫管理',
-  'stock_location': '库位管理',
-  'client': '往来单位',
-  'unit': '单位管理',
-  'material': '製品管理',
-  'material_batch': '产品批次',
-  'stock_in': '入库',
-  'stock_out': '出库',
+  'account': 'アカウント管理',
+  'warehouse': '入庫管理',
+  'stock_location': 'ロケーション管理',
+  'client': '接点単位',
+  'unit': '単位管理',
+  'material': '商品管理',
+  'material_batch': '商品ロット',
+  'stock_in': '入庫',
+  'stock_out': '入庫から出た',
   'stock_check': '棚卸',
-  'stock_transfer': '振替',
-  'config': '功能配置',
-  'order_prefix': '单据字头',
-  'inventory': '库存信息',
-  'flow': '出入库历史',
-  'stock_check':'盘点业务'
+  'stock_transfer': '在庫振替',
+  'config': '機能設定',
+  'order_prefix': '伝票ヘッダー',
+  'inventory': '在庫情報',
+  'flow': '入出庫履歴',
+  'stock_check':'棚卸業務'
 }
 
 export let permissionsTree = [
@@ -30,78 +30,78 @@ export let permissionsTree = [
         key: 'role',
       },
       {
-        title: '账号管理',
+        title: 'アカウント管理',
         value: 'account',
         key: 'account',
       },
       {
-        title: '功能配置',
+        title: '機能設定',
         value: 'config',
         key: 'config',
       },
       {
-        title: '单据字头',
+        title: '伝票ヘッダー',
         value: 'order_prefix',
         key: 'order_prefix',
       },
     ],
   },
   {
-    title: '主数据管理',
+    title: 'マスターデータ管理',
     value: '1',
     key: '1',
     children: [
       {
-        title: '倉庫管理',
+        title: '入庫管理',
         value: 'warehouse',
         key: 'warehouse',
       },
       {
-        title: '库位管理',
+        title: 'ロケーション管理',
         value: 'stock_location',
         key: 'stock_location',
       },
       {
-        title: '往来单位',
+        title: '接点単位',
         value: 'client',
         key: 'client',
       },
       {
-        title: '单位管理',
+        title: '単位管理',
         value: 'unit',
         key: 'unit',
       },
       {
-        title: '製品管理',
+        title: '商品管理',
         value: 'material',
         key: 'material',
       },
       {
-        title: '产品批次',
+        title: '商品ロット',
         value: 'material_batch',
         key: 'material_batch',
       },
     ],
   },
   {
-    title: '出入库作业',
+    title: '入出庫作業',
     value: '2',
     key: '2',
     children: [
       {
-        title: '出库',
+        title: '入庫から出た',
         value: 'stock_out',
         key: 'stock_out',
       },
       {
-        title: '入库',
+        title: '入庫',
         value: 'stock_in',
         key: 'stock_in',
       },
     ],
   },
   {
-    title: '其他作业',
+    title: 'そのその他宿題',
     value: '3',
     key: '3',
     children: [
@@ -111,24 +111,24 @@ export let permissionsTree = [
         key: 'stock_check',
       },
       {
-        title: '振替',
+        title: '在庫振替',
         value: 'stock_transfer',
         key: 'stock_transfer',
       },
     ],
   },
   {
-    title: '报表',
+    title: 'レポート',
     value: '4',
     key: '4',
     children: [
       {
-        title: '库存信息',
+        title: '在庫情報',
         value: 'inventory',
         key: 'inventory',
       },
       {
-        title: '出入库历史',
+        title: '入出庫履歴',
         value: 'flow',
         key: 'flow',
       },
@@ -144,24 +144,24 @@ export let permission_groups = [
       "permission_items": [
           {
               "id": 1,
-              "name": "销售走势",
+              "name": "販売動向",
               "code": "sales_trend"
           },
           {
               "id": 2,
-              "name": "销售前十产品",
+              "name": "売上上位10商品",
               "code": "sales_hot_goods"
           },
           {
               "id": 3,
-              "name": "订单收款明细",
+              "name": "注文の支払いいい詳細",
               "code": "stock_in_reminder"
           }
       ]
   },
   {
       "id": 2,
-      "name": "レポート統計",
+      "name": "レポートデータデータ統計",
       "permission_items": [
           {
               "id": 6,
@@ -181,14 +181,14 @@ export let permission_groups = [
 
           {
               "id": 10,
-              "name": "収支統計",
+              "name": "収支データデータ統計",
               "code": "finance_statistic"
           }
       ]
   },
   {
       "id": 3,
-      "name": "基础档案",
+      "name": "基本ファイル",
       "permission_items": [
           {
               "id": 11,
@@ -197,22 +197,22 @@ export let permission_groups = [
           },
           {
               "id": 12,
-              "name": "サプライヤー管理",
+              "name": "仕入先管理",
               "code": "supplier"
           },
           {
               "id": 13,
-              "name": "倉庫管理",
+              "name": "入庫管理",
               "code": "warehouse"
           },
           {
               "id": 14,
-              "name": "決済アカウント",
+              "name": "決済口座",
               "code": "account"
           },
           {
               "id": 15,
-              "name": "決済アカウント",
+              "name": "決済口座",
               "code": "charge_item"
           }
       ]
@@ -224,7 +224,7 @@ export let permission_groups = [
       "permission_items": [
           {
               "id": 19,
-              "name": "購買注文",
+              "name": "購買伝票",
               "code": "purchase_order"
           },
           {
@@ -257,59 +257,59 @@ export let permission_groups = [
       "permission_items": [
           {
               "id": 25,
-              "name": "入库业务",
+              "name": "入庫業",
               "code": "stock_in"
           },
           {
               "id": 26,
-              "name": "出库业务",
+              "name": "出庫業務",
               "code": "stock_out"
           },
           {
               "id": 27,
-              "name": "盘点业务",
+              "name": "棚卸業務",
               "code": "stock_check"
           },
           {
               "id": 28,
-              "name": "调拨业务",
+              "name": "在庫振替業務",
               "code": "stock_transfer"
           },
           {
             "id": 29,
-            "name": "库存结存",
+            "name": "在庫残高",
             "code": "inventory_flow"
         },
       ] 
   },
   {
       "id": 9,
-      "name": "往来管理",
+      "name": "取引管理",
       "permission_items": [
           {
               "id": 30,
-              "name": "应付账款",
+              "name": "買掛金",
               "code": "supplier_arrears"
           },
           {
               "id": 31,
-              "name": "付款业务",
+              "name": "支払い業務",
               "code": "payment_order"
           },
           {
               "id": 32,
-              "name": "应收账款",
+              "name": "売掛金",
               "code": "client_arrears"
           },
           {
               "id": 33,
-              "name": "收款业务",
+              "name": "入金業務",
               "code": "collection_order"
           },
 
           {
               "id": 36,
-              "name": "資金履歴",
+              "name": "資金明細",
               "code": "finance_flow"
           }
       ]

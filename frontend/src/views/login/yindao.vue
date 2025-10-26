@@ -9,10 +9,10 @@
         <span style="cursor: pointer; font-size: 24px" >Build Storage</span>
       </div>
       <div style="text-align: center; font-size: 16px; color: #1890ff; margin-top: 8px; margin-bottom: 24px">
-        <span>建筑仓储管理系统</span>
+        <span>建物入庫管理システム</span>
       </div>
       <div style="width: 100%;display: flex;flex-direction: row;justify-content: center;margin-bottom: 30px;">
-        <a-button @click="jump_login" type="primay" size="large" style="background-color: #3c9cff;color:#FFF">立即开始</a-button>
+        <a-button @click="jump_login" type="primay" size="large" style="background-color: #3c9cff;color:#FFF">すぐに開始</a-button>
       </div>
 
 

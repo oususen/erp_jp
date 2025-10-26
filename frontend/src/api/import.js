@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 import axios from 'axios'
 
 
-// 客户模板
+// 顧客テンプレート
 export function clientTemplate(params) {
   return axios({
     url: '/api/clients/import_template/',
@@ -14,7 +14,7 @@ export function clientTemplate(params) {
   })
 }
 
-// 客户导入
+// 顧客インポート
 export function clientImport(data) {
   return axios({
     url: '/api/clients/import_data/',
@@ -24,7 +24,7 @@ export function clientImport(data) {
   })
 }
 
-// 供应商模板
+// 仕入先テンプレート
 export function supplierTemplate(params) {
   return axios({
     url: '/api/suppliers/import_template/',
@@ -35,7 +35,7 @@ export function supplierTemplate(params) {
   })
 }
 
-// 供应商导入
+// 仕入先インポート
 export function supplierImport(data) {
   return axios({
     url: '/api/suppliers/import_data/',
@@ -45,7 +45,7 @@ export function supplierImport(data) {
   })
 }
 
-// 仓库模板
+// 入庫テンプレート
 export function warehouseTemplate(params) {
   return axios({
     url: '/api/warehouses/import_template/',
@@ -56,7 +56,7 @@ export function warehouseTemplate(params) {
   })
 }
 
-// 仓库导入
+// 入庫インポート
 export function warehouseImport(data) {
   return axios({
     url: '/api/warehouses/import_data/',
@@ -66,7 +66,7 @@ export function warehouseImport(data) {
   })
 }
 
-// 结算账户模板
+// 決済口座テンプレート
 export function settlementAccountTemplate(params) {
   return axios({
     url: '/api/accounts/import_template/',
@@ -77,7 +77,7 @@ export function settlementAccountTemplate(params) {
   })
 }
 
-// 结算账户导入
+// 決済口座インポート
 export function settlementAccountImport(data) {
   return axios({
     url: '/api/accounts/import_data/',
@@ -87,7 +87,7 @@ export function settlementAccountImport(data) {
   })
 }
 
-// 收支项目模板
+// 収支項目テンプレート
 export function revenueExpenditureItemsTemplate(params) {
   return axios({
     url: '/api/charge_items/import_template/',
@@ -98,7 +98,7 @@ export function revenueExpenditureItemsTemplate(params) {
   })
 }
 
-// 收支项目导入
+// 収支項目インポート
 export function revenueExpenditureItemsImport(data) {
   return axios({
     url: '/api/charge_items/import_data/',
@@ -108,7 +108,7 @@ export function revenueExpenditureItemsImport(data) {
   })
 }
 
-// 产品分类模板
+// 商品カテゴリのテンプレート
 export function goodsClassificationTemplate(params) {
   return axios({
     url: '/api/goods_categories/import_template/',
@@ -119,7 +119,7 @@ export function goodsClassificationTemplate(params) {
   })
 }
 
-// 产品分类导入
+// 商品カテゴリのインポート
 export function goodsClassificationImport(data) {
   return axios({
     url: '/api/goods_categories/import_data/',
@@ -129,7 +129,7 @@ export function goodsClassificationImport(data) {
   })
 }
 
-// 产品信息模板
+// 商品情報テンプレート
 export function goodsInformationTemplate(params) {
   return axios({
     url: '/api/goods/import_template/',
@@ -140,7 +140,7 @@ export function goodsInformationTemplate(params) {
   })
 }
 
-// 产品信息导入
+// 商品情報のインポート
 export function goodsInformationImport(data) {
   return axios({
     url: '/api/goods/import_data/',
@@ -150,7 +150,7 @@ export function goodsInformationImport(data) {
   })
 }
 
-// 产品单位模板
+// 商品単位テンプレート
 export function goodsUnitTemplate(params) {
   return axios({
     url: '/api/goods_units/import_template/',
@@ -161,7 +161,7 @@ export function goodsUnitTemplate(params) {
   })
 }
 
-// 产品单位导入
+// 商品単位のインポート
 export function goodsUnitImport(data) {
   return axios({
     url: '/api/goods_units/import_data/',
@@ -171,7 +171,7 @@ export function goodsUnitImport(data) {
   })
 }
 
-// // 原料字典模板
+// // 原料マスタテンプレート
 // export function materialDictTemplate(params) {
 //   return axios({
 //     url: '/api/materials/import_template/',
@@ -182,7 +182,7 @@ export function goodsUnitImport(data) {
 //   })
 // }
 
-// // 原料字典导入
+// // 原料マスタインポート
 // export function materialDictImport(data) {
 //   return axios({
 //     url: '/api/materials/import_data/',
@@ -192,7 +192,7 @@ export function goodsUnitImport(data) {
 //   })
 // }
 
-// // 成品字典模板
+// // 商品マスタテンプレート
 // export function productsDictTemplate(params) {
 //   return axios({
 //     url: '/api/products/import_template/',
@@ -203,7 +203,7 @@ export function goodsUnitImport(data) {
 //   })
 // }
 
-// // 成品字典导入
+// // 商品マスタインポート
 // export function productsDictImport(data) {
 //   return axios({
 //     url: '/api/products/import_data/',

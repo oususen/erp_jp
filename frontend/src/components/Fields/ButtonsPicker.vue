@@ -9,16 +9,16 @@
           style="width: 100%"
         >
           <a-radio-button value="0" style="width: 25%">今日</a-radio-button>
-          <!-- <a-radio-button value="1" style="width: 25%">昨天</a-radio-button> -->
-          <a-radio-button value="-6" style="width: 25%">近7天</a-radio-button>
-          <a-radio-button value="-29" style="width: 25%">近30天</a-radio-button>
-          <a-radio-button value="-364" style="width: 25%">近一年</a-radio-button>
+          <!-- <a-radio-button value="1" style="width: 25%">昨日</a-radio-button> -->
+          <a-radio-button value="-6" style="width: 25%">過去7日間</a-radio-button>
+          <a-radio-button value="-29" style="width: 25%">過去30日間</a-radio-button>
+          <a-radio-button value="-364" style="width: 25%">過去1年間</a-radio-button>
         </a-radio-group>
       </a-form-model-item>
     </a-col>
     <a-col :span="12">
       <a-form-model-item
-        label="自定义时间"
+        label="カスタム時間"
         :label-col="{ span: 6 }"
         :wrapper-col="{ span: 18 }"
       >

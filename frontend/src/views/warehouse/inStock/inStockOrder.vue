@@ -3,7 +3,7 @@
     <!-- <a-card title="入庫タスク"> -->
       <a-row gutter="16">
         <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
-          <a-input-search v-model="searchForm.search" placeholder="单号" allowClear @search="search" />
+          <a-input-search v-model="searchForm.search" placeholder="伝票コード" allowClear @search="search" />
         </a-col>
         <!-- <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
           <a-range-picker @change="onChangePicker" />
@@ -15,8 +15,8 @@
           @change="tableChange">
           <div slot="action" slot-scope="value, item">
             <a-button-group size="small">
-              <a-button size="small" @click="detial(item)">详情</a-button>
-              <a-button type="primary" size="small" @click="toStockIn(item)">入库</a-button>
+              <a-button size="small" @click="detial(item)">詳細</a-button>
+              <a-button type="primary" size="small" @click="toStockIn(item)">入庫</a-button>
             </a-button-group>
           </div>
         </a-table>
@@ -36,7 +36,7 @@
       return {
         columns: [
           {
-            title: '番号',
+            title: '連番',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {
@@ -45,34 +45,34 @@
             width: 45
           },
           {
-            title: '单号',
+            title: '伝票コード',
             dataIndex: 'number',
             sorter: true,
           },
           {
-            title: '仓库',
+            title: '入庫',
             dataIndex: 'warehouse_name',
           },
           {
-            title: '入库类型',
+            title: '入庫タイプ',
             dataIndex: 'type_display',
           },
           {
-            title: '入库完成状态',
+            title: '入庫完了状態',
             dataIndex: 'is_completed',
             customRender: (value, item, index) => {
-              return item.is_completed ? '完成' : '待入库'
+              return item.is_completed ? '完了' : '入庫待ち'
             },
           },
           {
-            title: 'ステータス',
+            title: '状態',
             dataIndex: 'is_void',
             customRender: (value, item, index) => {
-              return item.is_void ? '已作废' : '正常'
+              return item.is_void ? '無効済み' : '正常'
             },
           },
           {
-            title: '处理日期',
+            title: '処理日',
             dataIndex: 'create_time',
             width: 170
           },
@@ -132,7 +132,7 @@
       },
       voidItem(item) {
         stockInOrdersVoid({ id: item.id }).then(() => {
-          this.$message.success('作废成功');
+          this.$message.success('無効化成功');
           this.list();
         });
       },

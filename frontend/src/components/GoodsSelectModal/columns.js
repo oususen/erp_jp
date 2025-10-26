@@ -1,6 +1,6 @@
 export const columns = [
   {
-    title: '番号',
+    title: '連番',
     dataIndex: 'index',
     key: 'index',
     customRender: (value, item, index) => {
@@ -8,12 +8,12 @@ export const columns = [
     },
   },
   {
-    title: '产品编号',
+    title: '商品コード',
     dataIndex: 'number',
     key: 'number',
   },
   {
-    title: '产品名称',
+    title: '商品名',
     dataIndex: 'name',
     key: 'name',
   },

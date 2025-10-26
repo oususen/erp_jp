@@ -1,12 +1,12 @@
 <template>
   <div>
-    <a-card title="製品情報">
+    <a-card title="商品情報">
       <a-row :gutter="16">
         <a-col :span="24" style="max-width: 200px; margin-bottom: 12px;">
-          <a-input v-model="searchForm.search" placeholder="番号、名称、備考" allowClear @pressEnter="search" />
+          <a-input v-model="searchForm.search" placeholder="コード, 名称, 備考" allowClear @pressEnter="search" />
         </a-col>
         <a-col :span="24" style="width: 100px; margin-bottom: 12px;">
-          <a-button type="primary" icon="search" @click="search">照会</a-button>
+          <a-button type="primary" icon="search" @click="search">検索</a-button>
         </a-col>
 
         <a-col :span="24" style="width: 300px; margin-bottom: 12px;">
@@ -20,7 +20,7 @@
         </a-col>
 
         <div style="margin-bottom: 12px; float: right;">
-          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="openFormModal(form)">製品追加</a-button>
+          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="openFormModal(form)">商品を追加</a-button>
         </div>
       </a-row>
 
@@ -28,12 +28,12 @@
         <a-table size="small" :columns="columns" :dataSource="items" rowKey="id" :loading="loading" :pagination="pagination"
                  @change="tableChange">
           <div slot="is_active" slot-scope="value">
-            <a-tag :color="value ? 'green' : 'red'">{{value ? '有効' : '無効'}}</a-tag>
+            <a-tag :color="value ? 'green' : 'red'">{{value ? '有効化' : '凍結'}}</a-tag>
           </div>
           <div slot="action" slot-scope="value, item">
             <a-button-group>
               <a-button icon="edit" size="small" @click="openFormModal(item)">編集</a-button>
-              <a-popconfirm title="削除してもよろしいですか" @confirm="destroy(item.id)">
+              <a-popconfirm title="本当に削除しますか?" @confirm="destroy(item.id)">
                 <a-button type="danger" icon="delete" size="small">削除</a-button>
               </a-popconfirm>
             </a-button-group>
@@ -51,7 +51,7 @@
         @update="update" />
     <a-modal v-model="importLoading" :footer="null" :maskClosable="false" :closable="false">
       <div>
-        <a-spin style="margin-right: 12px;" />正在导入中, 请等待...
+        <a-spin style="margin-right: 12px;" />インポート中, お待ちください...
       </div>
     </a-modal>
   </div>
@@ -74,7 +74,7 @@ export default {
     return {
       columns: [
         {
-          title: '番号',
+          title: '連番',
           dataIndex: 'index',
           key: 'index',
           customRender: (value, item, index) => {
@@ -82,34 +82,34 @@ export default {
           },
         },
         {
-          title: '产品编号',
+          title: '商品コード',
           dataIndex: 'number',
           sorter: true,
         },
         {
-          title: '产品名称',
+          title: '商品名',
           dataIndex: 'name',
           sorter: true,
         },
         {
-          title: '分类',
+          title: 'カテゴリ',
           dataIndex: 'category_name',
         },
         {
-          title: '采购价',
+          title: '購買価格',
           dataIndex: 'purchase_price',
         },
         {
-          title: '零售价',
+          title: '小売価格',
           dataIndex: 'retail_price',
         },
         {
-          title: 'ステータス',
+          title: '状態',
           dataIndex: 'is_active',
           scopedSlots: { customRender: 'is_active' }
         },
         {
-          title: '单位',
+          title: '単位',
           dataIndex: 'remark'
         },
         {
@@ -202,20 +202,20 @@ export default {
     destroy(id) {
       goodsInformationDestroy({ id }).then(() => {
         // this.items.splice(this.items.findIndex(item => item.id == id), 1);
-        this.$message.success('删除成功');
+        this.$message.success('削除成功');
         this.list();
       });
     },
     exportExcel() {
       goodsInformationExport(this.searchForm).then(resp => {
-        exportExcel(resp.data, '产品信息列表');
+        exportExcel(resp.data, '商品情報一覧');
       }).catch(err => {
         this.$message.error(err.response.data.error);
       });
     },
     downloadTemplate () {
       goodsInformationTemplate().then(resp => {
-        exportExcel(resp.data, '产品信息导入模板');
+        exportExcel(resp.data, '商品情報インポートテンプレート');
       }).catch(err => {
         this.$message.error(err.response.data.error);
       });
@@ -227,11 +227,11 @@ export default {
       setTimeout(() => {
         goodsInformationImport(data)
             .then(() => {
-              this.$message.success('导入成功');
+              this.$message.success('インポート成功');
               this.list();
             })
             .catch(err => {
-              alert("导入错误:" + "\n" + err.response.data.join("\n"));
+              alert("インポートエラー発生発生:" + "\n" + err.response.data.join("\n"));
             })
             .finally(() => {
               this.importLoading = false;

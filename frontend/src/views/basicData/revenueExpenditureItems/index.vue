@@ -3,16 +3,16 @@
     <a-card title="収支項目">
       <a-row gutter="16">
         <a-col :span="24" style="max-width: 200px; margin-bottom: 12px;">
-          <a-select v-model="searchForm.type" placeholder="类型" allowClear style="width: 100%;" @change="search">
-            <a-select-option value="income">收入</a-select-option>
+          <a-select v-model="searchForm.type" placeholder="タイプ" allowClear style="width: 100%;" @change="search">
+            <a-select-option value="income">収入</a-select-option>
             <a-select-option value="expenditure">支出</a-select-option>
           </a-select>
         </a-col>
         <a-col :span="24" style="max-width: 200px; margin-bottom: 12px;">
-          <a-input v-model="searchForm.search" placeholder="名称, 备注" allowClear @pressEnter="search" />
+          <a-input v-model="searchForm.search" placeholder="名称, 備考" allowClear @pressEnter="search" />
         </a-col>
         <a-col :span="24" style="width: 100px; margin-bottom: 12px;">
-          <a-button type="primary" icon="search" @click="search">照会</a-button>
+          <a-button type="primary" icon="search" @click="search">検索</a-button>
         </a-col>
 
         <a-col :span="24" style="width: 300px; margin-bottom: 12px;">
@@ -26,7 +26,7 @@
         </a-col>
 
         <div style="margin-bottom: 12px; float: right;">
-          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="openFormModal(form)">新增收支项目</a-button>
+          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="openFormModal(form)">収支項目新規登録</a-button>
         </div>
       </a-row>
 
@@ -34,12 +34,12 @@
         <a-table size="small" :columns="columns" :dataSource="items" rowKey="id" :loading="loading" :pagination="pagination"
           @change="tableChange">
           <div slot="is_active" slot-scope="value">
-            <a-tag :color="value ? 'green' : 'red'">{{value ? '有効' : '無効'}}</a-tag>
+            <a-tag :color="value ? 'green' : 'red'">{{value ? '有効化' : '凍結'}}</a-tag>
           </div>
           <div slot="action" slot-scope="value, item">
             <a-button-group>
               <a-button icon="edit" size="small" @click="openFormModal(item)">編集</a-button>
-              <a-popconfirm title="削除してもよろしいですか" @confirm="destroy(item.id)">
+              <a-popconfirm title="本当に削除しますか?" @confirm="destroy(item.id)">
                 <a-button type="danger" icon="delete" size="small">削除</a-button>
               </a-popconfirm>
             </a-button-group>
@@ -50,7 +50,7 @@
     <form-modal v-model="visible" :form="targetItem" @create="create" @update="update" />
     <a-modal v-model="importLoading" :footer="null" :maskClosable="false" :closable="false">
       <div>
-        <a-spin style="margin-right: 12px;" />正在导入中, 请等待...
+        <a-spin style="margin-right: 12px;" />インポート中, お待ちください...
       </div>
     </a-modal>
   </div>
@@ -71,7 +71,7 @@
       return {
         columns: [
           {
-            title: '番号',
+            title: '連番',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {
@@ -84,7 +84,7 @@
             sorter: true,
           },
           {
-            title: '收支类型',
+            title: '収支タイプ',
             dataIndex: 'type_display',
           },
           {
@@ -143,20 +143,20 @@
       destroy(id) {
         revenueExpenditureItemsDestroy({ id }).then(() => {
           // this.items.splice(this.items.findIndex(item => item.id == id), 1);
-          this.$message.success('删除成功');
+          this.$message.success('削除成功');
           this.list();
         });
       },
       exportExcel() {
         revenueExpenditureItemsExport(this.searchForm).then(resp => {
-          exportExcel(resp.data, '收支项目列表');
+          exportExcel(resp.data, '収支項目一覧');
         }).catch(err => {
           this.$message.error(err.response.data.error);
         });
       },
       downloadTemplate () {
         revenueExpenditureItemsTemplate().then(resp => {
-          exportExcel(resp.data, '收支项目导入模板');
+          exportExcel(resp.data, '収支項目インポートテンプレート');
         }).catch(err => {
           this.$message.error(err.response.data.error);
         });
@@ -168,7 +168,7 @@
         setTimeout(() => {
           revenueExpenditureItemsImport(data)
             .then(() => {
-              this.$message.success('导入成功');
+              this.$message.success('インポート成功');
               this.list();
             })
             .catch(err => {

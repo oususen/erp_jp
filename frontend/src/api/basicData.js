@@ -1,6 +1,6 @@
 import request from '@/utils/request';
 
-// 客户
+// 顧客
 export function clientList(params) {
   return request({ url: `/clients/`, method: 'get', params })
 }
@@ -17,7 +17,7 @@ export function clientDestroy(data) {
   return request({ url: `/clients/${data.id}/`, method: 'delete', data })
 }
 
-// 供应商
+// 仕入先
 export function supplierList(params) {
   return request({ url: `/suppliers/`, method: 'get', params })
 }
@@ -34,7 +34,7 @@ export function supplierDestroy(data) {
   return request({ url: `/suppliers/${data.id}/`, method: 'delete', data })
 }
 
-// 仓库
+// 入庫
 export function warehouseList(params) {
   return request({ url: `/warehouses/`, method: 'get', params })
 }
@@ -51,7 +51,7 @@ export function warehouseDestroy(data) {
   return request({ url: `/warehouses/${data.id}/`, method: 'delete', data })
 }
 
-// 结算账户
+// 決済口座
 export function settlementAccountList(params) {
   return request({ url: `/accounts/`, method: 'get', params })
 }
@@ -68,7 +68,7 @@ export function settlementAccountDestroy(data) {
   return request({ url: `/accounts/${data.id}/`, method: 'delete', data })
 }
 
-// 收支项目
+// 収支項目
 export function revenueExpenditureItemsList(params) {
   return request({ url: `/charge_items/`, method: 'get', params })
 }
@@ -85,7 +85,7 @@ export function revenueExpenditureItemsDestroy(data) {
   return request({ url: `/charge_items/${data.id}/`, method: 'delete', data })
 }
 
-// // 原料字典
+// // 原料マスタ
 // export function materialDictList(params) {
 //   return request({ url: `/materials/`, method: 'get', params })
 // }
@@ -102,7 +102,7 @@ export function revenueExpenditureItemsDestroy(data) {
 //   return request({ url: `/materials/${data.id}/`, method: 'delete', data })
 // }
 
-// // 成品字典
+// // 商品マスタ
 // export function productsDictList(params) {
 //   return request({ url: `/products/`, method: 'get', params })
 // }

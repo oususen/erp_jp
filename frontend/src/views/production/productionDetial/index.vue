@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card title="生产计划详情">
+    <a-card title="生産計画詳細">
       <a-button slot="extra" type="primary" style="margin-right: 8px;" ghost v-print="'#printContent'">
         <a-icon type="printer" />印刷</a-button
       >
@@ -20,34 +20,34 @@
         <a-spin :spinning="loading">
           <img id="barcode" style="float: right" />
           <a-descriptions bordered>
-            <a-descriptions-item label="生产计划单号">
+            <a-descriptions-item label="生産計画コード">
               {{ item.number }}
             </a-descriptions-item>
-            <a-descriptions-item label="销售单号">
+            <a-descriptions-item label="販売伝票コード">
               {{ item.sales_order_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="ステータス">
+            <a-descriptions-item label="状態">
               {{ item.status_display }}
             </a-descriptions-item>
-            <a-descriptions-item label="产品编号">
+            <a-descriptions-item label="商品コード">
               {{ item.goods_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="产品名称">
+            <a-descriptions-item label="商品名">
               {{ item.goods_name }}
             </a-descriptions-item>
-            <a-descriptions-item label="计划数量">
+            <a-descriptions-item label="予定数数数量">
               {{ item.total_quantity }}
             </a-descriptions-item>
-            <a-descriptions-item label="完成数量">
+            <a-descriptions-item label="完了数数数量">
               {{ item.quantity_produced }}
             </a-descriptions-item>
-            <a-descriptions-item label="计划开始时间">
+            <a-descriptions-item label="計画開始時間">
               {{ item.start_time }}
             </a-descriptions-item>
-            <a-descriptions-item label="计划结束时间">
+            <a-descriptions-item label="計画終了時間">
               {{ item.end_time }}
             </a-descriptions-item>
-            <a-descriptions-item label="作成日時">
+            <a-descriptions-item label="作成時間">
               {{ item.create_time }}
             </a-descriptions-item>
             <a-descriptions-item label="作成者">

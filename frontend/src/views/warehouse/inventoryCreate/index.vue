@@ -1,18 +1,18 @@
 <template>
   <div>
-    <a-card title="盘点单">
+    <a-card title="棚卸伝票">
       <a-button slot="extra" type="primary" ghost @click="() => { this.$router.go(-1); }"> <a-icon
           type="left" />戻る</a-button>
       <a-spin :spinning="loading">
         <a-form-model ref="form" :model="form" :rules="rules" :label-col="{ span: 8 }" :wrapper-col="{ span: 16 }">
           <a-row>
             <a-col :span="6" style="width: 320px;">
-              <a-form-model-item prop="number" label="调拨编号">
+              <a-form-model-item prop="number" label="転送コード">
                 <a-input v-model="form.number" />
               </a-form-model-item>
             </a-col>
             <a-col :span="6" style="width: 320px;">
-              <a-form-model-item prop="warehouse" label="仓库">
+              <a-form-model-item prop="warehouse" label="入庫">
                 <a-select v-model="form.warehouse" style="width: 100%" @change="changeWarehouse">
                   <a-select-option v-for="item in warehouseItems" :key="item.id" :value="item.id">
                     {{ item.name }}
@@ -21,7 +21,7 @@
               </a-form-model-item>
             </a-col>
             <a-col :span="6" style="width: 320px;">
-              <a-form-model-item prop="handler" label="经手人">
+              <a-form-model-item prop="handler" label="担当者">
                 <a-select v-model="form.handler" style="width: 100%">
                   <a-select-option v-for="item in handlerItems" :key="item.id" :value="item.id">
                     {{ item.name }}
@@ -30,7 +30,7 @@
               </a-form-model-item>
             </a-col>
             <a-col :span="6" style="width: 320px;">
-              <a-form-model-item prop="handle_time" label="处理日期">
+              <a-form-model-item prop="handle_time" label="処理日">
                 <a-date-picker v-model="form.handle_time" valueFormat="YYYY-MM-DD" style="width: 100%" />
               </a-form-model-item>
             </a-col>
@@ -45,7 +45,7 @@
         <div>
           <a-row gutter="16">
             <a-space>
-              <a-button type="primary" @click="openMaterialModal">添加产品</a-button>
+              <a-button type="primary" @click="openMaterialModal">商品を追加</a-button>
             </a-space>
           </a-row>
           <div style="margin-top: 16px;">
@@ -55,7 +55,7 @@
                   <div v-if="item.isTotal">{{ value }}</div>
                   <div v-else>
                     <a-input :value="item.actual_quantity" disabled style="width:75%;" />
-                    <a-button @click="chooseBatch(item, index)">批</a-button>
+                    <a-button @click="chooseBatch(item, index)">ロット</a-button>
                   </div>
                 </div>
                 <div v-else>
@@ -65,7 +65,7 @@
               </div>
               <div slot="action" slot-scope="value, item, index">
                 <a-button-group v-if="!item.isTotal" size="small">
-                  <a-button type="danger" @click="removeMaterial(item)">移除</a-button>
+                  <a-button type="danger" @click="removeMaterial(item)">削除</a-button>
                 </a-button-group>
               </div>
             </a-table>
@@ -75,7 +75,7 @@
 
       <div style="width: 100%;display: flex;justify-content: center;">
         <div style="margin-top: 32px;">
-          <a-popconfirm title="确定保存吗?" @confirm="create">
+          <a-popconfirm title="本当に保存しますか??" @confirm="create">
             <a-button type="primary" :loading="loading">保存</a-button>
           </a-popconfirm>
         </div>
@@ -84,7 +84,7 @@
     </a-card>
     <materials-select-modal v-model="materialsSelectModalVisible" :warehouse="form.warehouse"
       @select="onSelectMaterial"></materials-select-modal>
-    <!-- 批次 -->
+    <!-- ロット -->
     <a-modal :title="batchTitle" v-model="batchVisible" width="750px" cancelText="閉じる" :maskClosable="false"
       @cancel="batchVisible = false" @ok="confirmChoosed">
       <div style="margin-bottom: 16px">
@@ -129,7 +129,7 @@ export default {
   },
   data() {
     return {
-      description: '新規追加',
+      description: '新規登録',
       batchTitle: '',
       warehouseItems: [],
       handlerItems: [],
@@ -140,26 +140,26 @@ export default {
       form: {},
       rules: {
         number: [
-          { required: true, message: '请输入编号', trigger: 'change' },
+          { required: true, message: 'コードを入力してください', trigger: 'change' },
         ],
         warehouse: [
-          { required: true, message: '请选择仓库', trigger: 'change' }
+          { required: true, message: '入庫を選択してください', trigger: 'change' }
         ],
         handler: [
-          { required: true, message: '请选择经手人', trigger: 'change' }
+          { required: true, message: '担当者ーを選択してください', trigger: 'change' }
         ],
         handle_time: [
-          { required: true, message: '请选择处理日期', trigger: 'change' },
+          { required: true, message: '処理日を選択してください', trigger: 'change' },
         ],
       },
       columns: [
         {
-          title: '番号',
+          title: '連番',
           dataIndex: 'index',
           key: 'index',
           width: 45,
           customRender: (value, item, index) => {
-            return item.isTotal ? '合计' : (index + 1)
+            return item.isTotal ? '合計' : (index + 1)
           },
         },
         {
@@ -169,34 +169,34 @@ export default {
           width: 150,
         },
         {
-          title: '番号',
+          title: 'コード',
           dataIndex: 'number',
           key: 'number',
           width: 150,
         },
         {
-          title: '规格',
+          title: '仕様',
           dataIndex: 'spec',
           key: 'spec',
           width: 150,
         },
         {
-          title: '单位',
+          title: '単位',
           dataIndex: 'unit',
           key: 'unit',
           width: 80,
         },
         {
-          title: '批次控制',
+          title: 'ロット制御',
           dataIndex: 'enable_batch_control',
           key: 'enable_batch_control',
           width: 80,
           customRender: (value, item, index) => {
-            return item.isTotal ? '合计' : (item.enable_batch_control ? '开启' : '未开启')
+            return item.isTotal ? '合計' : (item.enable_batch_control ? '有効化' : '無効')
           },
         },
         {
-          title: '实际数量',
+          title: '実数数数量',
           dataIndex: 'actual_quantity',
           key: 'actual_quantity',
           width: 180,
@@ -213,7 +213,7 @@ export default {
       materialItems: [],
       columnsBatch: [
         {
-          title: '番号',
+          title: '連番',
           dataIndex: 'index',
           key: 'index',
           customRender: (value, item, index) => {
@@ -221,19 +221,19 @@ export default {
           },
         },
         {
-          title: "番号",
+          title: "コード",
           dataIndex: "batch_number",
           key: "batch_number",
           scopedSlots: { customRender: "batch_number" },
         },
         {
-          title: "实际数量",
+          title: "実数数数量",
           dataIndex: "actual_quantity",
           key: "actual_quantity",
           scopedSlots: { customRender: "actual_quantity" },
         },
         {
-          title: "生产日期",
+          title: "製造日",
           dataIndex: "production_date",
           key: "production_date",
           scopedSlots: { customRender: "production_date" },
@@ -252,7 +252,7 @@ export default {
   },
   computed: {
     goodsData() {
-      // 统计合计
+      // データデータ統計合計
       let totalQuantity = 0,
         totalAmount = 0;
       for (let item of this.materialItems) {
@@ -285,7 +285,7 @@ export default {
     },
     openMaterialModal() {
       if (!this.form.warehouse) {
-        this.$message.warn('请先选择仓库！');
+        this.$message.warn('最初に入庫を選択してください。');
         return false;
       }
       this.materialsSelectModalVisible = true;
@@ -293,7 +293,7 @@ export default {
     async onSelectMaterial(item) {
       let index = this.materialItems.findIndex(_item => _item.id == item.id);
       if (index != -1) {
-        this.$message.warn('产品已存在');
+        this.$message.warn('商品はすでに存在します');
         return
       }
       let batchOptions = await batchsOption({ page_size: 999999, warehouse: this.form.warehouse, goods: item.goods }).then(data => {
@@ -317,7 +317,7 @@ export default {
     },
     chooseBatch(item, index) {
       console.log(item, index)
-      this.batchTitle = '管理批次';
+      this.batchTitle = 'ロットを管理する';
       this.curBatchOptions = item.batchOptions;
       this.curGoodsLineIdx = index;
       if (item.stock_check_batch_items.length) {
@@ -344,7 +344,7 @@ export default {
         }
       })
       if (ifHasEmpty) {
-        this.$message.warn('请将批次信息填写完整!');
+        this.$message.warn('ロット情報を完全に入力してください!');
         return
       }
       let tmp = { ...this.materialItems[this.curGoodsLineIdx], ...{ stock_check_batch_items: this.stockCheckBatchItems, actual_quantity: sumAmount } }
@@ -385,7 +385,7 @@ export default {
           let ifHasEmptyGoods = false;
           let ifHasEmptyBatch = false;
           if (this.materialItems.length == 0) {
-            this.$message.warn('未添加产品');
+            this.$message.warn('商品未登録');
             return false
           }
           this.materialItems.map(item => {
@@ -397,11 +397,11 @@ export default {
             }
           })
           if (ifHasEmptyGoods) {
-            this.$message.warn('实际数量必填');
+            this.$message.warn('実数数数量必須');
             return false
           }
           if (ifHasEmptyBatch) {
-            this.$message.warn('开启批次控制的产品, 需要完善该产品的批次信息');
+            this.$message.warn('ロット制御が有効な商品, この商品のロット情報を完了する必要があります');
             return false
           }
           this.loading = true;
@@ -417,7 +417,7 @@ export default {
           };
           console.log(formData)
           stockCheckCreate(formData).then(data => {
-            this.$message.success('创建成功');
+            this.$message.success('作成成功');
             this.$router.push({ path: '/warehouse/inventory' });
           }).finally(() => {
             this.loading = false;

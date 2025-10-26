@@ -14,10 +14,10 @@ export const kucun_echarts_data = (data) =>{
         tooltip: {},
         xAxis: {
             data: data_xAxis,
-            name:'产品名称'
+            name:'商品名'
         },
         yAxis: {
-            name:'库存数量'
+            name:'棚卸コード数数量'
         },
         series: [
             {
@@ -42,20 +42,20 @@ export const caigou_echarts_data = (data) =>{
     }
     return {
         title: {
-            text: '采购明细',
+            text: '購買明細',
             left:'center'
         },
         tooltip: {},
         xAxis: {
             data: data_xAxis,
-            name:'产品名称'
+            name:'商品名'
         },
         yAxis: {
-            name:'采购价格'
+            name:'購買価格'
         },
         series: [
             {
-                name: '采购价格(元)',
+                name: '購買価格（円）',
                 type: 'bar',
                 data: data_serios
             }
@@ -83,14 +83,14 @@ export const xiaoshou_echarts_data = (data) =>{
         tooltip: {},
         xAxis: {
             data: data_xAxis,
-            name:'产品名称'
+            name:'商品名'
         },
         yAxis: {
-            name:'采购价格(元)'
+            name:'購買価格（円）'
         },
         series: [
             {
-                name: '销售价格(元)',
+                name: '販売価格（円）',
                 type: 'bar',
                 data: data_serios
             }
@@ -117,36 +117,36 @@ export const sales_predict_echarts = (data) =>{
     }
     return {
         title: {
-            text: '数据对比',
+            text: 'データ比較',
             left:'center'
         },
         tooltip: {},
         xAxis: {
             data: data_xAxis,
-            name:'产品名称'
+            name:'商品名'
         },
         yAxis:{
-            name:'预期价格(元)'
+            name:'予想価格（円）'
         }
         ,
         series: [
             {
-                name: '预期价格(元)',
+                name: '予想価格（円）',
                 type: 'bar',
                 data: data_serios_predict_price
             },
             {
-                name: '已销售价格(元)',
+                name: '販売価格（円）',
                     type: 'bar',
                 data: data_serios_sales_price
             },
             {
-                name: '预期销售数量',
+                name: '予想販売回数数数量',
                 type: 'bar',
                 data: data_serios_predict_number
             },
             {
-                name: '已销售数量',
+                name: '販売回数数数量',
                 type: 'bar',
                 data: data_serios_sales_number
             }
@@ -160,16 +160,16 @@ export const pie_echatrts = (data) =>{
     var echart_data = [];
     var temp = [];
     if(data.total_amount>data.collection_amount)
-        temp = { value: data.total_amount-data.collection_amount, name: '未收到款项' };
+        temp = { value: data.total_amount-data.collection_amount, name: '支払いいいは受領されませんでした' };
     else
-        temp = { value: data.collection_amount-data.total_amount, name: '未收到款项' };  
+        temp = { value: data.collection_amount-data.total_amount, name: '支払いいいは受領されませんでした' };  
     echart_data.push({...temp});
-    var temp = { value: data.collection_amount, name: '已收到款项' };
+    var temp = { value: data.collection_amount, name: '支払いいいを受け取りました' };
     echart_data.push({...temp});
     return   {
         title: {
             text: data.number,
-            subtext:'数据统计',
+            subtext:'データデータ統計',
             left: 'center'
           },
         tooltip: {

@@ -2,21 +2,21 @@
   <div>
     <a-row :gutter="[8, 8]">
       <a-col :span="8">
-        <a-card title="今日销售额" size="small">
+        <a-card title="本日販売件数" size="small">
           <div style="text-align: center; font-size: 36px; font-weight: 600; color: #1890ff; margin: 12px 0;">
             {{ item.sales_amount }}
           </div>
         </a-card>
       </a-col>
       <a-col :span="8">
-        <a-card title="今日销售笔数" size="small">
+        <a-card title="本日販売件数" size="small">
           <div style="text-align: center; font-size: 36px; font-weight: 600; color: #1890ff; margin: 12px 0;">
             {{ item.sales_count }}
           </div>
         </a-card>
       </a-col>
       <a-col :span="8">
-        <a-card title="今日采购笔数" size="small">
+        <a-card title="本日購買件数" size="small">
           <div style="text-align: center; font-size: 36px; font-weight: 600; color: #1890ff; margin: 12px 0;">
             {{ item.purchase_count }}
           </div>
@@ -24,21 +24,21 @@
       </a-col>
 
       <a-col :span="24">
-        <a-card title="待办事项" size="small">
+        <a-card title="未処理事項" size="small">
           <a-card-grid style="width:20%; text-align:center; cursor: pointer;" @click="navigateTo('/warehouse/inStock')">
-            <a-statistic title="待入库" :value="item.stock_in_task_count" />
+            <a-statistic title="入庫待ち" :value="item.stock_in_task_count" />
           </a-card-grid>
           <a-card-grid
               style="width:20%; text-align:center; cursor: pointer;"
               @click="navigateTo('/warehouse/outStock')"
           >
-            <a-statistic title="待出库" :value="item.stock_out_task_count" />
+            <a-statistic title="出庫待ち" :value="item.stock_out_task_count" />
           </a-card-grid>
           <a-card-grid
               style="width:20%; text-align:center; cursor: pointer;"
               @click="navigateTo('/report/stock_report')"
           >
-            <a-statistic title="库存预警" :value="item.inventory_warning_count" />
+            <a-statistic title="在庫アラート" :value="item.inventory_warning_count" />
           </a-card-grid>
           <a-card-grid
               style="width:20%; text-align:center; cursor: pointer;"
@@ -56,7 +56,7 @@
       </a-col>
 
       <!-- <a-col :span="24">
-        <a-card title="ERP操作快捷入口" size="small">
+        <a-card title="ERP操作クイックアクセス" size="small">
           <a-row gutter="0">
             <a-col :span="4">
               <a-card-grid style="width: 100%; cursor: pointer; text-align: center;">
@@ -73,13 +73,13 @@
             <a-col :span="4">
               <a-card-grid style="width: 100%; cursor: pointer; text-align: center;">
                 <a-icon type="profile" style="font-size: 40px; color: #1890ff;" />
-                <div style="margin-top: 4px;">入库</div>
+                <div style="margin-top: 4px;">入庫</div>
               </a-card-grid>
             </a-col>
             <a-col :span="4">
               <a-card-grid style="width: 100%; cursor: pointer; text-align: center;">
                 <a-icon type="profile" style="font-size: 40px; color: #1890ff;" />
-                <div style="margin-top: 4px;">出库</div>
+                <div style="margin-top: 4px;">入庫から出た</div>
               </a-card-grid>
             </a-col>
             <a-col :span="4">
@@ -91,7 +91,7 @@
             <a-col :span="4">
               <a-card-grid style="width: 100%; cursor: pointer; text-align: center;">
                 <a-icon type="profile" style="font-size: 40px; color: #1890ff;" />
-                <div style="margin-top: 4px;">振替</div>
+                <div style="margin-top: 4px;">在庫振替</div>
               </a-card-grid>
             </a-col>
           </a-row>

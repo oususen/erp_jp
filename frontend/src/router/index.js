@@ -22,7 +22,7 @@ const index = {
     {
       path: '/home',
       name: 'home',
-      meta: { title: '首页' },
+      meta: { title: 'ホーム' },
       component: () => import('@/views/home/Home'),
     },
   ]

@@ -26,14 +26,14 @@
       dataSource: {
         type: Array,
         default: () => [
-          { type: '2021-10-01', 数量: 7.0, },
+          { type: '2021-10-01', 数数量: 7.0, },
         ]
       },
       fields: {
         type: Array,
         default: () => ['jeecg', 'jeebt']
       },
-      // 别名，需要的格式：[{field:'name',alias:'姓名'}, {field:'sex',alias:'性别'}]
+      // 別名、必要な形式：[{field:'name',alias:'名称'}, {field:'sex',alias:'性別'}]
       aliases:{
         type: Array,
         default: () => []
@@ -65,7 +65,7 @@
           value: 'y'
         })
         let rows =  dv.rows
-        // 替换别名
+        // 別名置換
         rows.forEach(row => {
           for (let item of this.aliases) {
             if (item.field === row.x) {

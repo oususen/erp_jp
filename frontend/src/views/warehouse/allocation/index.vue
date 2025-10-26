@@ -1,12 +1,12 @@
 <template>
   <div>
-    <a-card title="调拨单">
+    <a-card title="在庫振替伝票">
       <a-row gutter="16">
         <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
-          <a-input-search v-model="searchForm.search" placeholder="单号" allowClear @search="search" />
+          <a-input-search v-model="searchForm.search" placeholder="伝票コード" allowClear @search="search" />
         </a-col>
         <div style="margin-bottom: 12px; float: right;">
-          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="handelAdd(form)">新增调拨</a-button>
+          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="handelAdd(form)">在庫振替新規登録</a-button>
         </div>
       </a-row>
 
@@ -15,9 +15,9 @@
           @change="tableChange">
           <div slot="action" slot-scope="value, item">
             <a-button-group size="small">
-              <a-button size="small" @click="detial(item)">详情</a-button>
-              <a-popconfirm title="确定作废吗?" @confirm="voidItem(item)">
-                <a-button type="danger" :disabled="item.is_void">{{ item.is_void ? '已作废' : '作废'}}</a-button>
+              <a-button size="small" @click="detial(item)">詳細</a-button>
+              <a-popconfirm title="本当に無効にしますか??" @confirm="voidItem(item)">
+                <a-button type="danger" :disabled="item.is_void">{{ item.is_void ? '無効済み' : '無効'}}</a-button>
               </a-popconfirm>
             </a-button-group>
           </div>
@@ -38,7 +38,7 @@
       return {
         columns: [
           {
-            title: '番号',
+            title: '連番',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {
@@ -47,24 +47,24 @@
             width: 45
           },
           {
-            title: '单号',
+            title: '伝票コード',
             dataIndex: 'number',
             sorter: true,
           },
           {
-            title: '出库仓库',
+            title: '出荷入庫',
             dataIndex: 'out_warehouse_name',
           },
           {
-            title: '入库仓库',
+            title: '入荷入庫',
             dataIndex: 'in_warehouse_name',
           },
           {
-            title: '经手人',
+            title: '担当者',
             dataIndex: 'handler_name',
           },
           {
-            title: '处理日期',
+            title: '処理日',
             dataIndex: 'handle_time',
           },
           {
@@ -127,7 +127,7 @@
       },
       voidItem(item) {
         stockTransferOrdersVoid({ id: item.id }).then(() => {
-          this.$message.success('作废成功');
+          this.$message.success('無効化成功');
           this.list();
         });
       },

@@ -1,6 +1,6 @@
 export default [
   {
-    title: '番号',
+    title: '連番',
     dataIndex: 'index',
     key: 'index',
     customRender: (value, item, index) => {
@@ -8,21 +8,21 @@ export default [
     },
   },
   {
-    title: '用户名',
+    title: 'ユーザー名',
     dataIndex: 'username',
     sorter: true,
   },
   {
-    title: '员工姓名',
+    title: '従業員名',
     dataIndex: 'name',
     sorter: true,
   },
   {
-    title: '手机号',
+    title: '携帯コード',
     dataIndex: 'phone',
   }, 
   {
-    title: "ステータス",
+    title: "状態",
     dataIndex: "is_active",
     key: "is_active",
     scopedSlots: { customRender: "is_active" },

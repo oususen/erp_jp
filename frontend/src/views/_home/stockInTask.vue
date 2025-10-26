@@ -2,12 +2,12 @@
   <div>
     <a-card style="height: calc(50vh - 48px);">
       <div slot="title" style="height: 24px;">
-        <span>入库任务提醒</span>
+        <span>入庫作業リマインダー</span>
         <!-- <a-select v-model="taskType" size="small" @change="changeTask"
           style="width: 160px; float: right;">
-          <a-select-option value="purchase">采购入库</a-select-option>
+          <a-select-option value="purchase">購買入庫</a-select-option>
           <a-select-option value="purchaseReturn">購買返品</a-select-option>
-          <a-select-option value="sales">销售出库</a-select-option>
+          <a-select-option value="sales">販売出庫</a-select-option>
           <a-select-option value="salesReturn">販売返品</a-select-option>
         </a-select> -->
       </div>
@@ -16,7 +16,7 @@
         :scroll="{y: tableHeight}">
         <div slot="date" slot-scope="value">{{moment(value).format('YYYY-MM-DD')}}</div>
         <div slot="action" slot-scope="value, item">
-          <a-button type="link" @click="viewTask(item)">查看</a-button>
+          <a-button type="link" @click="viewTask(item)">表示</a-button>
         </div>
       </a-table>
       <div style="text-align: center; margin-top: 16px;">
@@ -44,22 +44,22 @@
         loading: false,
         columns: [
           {
-            title: '番号',
+            title: 'コード',
             dataIndex: 'number',
             key: 'number',
           },
           {
-            title: '仓库',
+            title: '入庫',
             dataIndex: 'warehouse_name',
             key: 'warehouse_name',
           },
           {
-            title: '入库总数',
+            title: '総入庫数',
             dataIndex: 'total_quantity',
             key: 'total_quantity',
           },
           {
-            title: '入库剩余数量',
+            title: '入庫残数数数量',
             dataIndex: 'remain_quantity',
             key: 'remain_quantity',
           },

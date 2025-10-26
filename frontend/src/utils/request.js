@@ -12,13 +12,24 @@ let requestQueue = [],
 const instance = axios.create({
   baseURL: config.baseURL,
   timeout: 10000,
+  withCredentials: true,
   headers: { "Content-Type": "application/json" },
 });
 
 instance.interceptors.request.use(
   (config) => {
     if (!config.url.includes(GET_TOKEN_URL) && !config.url.includes(REFRESH_TOKEN_URL)) {
-      config.headers.Authorization = "Bearer " + Cookies.get("access");
+      const accessToken = Cookies.get("access");
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+      } else if (config.headers.Authorization) {
+        delete config.headers.Authorization;
+      }
+    }
+
+    const csrfToken = Cookies.get("csrftoken");
+    if (csrfToken && !config.headers["X-CSRFToken"]) {
+      config.headers["X-CSRFToken"] = csrfToken;
     }
 
     console.info("Send request:", config);
@@ -36,7 +47,7 @@ instance.interceptors.response.use(
   (error) => {
     if (!error.response) {
       if (error.message.includes("Network Error")) {
-        message.error("连接被拒绝，请检查服务器是否启动");
+        message.error("接続が拒否されました。サーバーが起動しているか確認してください");
       }
       return Promise.reject(error);
     }
@@ -44,7 +55,7 @@ instance.interceptors.response.use(
     console.error("Request error:", error.response);
 
     if (error.response.status >= 500) {
-      message.error("服务器错误");
+      message.error("サーバーエラー発生発生");
       return Promise.reject(error);
     }
 
@@ -68,7 +79,7 @@ instance.interceptors.response.use(
           .catch((error) => {
             if (error.response.status == 401) {
               redirectLogin();
-              message.error("令牌过期, 请重新登录");
+              message.error("トークン期限切れ日切れ, 再ログインしてください");
             }
             
             return Promise.reject(error);
@@ -79,7 +90,7 @@ instance.interceptors.response.use(
       }
     }
 
-    message.error(error.response.data.detail || '响应出错');
+    message.error(error.response.data.detail || 'レスポンスエラー発生発生');
     return Promise.reject(error);
   }
 );

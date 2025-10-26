@@ -7,7 +7,7 @@
       </div>
 
       <div style="width: 100%;display: flex;flex-direction: row;justify-content: center;margin-bottom: 30px;">
-        <a-button @click="jump_login" type="primay" size="large" style="background-color: #50799e;color:#FFF;width: 200px;">立即开始</a-button>
+        <a-button @click="jump_login" type="primay" size="large" style="background-color: #50799e;color:#FFF;width: 200px;">すぐに開始</a-button>
       </div>
     </a-card>
  

@@ -2,7 +2,7 @@
   <div>
     <a-card style="height: calc(50vh - 48px);">
       <div slot="title">
-        <span>销售前十产品</span>
+        <span>売上上位10商品</span>
         <a-range-picker v-model="dateRange" :ranges="ranges" :disabled="salesLoading" :allowClear="false"
           @change="changeDateRange" style="float: right;" />
         <div id="salesGoods" style="margin-top: 36px; padding-left: 32px;"></div>
@@ -20,9 +20,9 @@
     data() {
       return {
         ranges: {
-          '7天': [moment().add(-7, 'days').startOf('day'), moment().startOf('day')],
-          '15天': [moment().add(-15, 'days').startOf('day'), moment().startOf('day')],
-          '30天': [moment().add(-30, 'days').startOf('day'), moment().startOf('day')],
+          '7日': [moment().add(-7, 'days').startOf('day'), moment().startOf('day')],
+          '15日': [moment().add(-15, 'days').startOf('day'), moment().startOf('day')],
+          '30日': [moment().add(-30, 'days').startOf('day'), moment().startOf('day')],
         },
         dateRange: [moment().add(-7, 'days').startOf('day'), moment().startOf('day')],
         chart: null,
@@ -33,7 +33,7 @@
       initialize() {
         let height = window.innerHeight / 2 - 141;
         this.chart = new window.G2.Chart({ container: 'salesGoods', autoFit: true, height });
-        this.chart.scale('total_sales_quantity', { alias: '销量' });
+        this.chart.scale('total_sales_quantity', { alias: '販売回数数数量' });
         this.chart.interval().position('goods_name*total_sales_quantity');
         this.list();
       },

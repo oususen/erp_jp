@@ -13,7 +13,7 @@ export default {
     {
       path: 'set_password',
       name: 'setPassword',
-      meta: { title: '设置密码' },
+      meta: { title: 'パスワード設定' },
       component: () => import('@/views/setPassword/SetPassword'),
     },
   ],

@@ -12,7 +12,7 @@ export default {
     {
       path: 'account',
       name: 'Account', 
-      meta: { title: '账号管理', permission: 'account' },
+      meta: { title: 'アカウント管理', permission: 'account' },
       component: () => import('@/views/account/Account'),
     },
     {

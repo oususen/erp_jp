@@ -6,17 +6,17 @@ export default {
   children: [
     {
       path: 'payment',
-      meta: { title: '支払い', permission: 'payment' },
+      meta: { title: '支払いい', permission: 'payment' },
       component: () => import('@/views/finance/payment/index'),
     },
     {
       path: 'payment_create',
-      meta: { title: '付款新增', permission: 'payment_create' },
+      meta: { title: '支払い新規登録い', permission: 'payment_create' },
       component: () => import('@/views/finance/paymentCreate/index'),
     },
     {
       path: 'payment_detail',
-      meta: { title: '付款详情', permission: 'payment_detail' },
+      meta: { title: 'お支払いいい詳細', permission: 'payment_detail' },
       component: () => import('@/views/finance/paymentDetail/index'),
     },
     {
@@ -26,12 +26,12 @@ export default {
     },
     {
       path: 'collection_create',
-      meta: { title: '收款新增', permission: 'collection_create' },
+      meta: { title: '新しい支払いいいの徴収', permission: 'collection_create' },
       component: () => import('@/views/finance/collectionCreate/index'),
     },
     {
       path: 'collection_detail',
-      meta: { title: '收款详情', permission: 'collection_detail' },
+      meta: { title: 'お支払いいい詳細', permission: 'collection_detail' },
       component: () => import('@/views/finance/collectionDetail/index'),
     },
     {
@@ -41,7 +41,7 @@ export default {
     },
     {
       path: 'arrears_payable_detail',
-      meta: { title: '应付欠款详情', permission: 'arrears_payable_detail' },
+      meta: { title: '買掛金詳細', permission: 'arrears_payable_detail' },
       component: () => import('@/views/finance/arrearsPayableDetail/index'),
     },
     {
@@ -51,12 +51,12 @@ export default {
     },
     {
       path: 'arrears_receivable_detail',
-      meta: { title: '应收欠款详情', permission: 'arrears_receivable_detail' },
+      meta: { title: '売掛金詳細', permission: 'arrears_receivable_detail' },
       component: () => import('@/views/finance/arrearsReceivableDetail/index'),
     },
     {
       path: 'account_transfer',
-      meta: { title: '口座振替', permission: 'account_transfer' },
+      meta: { title: '振出元口座', permission: 'account_transfer' },
       component: () => import('@/views/finance/accountTransfer/index'),
     },
     {
@@ -66,27 +66,27 @@ export default {
     },
     {
       path: 'flow',
-      meta: { title: '資金履歴', permission: 'flow' },
+      meta: { title: '資金明細', permission: 'flow' },
       component: () => import('@/views/finance/flow/index'),
     },
     {
       path: 'flow_detail',
-      meta: { title: '资金流水详情', permission: 'flow_detail' },
+      meta: { title: '資金明細詳細', permission: 'flow_detail' },
       component: () => import('@/views/finance/flowDetail/index'),
     },
     // {
     //   path: 'purchase_statement',
-    //   meta: { title: '采购对账单', permission: 'purchase_statement' },
+    //   meta: { title: '購買明細書', permission: 'purchase_statement' },
     //   component: () => import('@/views/finance/purchaseStatement/index'),
     // },
     // {
     //   path: 'transaction_record',
-    //   meta: { title: '往来记录', permission: 'transaction_record' },
+    //   meta: { title: '取引記録', permission: 'transaction_record' },
     //   component: () => import('@/views/finance/transactionRecord/index'),
     // },
     // {
     //   path: 'sales_statement',
-    //   meta: { title: '销售对账单', permission: 'sales_statement' },
+    //   meta: { title: '販売伝票', permission: 'sales_statement' },
     //   component: () => import('@/views/finance/salesStatement/index'),
     // },
   ],

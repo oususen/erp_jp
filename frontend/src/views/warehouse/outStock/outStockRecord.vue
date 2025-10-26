@@ -2,7 +2,7 @@
   <div>
     <a-row gutter="16">
       <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
-        <a-input-search v-model="searchForm.search" placeholder="单号" allowClear @search="search" />
+        <a-input-search v-model="searchForm.search" placeholder="伝票コード" allowClear @search="search" />
       </a-col>
       <!-- <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
         <a-range-picker @change="onChangePicker" />
@@ -14,9 +14,9 @@
         @change="tableChange">
         <div slot="action" slot-scope="value, item">
           <a-button-group size="small">
-            <a-button size="small" @click="detial(item)">详情</a-button>
-            <a-popconfirm v-if="item.is_completed" title="确定作废吗?" @confirm="voidItem(item)">
-              <a-button type="danger" :disabled="item.is_void">{{ item.is_void ? '已作废' : '作废'}}</a-button>
+            <a-button size="small" @click="detial(item)">詳細</a-button>
+            <a-popconfirm v-if="item.is_completed" title="本当に無効にしますか??" @confirm="voidItem(item)">
+              <a-button type="danger" :disabled="item.is_void">{{ item.is_void ? '無効済み' : '無効'}}</a-button>
             </a-popconfirm>
           </a-button-group>
         </div>
@@ -36,7 +36,7 @@
       return {
         columns: [
           {
-            title: '番号',
+            title: '連番',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {
@@ -45,20 +45,20 @@
             width: 45
           },
           {
-            title: '单号',
+            title: '伝票コード',
             dataIndex: 'stock_out_order_number',
             sorter: true,
           },
           {
-            title: '仓库',
+            title: '入庫',
             dataIndex: 'warehouse_name',
           },
           {
-            title: '经手人',
+            title: '担当者',
             dataIndex: 'handler_name',
           },
           {
-            title: '经手日期',
+            title: '処理日',
             dataIndex: 'handle_time',
             width: 170
           },
@@ -118,7 +118,7 @@
       },
       voidItem(item) {
         stockOutOrdersVoid({ id: item.id }).then(() => {
-          this.$message.success('作废成功');
+          this.$message.success('無効化成功');
           this.list();
         });
       },

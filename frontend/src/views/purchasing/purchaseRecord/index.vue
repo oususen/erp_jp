@@ -1,9 +1,9 @@
 <template>
   <div>
-    <a-card title="購買履歴">
+    <a-card title="購買記録">
       <a-row gutter="16">
         <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
-          <a-input-search v-model="searchForm.search" placeholder="单号,供应商编号/名称" allowClear @search="search" />
+          <a-input-search v-model="searchForm.search" placeholder="伝票コード,仕入先コード/名称" allowClear @search="search" />
         </a-col>
         <!-- <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
           <a-range-picker @change="onChangePicker" />
@@ -15,9 +15,9 @@
           @change="tableChange">
           <div slot="action" slot-scope="value, item">
             <a-button-group size="small">
-              <a-button size="small" @click="detial(item)">详情</a-button>
-              <a-popconfirm title="确定作废吗?" @confirm="voidItem(item)">
-                <a-button type="danger" :disabled="item.is_void">{{ item.is_void ? '已作废' : '作废'}}</a-button>
+              <a-button size="small" @click="detial(item)">詳細</a-button>
+              <a-popconfirm title="本当に無効にしますか??" @confirm="voidItem(item)">
+                <a-button type="danger" :disabled="item.is_void">{{ item.is_void ? '無効済み' : '無効'}}</a-button>
               </a-popconfirm>
             </a-button-group>
           </div>
@@ -38,7 +38,7 @@
       return {
         columns: [
           {
-            title: '番号',
+            title: '連番',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {
@@ -47,40 +47,40 @@
             width: 45
           },
           {
-            title: '采购编号',
+            title: '購入コード',
             dataIndex: 'number',
             sorter: true,
           },
           {
-            title: '供应商',
+            title: '仕入先',
             dataIndex: 'supplier_name',
           },
           {
-            title: '经手人',
+            title: '担当者',
             dataIndex: 'handler_name',
           },
           {
-            title: '处理日期',
+            title: '処理日',
             dataIndex: 'handle_time',
             width: 150
           },
           {
-            title: '采购总数量',
+            title: '合計購入数数数量',
             dataIndex: 'total_quantity',
             width: 120
           },
           {
-            title: '采购总金额',
+            title: '購買総金金金額',
             dataIndex: 'total_amount',
             width: 120
           },
           {
-            title: '付款金额',
+            title: '支払いい金金金額',
             dataIndex: 'payment_amount',
             width: 120
           },
           {
-            title: '其他费用',
+            title: 'そのその他費用',
             dataIndex: 'other_amount',
             width: 120
           },
@@ -137,7 +137,7 @@
       },
       voidItem(item) {
         purchaseOrdersVoid({ id: item.id }).then(() => {
-          this.$message.success('作废成功');
+          this.$message.success('無効化成功');
           this.list();
         });
       },

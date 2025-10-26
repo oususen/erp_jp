@@ -11,12 +11,12 @@ export default {
     },
     {
       path: 'sale_record',
-      meta: { title: '販売履歴', permission: 'sale_record' },
+      meta: { title: '販売記録', permission: 'sale_record' },
       component: () => import('@/views/sale/saleRecord/index'),
     },
     {
       path: 'sale_record_detail',
-      meta: { title: '销售记录详情', permission: 'sale_record_detail' },
+      meta: { title: '販売記録詳細', permission: 'sale_record_detail' },
       component: () => import('@/views/sale/saleRecordDetail/index'),
     },
     {
@@ -26,12 +26,12 @@ export default {
     },
     {
       path: 'sale_return_record',
-      meta: { title: '销售退货记录', permission: 'sale_return_record' },
+      meta: { title: '販売返品記録', permission: 'sale_return_record' },
       component: () => import('@/views/sale/saleReturnRecord/index'),
     },
     {
       path: 'sale_return_detail',
-      meta: { title: '退货记录详情', permission: 'sale_return_detail' },
+      meta: { title: '返品記録詳細', permission: 'sale_return_detail' },
       component: () => import('@/views/sale/saleReturnDetail/index'),
     },
   ],

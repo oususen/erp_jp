@@ -6,18 +6,18 @@
       </div>
       <a-row gutter="16">
         <a-col :span="24" :md="6" :xl="4" style="max-width: 256px; margin-bottom: 12px;">
-          <a-input-search v-model="searchForm.search" placeholder="产品编号/名称" allowClear @search="search" />
+          <a-input-search v-model="searchForm.search" placeholder="商品コード/名称" allowClear @search="search" />
         </a-col>
         <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
-          <a-select v-model="searchForm.warehouse" placeholder="仓库" allowClear style="width: 100%;" @change="search">
+          <a-select v-model="searchForm.warehouse" placeholder="入庫" allowClear style="width: 100%;" @change="search">
             <a-select-option v-for="item in warehouseItems" :key="item.id" :value="item.id">{{item.name}}
             </a-select-option>
           </a-select>
         </a-col>
         <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
-          <a-select v-model="searchForm.has_stock" placeholder="库存状态" allowClear style="width: 100%;" @change="search">
-            <a-select-option  :value="true">有库存</a-select-option>
-            <a-select-option  :value="false">无库存</a-select-option>
+          <a-select v-model="searchForm.has_stock" placeholder="棚卸状況" allowClear style="width: 100%;" @change="search">
+            <a-select-option  :value="true">在庫</a-select-option>
+            <a-select-option  :value="false">在庫なし</a-select-option>
           </a-select>
         </a-col>
         <!-- <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
@@ -52,7 +52,7 @@
       return {
         columns: [
           {
-            title: '番号',
+            title: '連番',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {
@@ -61,39 +61,39 @@
             width: 45
           },
           {
-            title: '仓库',
+            title: '入庫',
             dataIndex: 'warehouse_name',
           },
           {
-            title: '仓库编号',
+            title: '入庫コード',
             dataIndex: 'warehouse_number',
           },
           {
-            title: '产品名称',
+            title: '商品名',
             dataIndex: 'goods_name',
           },
           {
-            title: '产品编号',
+            title: '商品コード',
             dataIndex: 'goods_number',
           },
           {
-            title: '产品条码',
+            title: '商品バーコード',
             dataIndex: 'goods_barcode',
           },
           {
-            title: '库存总数',
+            title: '在庫総数',
             dataIndex: 'total_quantity',
           },
           {
-            title: '单位',
+            title: '単位',
             dataIndex: 'unit_name',
             width: 80
           },
           {
-            title: '库存状态',
+            title: '棚卸状況',
             dataIndex: 'has_stock',
             customRender: (value, item, index) => {
-              return item.has_stock ? '有' : '无'
+              return item.has_stock ? 'あり' : 'なし'
             },
           },
           // {

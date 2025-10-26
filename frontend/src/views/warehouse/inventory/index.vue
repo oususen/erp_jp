@@ -1,12 +1,12 @@
 <template>
   <div>
-    <a-card title="盘点单">
+    <a-card title="棚卸伝票">
       <a-row gutter="16">
         <a-col :span="24" :md="8" :xl="6" style="max-width: 256px; margin-bottom: 12px;">
-          <a-input-search v-model="searchForm.search" placeholder="单号" allowClear @search="search" />
+          <a-input-search v-model="searchForm.search" placeholder="伝票コード" allowClear @search="search" />
         </a-col>
         <div style="margin-bottom: 12px; float: right;">
-          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="handelAdd(form)">新增盘点</a-button>
+          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="handelAdd(form)">棚卸新規登録</a-button>
         </div>
       </a-row>
 
@@ -15,9 +15,9 @@
           @change="tableChange">
           <div slot="action" slot-scope="value, item">
             <a-button-group size="small">
-              <a-button size="small" @click="detial(item)">详情</a-button>
-              <a-popconfirm title="确定作废吗?" @confirm="voidItem(item)">
-                <a-button type="danger" :disabled="item.is_void">{{ item.is_void ? '已作废' : '作废'}}</a-button>
+              <a-button size="small" @click="detial(item)">詳細</a-button>
+              <a-popconfirm title="本当に無効にしますか??" @confirm="voidItem(item)">
+                <a-button type="danger" :disabled="item.is_void">{{ item.is_void ? '無効済み' : '無効'}}</a-button>
               </a-popconfirm>
             </a-button-group>
           </div>
@@ -38,7 +38,7 @@
       return {
         columns: [
           {
-            title: '番号',
+            title: '連番',
             dataIndex: 'index',
             key: 'index',
             customRender: (value, item, index) => {
@@ -47,44 +47,44 @@
             width: 45
           },
           {
-            title: '单号',
+            title: '伝票コード',
             dataIndex: 'number',
             sorter: true,
           },
           {
-            title: '仓库',
+            title: '入庫',
             dataIndex: 'warehouse_name',
           },
           {
-            title: '经手人',
+            title: '担当者',
             dataIndex: 'handler_name',
           },
           {
-            title: '处理日期',
+            title: '処理日',
             dataIndex: 'handle_time',
           },
           {
-            title: '账面总数量',
+            title: '帳簿総数数量',
             dataIndex: 'total_book_quantity',
           },
           {
-            title: '实际总数量',
+            title: '実総数数数量',
             dataIndex: 'total_actual_quantity',
           },
           {
-            title: '盘盈总数量',
+            title: '棚卸超過総数数量',
             dataIndex: 'total_surplus_quantity',
           },
           {
-            title: '盘盈总金额',
+            title: '棚卸超過総数数量',
             dataIndex: 'total_surplus_amount',
           },
           {
-            title: '盘点状态',
+            title: '棚卸状況',
             dataIndex: 'status_display',
           },
           {
-            title: '处理日期',
+            title: '処理日',
             dataIndex: 'create_time',
             width: 170
           },
@@ -144,7 +144,7 @@
       },
       voidItem(item) {
         stockCheckOrdersVoid({ id: item.id }).then(() => {
-          this.$message.success('作废成功');
+          this.$message.success('無効化成功');
           this.list();
         });
       },

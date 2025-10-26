@@ -1,0 +1,1239 @@
+﻿Chinese,Japanese,正しい日本語,
+上传产品图片,製品画像をアップロードする,,
+"上传产品图片
+export function contractOriginalFiles(data)","製品画像をアップロードする
+エクスポート関数contractOriginalFiles(data)",,
+上传原件,オリジナルをアップロードする,原本をアップロードする,
+上传图纸,図面をアップロードする,,
+上传复印件,コピーをアップロードする,,
+上架记录,レコードのリスト表示,棚入れ記録,
+下载地址：,ダウンロードアドレス:,,
+下载模板,テンプレートをダウンロード,,
+业务经理,ビジネスマネージャー,,
+两次输入密码不一致,2回入力したパスワードは一致しません,,
+个产品超出库存设定范围,在庫設定範囲を超えた商品,,
+临期预警,賞味期限警告,期限近い警告,
+主数据管理,マスターデータ管理,,
+云打印服务(localhost本地)未安装启动,クラウド印刷サービス (localhost local) がインストールされておらず、起動されていません。,,
+云打印服务需升级,クラウド印刷サービスをアップグレードする必要がある,,
+产品,製品,,
+"产品
+export function materialsOption(params)","製品
+エクスポート関数materialsOption(params)",,
+产品信息,製品情報,,
+"产品信息
+export function getGoodsNumber(params)","製品情報
+エクスポート関数 getGoodsNumber(params)",,
+"产品信息
+export function goodsInformationExport(params)","製品情報
+エクスポート機能 GoodsInformationExport(params)",,
+"产品信息
+export function goodsInformationList(params)","製品情報
+エクスポート機能 GoodsInformationList(params)",,
+产品信息列表,製品情報一覧,,
+产品信息导入,製品情報のインポート,,
+"产品信息导入
+export function goodsInformationImport(data)","製品情報のインポート
+輸出機能商品情報輸入(データ)",,
+产品信息导入模板,製品情報インポートテンプレート,,
+产品信息模板,製品情報テンプレート,,
+"产品信息模板
+export function goodsInformationTemplate(params)","製品情報テンプレート
+エクスポート機能商品情報テンプレート(params)",,
+产品分类,製品分類,,
+"产品分类
+export function goodsClassificationExport(params)","製品分類
+エクスポート機能 GoodsClassificationExport(params)",,
+"产品分类
+export function goodsClassificationList(params)","製品分類
+エクスポート機能 GoodsClassificationList(params)",,
+"产品分类
+export function goodsClassificationOption(params)","製品分類
+エクスポート関数 GoodsClassificationOption(params)",,
+产品分类列表,製品カテゴリー一覧,,
+产品分类导入,製品分類のインポート,製品分類一覧,
+"产品分类导入
+export function goodsClassificationImport(data)","製品分類のインポート
+輸出機能商品分類輸入(データ)",,
+产品分类导入模板,製品分類インポートテンプレート,,
+产品分类模板,製品カテゴリのテンプレート,製品分類テンプレート,
+"产品分类模板
+export function goodsClassificationTemplate(params)","製品カテゴリのテンプレート
+エクスポート機能商品分類テンプレート(params)",,
+产品单位,製品単位,,
+"产品单位
+export function goodsUnitExport(params)","製品単位
+エクスポート関数 GoodsUnitExport(params)",,
+"产品单位
+export function goodsUnitList(params)","製品単位
+エクスポート関数 GoodsUnitList(params)",,
+"产品单位
+export function goodsUnitOption(params)","製品単位
+エクスポート関数 GoodsUnitOption(params)",,
+产品单位列表,製品ユニット一覧,製品単位一覧,
+产品单位导入,製品単位のインポート,,
+"产品单位导入
+export function goodsUnitImport(data)","製品単位のインポート
+エクスポート機能 GoodsUnitImport(データ)",,
+产品单位导入模板,製品単位インポートテンプレート,,
+产品单位模板,製品単位テンプレート,,
+"产品单位模板
+export function goodsUnitTemplate(params)","製品単位テンプレート
+エクスポート機能グッズUnitTemplate(params)",,
+产品名称,製品名,,
+产品已存在,製品はすでに存在します,,
+产品批次,製品バッチ,製品ロット№,
+产品数量,製品数量,,
+产品数量需要大于0,製品数量は 0 より大きい必要があります,,
+产品条码,製品バーコード,,
+产品管理,製品管理,,
+产品编号,製品番号,,
+产品详细介绍,製品詳細,,
+产品选择,製品の選択,,
+产品选项,製品オプション,,
+"产品选项
+export function goodsOption(params)","製品オプション
+エクスポート関数 GoodsOption(params)",,
+"产品选项
+export function inventoriesOption(params)","製品オプション
+エクスポート関数 inventoriesOption(params)",,
+今日,今日,,
+今日已完成,本日完了しました,,
+今日采购笔数,今日の買い物,今日購入回数,
+今日销售笔数,本日の売上,今日納入回数,
+今日销售额,本日の売上,,
+仓库,倉庫,,
+"仓库
+export function getWarehouseNumber(params)","倉庫
+エクスポート関数 getWarehouseNumber(params)",,
+"仓库
+export function warehouseExport(params)","倉庫
+エクスポート関数warehouseExport(params)",,
+"仓库
+export function warehouseList(params)","倉庫
+エクスポート関数warehouseList(params)",,
+"仓库
+export function warehousesOption(params)","倉庫
+エクスポート関数のウェアハウスOption(params)",,
+仓库名称,倉庫名,,
+仓库字典列表,倉庫辞書リスト,,
+仓库字典导入模板,ウェアハウス辞書インポートテンプレート,倉庫辞書インポートテンプレート,
+仓库导入,倉庫輸入,倉庫辞書インポート,
+"仓库导入
+export function warehouseImport(data)","倉庫輸入
+エクスポート関数warehouseImport(data)","倉庫インポート
+エクスポート関数warehouseImport(data)",
+仓库模板,倉庫テンプレート,,
+"仓库模板
+export function warehouseTemplate(params)","倉庫テンプレート
+エクスポート関数warehouseTemplate(params)",,
+仓库管理,倉庫管理,,
+仓库编号,倉庫番号,,
+付款,支払,,
+"付款
+export function paymentOrdersList(params)","支払い
+エクスポート関数paymentOrdersList(params)",,
+付款业务,決済事業,支払業務,
+付款单,支払い命令,支払伝票,
+"付款单
+export function getPaymentOrderNumber(params)","支払い命令
+エクスポート関数 getPaymentOrderNumber(params)","支払伝票
+エクスポート関数 getPaymentOrderNumber(params)",
+付款单创建,支払い注文の作成,支払伝票作成,
+付款单据,支払書類,,
+付款单详情,支払い注文の詳細,支払伝票詳細,
+付款新增,新規支払い,,
+"付款新增
+export function paymentOrderCreate(data)","新規支払い
+エクスポート関数paymentOrderCreate(data)",,
+付款编号,支払い番号,,
+付款记录作废,支払記録が無効です,,
+"付款记录作废
+export function paymentOrdersVoid(data)","支払記録が無効です
+エクスポート関数paymentOrdersVoid(data)",,
+付款详情,お支払い詳細,,
+"付款详情
+export function paymentOrderDetail(params)","お支払い詳細
+エクスポート関数paymentOrderDetail(params)",,
+付款金额,支払金額,,
+付款金额(元),支払金額（元）,支払金額（円）,
+付款金额合计：,お支払い総額:,,
+付金额,お支払い金額,,
+付金额(元),支払金額（元）,支払金額（円）,
+付金额格式不正确,支払い金額の形式が間違っています,,
+令牌过期,トークンの有効期限が切れる,,
+价格管理,価格管理,,
+优惠金额,割引額,,
+优惠金额格式不正确,割引額の形式が間違っています,,
+作废,空所,取り消し,
+作废付款单据,支払い文書を無効にする,無効な支払伝票,
+作废入库通知单号,無効倉庫通知番号,,
+作废出库通知单号,無効化された配送通知番号,無効化配送通知番号,
+作废成功,キャンセルが成功しました,取り消し成功しました,
+作废收支单据,領収書と支払い書類を無効にする,無効な領収書支払伝票,
+作废收款单据,支払い領収書を無効にする,無効領収書,
+作废盘点单号,無効化された在庫注文番号,無効棚卸伝票番号,
+作废调拨单号,無効な転送オーダー番号です,無効調達伝票番号,
+作废采购单号,注文書番号を無効にします,無効注文書番号,
+作废采购退货单号,購入返品注文番号を無効にします,無効購入返品伝票番号,
+作废销售单号,無効な販売注文番号です,無効販売伝票番号,
+作废销售退货单号,無効な販売返品注文番号,,
+使用服务器的后端,サーバーのバックエンドの使用,サーバーのバックエンドを使用する,
+使用本地的后端,ローカルバックエンドを使用する,,
+"使用本地的后端
+    baseURL","ローカルバックエンドを使用する
+    ベースURL",,
+供应商,仕入先,,
+"供应商
+export function getSupplierNumber(params)","サプライヤー
+エクスポート関数 getSupplierNumber(params)",,
+"供应商
+export function supplierArrearsOption(params)","サプライヤー
+エクスポート関数supplierArrearsOption(params)",,
+"供应商
+export function supplierExport(params)","サプライヤー
+エクスポート関数supplierExport(params)",,
+"供应商
+export function supplierList(params)","サプライヤー
+エクスポート関数supplierList(params)",,
+"供应商
+export function suppliersOption(params)","サプライヤー
+エクスポート関数suppliersOption(params)",,
+供应商列表,サプライヤーリスト,,
+供应商名称,サプライヤー名,,
+供应商导入,サプライヤーの輸入,サプライヤーインポート,
+"供应商导入
+export function supplierImport(data)","サプライヤーの輸入
+エクスポート関数supplierImport(data)","サプライヤーインポート
+エクスポート関数supplierImport(data)",
+供应商导入模板,サプライヤーインポートテンプレート,,
+供应商模板,サプライヤーテンプレート,,
+"供应商模板
+export function supplierTemplate(params)","サプライヤーテンプレート
+エクスポート関数supplierTemplate(params)",,
+供应商管理,仕入先管理,,
+供应商编号,サプライヤー番号,,
+保存,保存,,
+保存成功,保存に成功しました,,
+保质期天数,賞味期限日数,,
+保质期预警天数,賞味期限警告日,賞味期限警告日数,
+修改密码,パスワードを変更する,,
+修改成功,変更が成功しました,,
+元）,元）,円）,
+入库,倉庫,入庫,
+"入库
+export function stockInCreate(data)","倉庫
+エクスポート関数stockInCreate(データ)","入庫
+エクスポート関数stockInCreate(データ)",
+入库业务,倉庫業,入庫業業務,
+入库仓库,入荷倉庫,入庫業倉庫,
+入库任务,入庫タスク,,
+"入库任务
+export function stockInOrdersList(params)","倉庫作業
+エクスポート関数stockInOrdersList(params)","入庫タスク
+エクスポート関数stockInOrdersList(params)",
+入库任务提醒,倉庫作業リマインダー,入庫作業リマインダー,
+"入库任务提醒
+export function stockInList(params)","倉庫作業リマインダー
+エクスポート関数stockInList(params)","入庫作業リマインダー
+エクスポート関数stockInList(params)",
+入库创建,倉庫の作成,入庫の作成,
+入库剩余数量,残り在庫数,入庫残数,
+入库单,倉庫受領書,,
+入库完成状态,入庫完了状況,,
+入库总数,総倉庫数,入庫数総計,
+入库数量,入荷数量,入庫数量,
+入库类型,倉庫タイプ,,
+入库编号,倉庫番号,入庫番号,
+入库记录,入庫記録,,
+"入库记录
+export function stockInRecordsList(params)","入庫記録
+エクスポート関数stockInRecordsList(params)",,
+入库记录作废,倉庫レコードが無効です,入庫記録を取り消す,
+"入库记录作废
+export function stockInOrdersVoid(data)","倉庫レコードが無効です
+エクスポート関数stockInOrdersVoid(data)","入庫記録を取り消す
+エクスポート関数stockInOrdersVoid(data)",
+入库记录详情,入庫記録詳細,,
+"入库记录详情
+export function stockInRecordDetail(params)","入庫記録詳細
+エクスポート関数stockInRecordDetail(params)",,
+入库通知单,入庫通知,,
+入库通知单号,倉庫届出番号,入庫通知番号,
+入库通知单据,入庫届出書,,
+"入库通知单据
+export function stockInOrderDetail(params)","入庫届出書
+エクスポート関数stockInOrderDetail(params)",,
+入库通知单详情,倉庫通知の詳細,入庫通知詳細,
+共,一般,総計,
+关闭,閉鎖,,
+关闭工单,チケットを閉じる,加工指示書を停止する,
+关闭成功,正常に終了しました,,
+其他,他の,その他,
+其他作业,その他の宿題,その他の作業,
+其他费用,その他の費用,,
+其他费用格式不正确,その他の経費の形式が正しくありません,,
+冻结,フリーズする,,
+出入库作业,インバウンドおよびアウトバウンド業務,入出庫作業,
+出入库历史,インバウンドとアウトバウンドの履歴,入出庫履歴,
+出库,倉庫から出た,出庫,
+"出库
+export function stockOutCreate(data)","倉庫から出た
+エクスポート関数stockOutCreate(data)","出庫
+エクスポート関数stockOutCreate(data)",
+出库业务,アウトバウンド事業,出庫業務,
+出库仓库,出荷倉庫,出庫倉庫,
+出库任务,出庫タスク,,
+"出库任务
+export function stockOutOrdersList(params)","アウトバウンドタスク
+エクスポート関数stockOutOrdersList(params)","出庫タスク
+エクスポート関数stockOutOrdersList(params)",
+出库任务提醒,アウトバウンドタスクリマインダー,出庫タスク警告,
+"出库任务提醒
+export function stockOutList(params)","アウトバウンドタスクリマインダー
+エクスポート関数stockOutList(params)","出庫タスク警告
+エクスポート関数stockOutList(params)",
+出库创建,アウトバウンド作成,出庫作成,
+出库剩余数量,残り出荷数量,,
+出库单,アウトバウンド注文,出庫伝票,
+出库完成状态,アウトバウンド完了ステータス,出庫完了状態,
+出库总数,総出荷数,,
+出库数量,出荷数量,,
+出库类型,アウトバウンド型,出庫タイプ,
+出库编号,配送番号,出庫番号,
+出库记录,アウトバウンドレコード,出庫記録,
+"出库记录
+export function stockOutRecordsList(params)","アウトバウンドレコード
+エクスポート関数stockOutRecordsList(params)","出庫記録
+エクスポート関数stockOutRecordsList(params)",
+出库记录作废,送信レコードが無効です,出庫記録を取り消す,
+"出库记录作废
+export function stockOutOrdersVoid(data)","送信レコードが無効です
+エクスポート関数stockOutOrdersVoid(data)","出庫記録を取り消す
+エクスポート関数stockOutOrdersVoid(data)",
+出库记录详情,送信レコードの詳細,出庫記録詳細,
+"出库记录详情
+export function stockOutRecordDetail(params)","送信レコードの詳細
+エクスポート関数stockOutRecordDetail(params)","出庫記録詳細
+エクスポート関数stockOutRecordDetail(params)",
+出库通知单,アウトバウンド通知,出庫通知,
+出库通知单号,アウトバウンド通知番号,出庫通知番号,
+出库通知单据,アウトバウンド通知文書,出庫通知伝票,
+"出库通知单据
+export function stockOutOrderDetail(params)","アウトバウンド通知文書
+エクスポート関数stockOutOrderDetail(params)","出庫通知伝票
+エクスポート関数stockOutOrderDetail(params)",ここまで直した
+出库通知单详情,アウトバウンド通知の詳細,出庫通知詳細,
+出错,エラー,,
+分类,分類,,
+分类名称,カテゴリ名,,
+创建人,クリエイター,,
+创建成功,正常に作成されました,,
+创建日期,作成日,,
+创建时间,作成時間,,
+初始库存,初期在庫,,
+初期余额,初期残高,,
+初期余额格式不正确,初期残高形式が正しくありません,,
+初期欠款金额,当初の未払い額,,
+初期欠款金额(元),当初負債額（元）,当初の未払い額（円）,
+初期欠款金额格式不正确,当初の負債額の形式が間違っています,,
+删除,削除,,
+删除成功,正常に削除されました,,
+判断是否需要安装CLodop云打印服务器,CLodop クラウド印刷サーバーをインストールする必要があるかどうかを判断する,,
+别名，需要的格式：,エイリアス、必要な形式:,,
+到期日期,有効期限,,
+剩余数量,残量,,
+功能配置,機能構成,,
+北京XXXXX公司,北京○○○○会社,,
+升级后请刷新页面。,アップグレード後はページを更新してください。,,
+升级后请重新进入。,アップグレード後に再入力してください。,,
+单位,ユニット,単位,
+单位名称,ユニット名,単位名,
+单位管理,ユニット管理,単位管理,
+单号,注文番号,,
+单据字头,文書の接頭辞,伝票タイトル,
+占用,占める,使用,
+占用率,稼働率,使用率,
+原料入库,原料倉庫,,
+原料出入库明细,原材料の出入りの詳細,,
+原料出库,原材料の配送,原材料の出庫,
+原料字典,原材料辞典,,
+原料字典导入,原材料辞書インポート,,
+原料字典模板,原材料辞書テンプレート,,
+原料库存,原材料在庫,,
+发布工单,作業指示を投稿する,作業指示を出す,
+发布成功,正常に投稿されました,正常に出しました,
+取消,キャンセル,,
+变化之前数量,変更前の数量,,
+变化之后数量,変更後の数量,,
+变化数量,数量変更,変更数量,
+合同,契約,,
+合同原料,契約原料,,
+合计,合計,,
+名称,名前,名称,
+含税金额(元),税込金額（元）,,
+启用,有効にする,,
+启用保质期,保存期間を有効にする,,
+启用库存警告,在庫警告を有効にする,,
+启用批次控制,バッチ制御を有効にする,,
+员工姓名,社員名,,
+员工账号,従業員アカウント,,
+响应出错,応答エラー,,
+图文信息,グラフィック情報,,
+地址,住所,,
+基本信息,基本情報,,
+基础数据,基本データ,,
+基础档案,基本ファイル,,
+处理日期,処理日,,
+处理时间,処理時間,,
+备注,備考,,
+天,空,日,
+女,女性,,
+如下空白位置适合调用统一功能(如注册语句、语言选择等),次の空白の位置は、統合機能 (登録ステートメント、言語選択など) を呼び出すのに適しています。,,
+如果此前正常，仅因浏览器升级或重安装而出问题，需重新执行以上安装）,以前は正常だった場合、問題はブラウザのアップグレードまたは再インストールによってのみ発生し、上記のインストールを再実行する必要があります),,
+如果页面有Lodop就直接使用，没有则新建,ページに Lodop がある場合は、それを直接使用します。そうでない場合は、新しいものを作成します。,ページに Lodop がある場合は、それを直接使用します。そうでない場合は、新規作成します。,
+姓名,名前,,
+安装后请刷新页面。,インストール後はページを更新してください。,,
+安装后请刷新页面或重新进入。,インストール後、ページを更新するか、再度入力してください。,,
+完成,仕上げる,完成,
+完成数量,完成数量,,
+实付金额(元),実際に支払った金額（元）,実際に支払った金額（元）,
+实收,実際の領収書,,
+实收金额(元),実際に受け取った金額（元）,,
+实际总数量,実際の合計数量,,
+实际数量,実際の数量,,
+实际数量必填,実際に必要な数量,,
+客户,顧客,,
+"客户
+export function clientArrearsOption(params)","クライアント
+エクスポート関数 clientArrearsOption(params)",,
+"客户
+export function clientExport(params)","クライアント
+エクスポート関数 clientExport(params)",,
+"客户
+export function clientList(params)","クライアント
+エクスポート関数 clientList(params)",,
+"客户
+export function clientsOption(params)","クライアント
+エクスポート関数 clientOption(params)",,
+"客户
+export function getClientNumber(params)","クライアント
+エクスポート関数 getClientNumber(params)",,
+客户列表,顧客リスト,,
+客户名称,顧客名,,
+客户导入,顧客インポート,,
+"客户导入
+export function clientImport(data)","顧客インポート
+エクスポート関数 clientImport(data)",,
+客户导入模板,顧客インポートテンプレート,,
+客户模板,顧客テンプレート,,
+"客户模板
+export function clientTemplate(params)","顧客テンプレート
+エクスポート関数 clientTemplate(params)",,
+客户管理,顧客管理,,
+客户编号,お客様番号,,
+密码,パスワード,,
+导入,インポート,,
+导入成功,インポート成功,,
+导入模板,テンプレートをインポート,,
+导入错误,インポートエラー,,
+导出,出力,,
+导出模板,テンプレートを出力,,
+导出页面为PDF格式,ページを PDF 形式にエクスポートする,,
+"导出页面为PDF格式
+import html2Canvas from","ページを PDF 形式にエクスポートする
+html2Canvas をインポートする",,
+已作废,無効化された,,
+已开启,すでにオンになっています,,
+已收到款项,支払いを受け取りました,,
+已添加过改结算账户,決済口座変更を追加しました,,
+已销售价格(元),販売価格（元）,,
+已销售数量,販売数量,,
+平均采购价,平均購入価格,,
+平均销售价,平均販売価格,,
+年,年,,
+序号,シリアルナンバー,,
+库位管理,在庫位置管理,,
+库存,在庫あり,,
+库存上限,在庫制限,,
+库存下限,最小在庫数,,
+库存信息,在庫情報,,
+库存总数,総在庫数,,
+库存报表,在庫レポート,,
+"库存报表
+export function inventoryReportList(params)","在庫レポート
+エクスポート関数 inventoryReportList(params)",,
+库存数量,在庫数,,
+库存流水,在庫履歴,,
+"库存流水
+export function inventoryFlowsList(params)","在庫の流れ
+エクスポート関数 inventoryFlowsList(params)",,
+库存流水详情,在庫フローの詳細,,
+"库存流水详情
+export function inventoryFlowsDetail(params)","在庫フローの詳細
+エクスポート関数 inventoryFlowsDetail(params)",,
+库存状态,在庫状況,,
+库存管理,在庫管理,,
+库存结存,在庫残高,,
+库存预警,在庫アラート,,
+"库存预警
+          if (data","在庫アラート
+          if (データ",,
+"库存预警
+export function inventoryWarningsList(params)","在庫アラート
+エクスポート関数 inventoryWarningsList(params)",,
+库存预警上限,在庫警告上限値,,
+库存预警下限,在庫警告下限値,,
+应付欠款,買掛金,,
+"应付欠款
+export function arrearsPayableList(params)","延滞金
+エクスポート関数 arraysPayableList(params)",,
+应付欠款详情,債務の詳細,,
+应付账款,買掛金勘定,,
+应收,受取可能,,
+应收欠款,売掛金,,
+"应收欠款
+export function arrearsReceivableList(params)","売掛金
+エクスポート関数 arraysReceivableList(params)",,
+应收欠款详情,売掛金の明細,,
+应收账款,売掛金,,
+建筑仓储管理系统,建物倉庫管理システム,,
+开启,オンにする,,
+开启批次控制的产品,バッチ制御が有効な製品,,
+开启批次控制的产品需要输入批次编号,バッチ制御がオンになっている製品は、バッチ番号を入力する必要があります,,
+开启批次控制的产品需要选择批次编号,バッチ制御がオンになっている製品は、バッチ番号を選択する必要があります,,
+开始时间,開始時間,,
+开户人,口座名義人,,
+开户行,口座開設銀行,,
+开户账号,口座開設口座,,
+引用双端口(8000和18000）避免其中某个被占用：,デュアル ポート (8000 および 18000) を参照して、そのうちの 1 つが占有されないようにします。,,
+"引用双端口(8000和18000）避免其中某个被占用：
+  oscript","デュアル ポート (8000 および 18000) を参照して、そのうちの 1 つが占有されないようにします。
+  スクリプト",,
+往来单位,接点ユニット,,
+往来管理,トランザクション管理,,
+往来记录,通信記録,,
+待入库,ストック予定,,
+待入库数量,入庫予定数量,,
+待出库,発送予定,,
+待出库数量,出荷する数量,,
+待办事项,やることリスト,,
+微信交流群,WeChatコミュニケーショングループ,,
+微信客服,WeChatカスタマーサービス,,
+微信钱包,WeChatウォレット,,
+性别,性別,,
+总计金额(元),合計金額（元）,,
+总金额,一時金,,
+您有,あなたが持っている,,
+成品入库,完成品倉庫,,
+成品出入库明细,完成品の入口と出口の詳細,,
+成品出库,完成品のお届け,,
+成品字典,完成した辞書,,
+成品字典导入,辞書のインポートが完了しました,,
+成品字典模板,完成した辞書テンプレート,,
+成品库存,完成品在庫,,
+所有仓库,すべての倉庫,,
+手机号,携帯電話番号,,
+手续费支付方,料金支払者,,
+手续费金额,手数料金額,,
+手续费金额(元),手数料金額（元）,,
+手续费金额格式不正确,手数料金額の形式が間違っています,,
+打印,印刷する,,
+打印控件未安装,印刷コントロールがインストールされていません,,
+打印控件需要升级,印刷制御をアップグレードする必要がある,,
+执行升级,アップグレードを実行する,,
+执行安装,インストールを実行する,,
+扩展】中先卸它）,拡張機能】先にアンインストールしてください）,,
+批,バッチ,,
+批次,バッチ,,
+"批次
+export function batchsOption(params)","バッチ
+エクスポート関数batchesOption(params)",,
+批次剩余数量,バッチの残量,,
+批次报表,ロットレポート,,
+"批次报表
+export function batchsReportList(params)","バッチレポート
+エクスポート関数バッチReportList(params)",,
+批次控制,バッチ制御,,
+批次数量,バッチ数量,,
+报表,報告,,
+报表统计,レポート集計,,
+抱歉，您无权访问此页面,申し訳ありませんが、このページにアクセスする権限がありません,,
+拥有权限,許可を得る,,
+拥有者,所有者,,
+按库存生产,仕込んで在庫を確保する,,
+按订单生产,オーダーメイド,,
+插件未安装时提示下载地址,プラグインがインストールされていない場合のダウンロード アドレスのプロンプト,,
+操作,操作する,,
+操作快捷入口,操作クイックエントリー,,
+支付宝,アリペイ,,
+支出,支出,,
+收入,所得,,
+收支单据,領収書と支払い,,
+收支类型,収支の種類,,
+收支统计,収支統計,,
+"收支统计
+export function financialStatistics(params)","収支統計
+エクスポート関数 FinancialStatistics(params)",,
+收支项目,収支項目,,
+"收支项目
+export function revenueExpenditureItemsExport(params)","収支内訳
+エクスポート関数収益ExpenditureItemsExport(params)",,
+"收支项目
+export function revenueExpenditureItemsList(params)","収支内訳
+エクスポート関数収益ExpenditureItemsList(params)",,
+收支项目列表,収入支出項目一覧,,
+收支项目导入,収入支出項目の輸入,,
+"收支项目导入
+export function revenueExpenditureItemsImport(data)","収入支出項目の輸入
+エクスポート関数収益ExpenditureItemsImport(データ)",,
+收支项目导入模板,収支項目インポートテンプレート,,
+收支项目模板,収支項目テンプレート,,
+"收支项目模板
+export function revenueExpenditureItemsTemplate(params)","収支項目テンプレート
+エクスポート関数収益ExpenditureItemsTemplate(params)",,
+收款,入金,,
+"收款
+export function collectionOrdersList(params)","コレクション
+エクスポート関数 collectionOrdersList(params)",,
+收款业务,回収事業,,
+收款单,回収票,,
+"收款单
+export function getCollectionOrderNumber(params)","回収票
+エクスポート関数 getCollectionOrderNumber(params)",,
+收款单创建,払込票の作成,,
+收款单据,領収書,,
+收款单详情,払込票詳細,,
+收款新增,新しい支払いの徴収,,
+"收款新增
+export function collectionOrderCreate(data)","新しい支払いの徴収
+エクスポート関数 collectionOrderCreate(data)",,
+收款编号,受付番号,,
+收款记录作废,支払記録が無効です,,
+"收款记录作废
+export function collectionOrdersVoid(data)","支払記録が無効です
+エクスポート関数 collectionOrdersVoid(data)",,
+收款详情,お支払い詳細,,
+"收款详情
+export function collectioOrderDetail(params)","お支払い詳細
+エクスポート関数 collectionioOrderDetail(params)",,
+收款金额,支払金額,,
+收款金额(元),支払金額（元）,,
+收款金额合计：,お支払い総額:,,
+数据对比,データ比較,,
+数据看板,データダッシュボード,,
+数据统计,統計,,
+数量,量,,
+整单折扣,全注文割引,,
+新增,新規追加,,
+新增产品,製品を追加,,
+新增产品信息,製品情報を追加,,
+新增产品分类,製品分類を追加,,
+新增产品单位,製品単位を追加,,
+新增仓库,倉庫を追加,,
+新增付款单,支払伝票を追加,,
+新增供应商,仕入先を追加,,
+新增入库单,入庫伝票を追加,,
+新增出库单,出庫伝票を追加,,
+新增分类,分類を追加,,
+新增单位,単位を追加,,
+新增客户,顧客を追加,,
+新增成功,正常に追加されました,,
+新增收支项目,収支項目を追加,,
+新增收款单,入金伝票を追加,,
+新增日常收支,日常収支を追加,,
+新增生产任务,生産タスクを追加,,
+新增生产计划,生産計画を追加,,
+新增盘点,棚卸を追加,,
+新增结算账户,決済口座を追加,,
+新增角色,ロールを追加,,
+新增调拨,在庫移動を追加,,
+新增账号,アカウントを追加,,
+新增账户转账,口座振替を追加,,
+新增采购订单,仕入注文を追加,,
+新增采购退货,仕入返品を追加,,
+新增销售订单,販売注文を追加,,
+新增销售退货,販売返品を追加,,
+新增附件,添付ファイルを追加,,
+新密码,新しいパスワード,,
+无,なし,,
+无库存,在庫切れ,,
+日常收支,日常収支,,
+"日常收支
+export function chargeOrdersList(params)","毎日の収入と支出
+エクスポート関数chargeOrdersList(params)",,
+"日常收支
+export function getChargeOrderNumber(params)","毎日の収入と支出
+エクスポート関数 getChargeOrderNumber(params)",,
+日常收支新增,日々の収入と支出を加算,,
+"日常收支新增
+export function chargeOrderCreate(data)","日々の収入と支出を加算
+エクスポート関数chargeOrderCreate(data)",,
+日常收支记录作废,毎日の収入と支出の記録は無効です,,
+"日常收支记录作废
+export function chargeOrdersVoid(data)","毎日の収入と支出の記録は無効です
+エクスポート関数chargeOrdersVoid(data)",,
+日常采购,毎日の買い物,,
+"日常采购
+export function getPurchaseNumber(params)","毎日の買い物
+エクスポート関数 getPurchaseNumber(params)",,
+旧密码,以前のパスワード,,
+昨天,昨日,,
+暂无数据,まだデータがありません,,
+更新,更新する,,
+"更新
+export function configUpdate(data)","更新する
+エクスポート関数 configUpdate(data)",,
+替换别名,エイリアスを置換する,,
+"替换别名
+        rows","エイリアスを置換する
+        行",,
+最低采购价,最低購入価格,,
+最低销售价,最低販売価格,,
+最高采购价,最大購入価格,,
+最高销售价,最大販売価格,,
+有,持っている,,
+有库存,在庫あり,,
+服务器错误,サーバーエラー,,
+期初库存,インベントリの開始,,
+未开启,電源が入っていない,,
+未收到款项,支払いは受領されませんでした,,
+未添加产品,商品は追加されていません,,
+本单欠款(元),この注文の未払い金額 (元),,
+权限,権限,,
+条,ストリップ,,
+条形码,バーコード,,
+条码,バーコード,,
+查看,チェック,,
+查看批次,バッチを表示する,,
+查询,検索,,
+模板,テンプレート,,
+模板下载,テンプレートのダウンロード,,
+欠款状态,延滞状況,,
+欠款金额(元),借入額（元）,,
+正在导入中,インポート中,,
+正常,普通,,
+没准备好，请稍后再试！,準備ができていません。後でもう一度お試しください。,,
+注意：如曾安装过Lodop旧版附件npActiveXPLugin,注: 古い Lodop アドオン npActiveXPLugin をインストールしている場合,,
+流水类型,パイプラインの種類,,
+添加,追加,,
+添加产品,製品を追加,,
+添加成功,正常に追加されました,,
+添加结算账户,請求先アカウントを追加する,,
+激活,アクティベーション,,
+激活入库,ストレージをアクティブ化する,,
+激活出库,アウトバウンドをアクティブ化する,,
+激活后无需到库存管理页面手动确认入库。,アクティベーション後、在庫管理ページに移動して手動でストレージを確認する必要はありません。,,
+激活后无需到库存管理页面手动确认出库。,有効化後は、在庫管理ページに移動して出荷を手動で確認する必要はありません。,,
+激活状态,アクティブ状態,,
+点击这里,ここをクリック,,
+物料选择,材料の選択,,
+状态,状態,,
+现付金额(元),現金で支払った金額（元）,,
+现收金额(元),現金で受け取った金額（元）,,
+现金,現金,,
+生产,生産,,
+生产任务,生産タスク,,
+生产单号,製造指図番号,,
+生产成功,生産成功,,
+生产数量,生産量,,
+生产日期,製造日,,
+生产计划,生産計画,,
+"生产计划
+export function productionOrderList(params)","生産計画
+エクスポート関数productionOrderList(params)",,
+生产计划单号,生産計画番号,,
+生产计划详情,生産計画詳細,,
+生产记录,製作実績,,
+"生产记录
+export function productionRecordList(params)","製作実績
+エクスポート関数productionRecordList(params)",,
+生成条形码,バーコードの生成,,
+用户名,ユーザー名,,
+电话,電話,,
+男,男,,
+登录,ログイン,,
+登录后请修改密码,ログイン後、パスワードを変更してください,,
+登录成功,ログイン成功,,
+盘点,棚卸,,
+"盘点
+export function stockCheckCreate(data)","在庫
+エクスポート関数stockCheckCreate(data)",,
+"盘点
+export function stockCheckOrdersList(params)","在庫
+エクスポート関数stockCheckOrdersList(params)",,
+盘点业务,在庫事業,,
+盘点创建,インベントリの作成,,
+盘点单,在庫シート,,
+"盘点单
+export function getStockCheckOrderNumber(params)","在庫シート
+エクスポート関数 getStockCheckOrderNumber(params)",,
+盘点单号,在庫注文番号,,
+盘点单详情,在庫注文の詳細,,
+盘点状态,在庫状況,,
+盘点编号,在庫数,,
+盘点记录作废,在庫レコードが無効です,,
+"盘点记录作废
+export function stockCheckOrdersVoid(data)","在庫レコードが無効です
+エクスポート関数stockCheckOrdersVoid(data)",,
+盘点详情,在庫詳細,,
+盘盈总数量,利益総額,,
+盘盈总金额,利益総額,,
+确定,もちろん,,
+确定作废吗,本当に無効ですか?,,
+确定保存吗,本当に保存しますか?,,
+确定关闭吗,本当に閉じますか?,,
+确定删除吗,本当に削除しますか?,,
+确定发布吗,必ず公開しますか?,,
+确定重置吗,本当にリセットしますか?,,
+确认密码,パスワードを認証する,,
+禁用,無効にする,,
+移除,取り除く,,
+税率,税率,,
+立即开始,今すぐ始めましょう,,
+等级,学年,,
+等级价一(元),レベル価格 1 (元),,
+等级价三(元),レベル価格 3 (元),,
+等级价二(元),レベル価格 2 (元),,
+管理员,管理者,,
+管理批次,バッチを管理する,,
+类型,タイプ,,
+系统管理,システム管理,,
+系统配置,システム設定,,
+"系统配置
+export function configInfo(params)","システム構成
+エクスポート関数 configInfo(params)",,
+经手人,ハンドラ,,
+经手日期,取引日,,
+结束时间,終了時間,,
+结算账户,決済口座,,
+"结算账户
+export function accountsOption(params)","決済口座
+エクスポート関数 accountsOption(params)",,
+"结算账户
+export function getSettlementAccountNumber(params)","決済口座
+エクスポート関数 getSettlementAccountNumber(params)",,
+"结算账户
+export function settlementAccountExport(params)","決済口座
+エクスポート関数paymentAccountExport(params)",,
+"结算账户
+export function settlementAccountList(params)","決済口座
+エクスポート関数paymentAccountList(params)",,
+结算账户信息,決済口座情報,,
+结算账户列表,決済口座一覧,,
+结算账户名称,決済口座名,,
+结算账户导入,決済口座インポート,,
+"结算账户导入
+export function settlementAccountImport(data)","決済口座インポート
+エクスポート関数paymentAccountImport(data)",,
+结算账户导入模板,決済口座インポートテンプレート,,
+结算账户模板,決済口座テンプレート,,
+"结算账户模板
+export function settlementAccountTemplate(params)","決済口座テンプレート
+エクスポート関数paymentAccountTemplate(params)",,
+结算账户编号,決済口座番号,,
+结算项目,決済項目,,
+"结算项目
+export function chargeItemsOption(params)","決済項目
+エクスポート関数chargeItemsOption(params)",,
+统计合计,統計合計,,
+"统计合计
+        let totalQuantity","統計合計
+        合計数量をみましょう",,
+"统计合计
+      let totalAmount","統計合計
+      合計金額をみましょう",,
+"统计合计
+      let totalQuantity","統計合計
+      合計数量をみましょう",,
+编号,番号,,
+编号批次,番号付きバッチ,,
+编码,コード,,
+编辑,編集,,
+编辑产品信息,製品情報を編集する,,
+编辑产品分类,製品カテゴリを編集する,,
+编辑产品单位,製品単位の編集,,
+编辑仓库,リポジトリの編集,,
+编辑供应商,サプライヤーの編集,,
+编辑客户,顧客の編集,,
+编辑收支项目,収入と支出の項目を編集する,,
+编辑日常收支,毎日の収入と支出を編集する,,
+编辑生产计划,生産計画の編集,,
+编辑结算账户,請求先アカウントを編集する,,
+编辑角色,役割の編集,,
+编辑账号,アカウントの編集,,
+编辑账户转账,アカウント転送の編集,,
+联系人,連絡担当者,,
+联系电话,連絡先電話番号,,
+自定义时间,カスタム時間,,
+获取LODOP对象的主过程：,LODOP オブジェクトを取得する主なプロセスは次のとおりです。,,
+装箱清单,包装内容明細書,,
+装箱清单原料,パッキングリストの成分,,
+规格,仕様,,
+角色,役割,,
+角色权限,役割の権限,,
+角色管理,ロール管理,,
+计划开始时间,開始予定時刻,,
+计划数量,予定数量,,
+计划结束时间,終了予定時刻,,
+订单收款明细,注文の支払い詳細,,
+"订单收款明细
+export function salesPaymentRecord(params)","注文の支払い詳細
+エクスポート関数 salesPaymentRecord(params)",,
+设置密码,パスワードを設定する,,
+设置成功,セットアップ成功,,
+详情,詳細,,
+请先安装Lodop,まず Lodop をインストールしてください,,
+请先选择仓库！,最初に倉庫を選択してください。,,
+请先选择出库仓库！,最初に出荷倉庫を選択してください。,,
+请再次输入新密码,新しいパスワードをもう一度入力してください,,
+请在【工具】,[ツール]にアクセスしてください。,,
+请将批次信息填写完整,バッチ情報を完全に入力してください,,
+请将结算账户信息填写完整,決済口座情報を完全に入力してください,,
+请扫描产品条码,製品のバーコードをスキャンしてください,,
+请等待,お待ちください,,
+请输入产品名称,製品名を入力してください,,
+请输入产品数量,製品数量を入力してください,,
+请输入产品编号,製品番号を入力してください,,
+请输入仓库名称,倉庫名を入力してください,,
+请输入仓库编号,倉庫番号を入力してください,,
+请输入入出库数量,入庫数量と出庫数量を入力してください,,
+请输入入库数量,倉庫数量を入力してください,,
+请输入公司编号,会社番号を入力してください,,
+请输入分类名称,カテゴリ名を入力してください,,
+请输入单位名称,組織名を入力してください,,
+请输入名称,名前を入力してください,,
+请输入姓名,名前を入力してください,,
+请输入实收,実際の領収書を入力してください,,
+请输入密码,パスワードを入力してください,,
+请输入应收,売掛金を入力してください,,
+请输入手机号,携帯電話番号を入力してください,,
+请输入收支项目,収入と支出の項目を入力してください,,
+请输入新密码,新しいパスワードを入力してください,,
+请输入旧密码,古いパスワードを入力してください,,
+请输入生产数量,生産数量を入力してください,,
+请输入用户名,ユーザー名を入力してください,,
+请输入编号,番号を入力してください,,
+请输入角色名称,ロール名を入力してください,,
+请输入计划数量,予定数量を入力してください,,
+请输入账户名称,アカウント名を入力してください,,
+请输入账户编号,口座番号を入力してください,,
+请输入转账金额,送金額を入力してください,,
+请输入退货单编号,返品注文番号を入力してください,,
+请输选择性别,性別を入力して選択してください,,
+请选择,選択してください,,
+请选择仓库,倉庫を選択してください,,
+请选择供应商,サプライヤーを選択してください,,
+请选择入库仓库,保管倉庫を選択してください,,
+请选择出库仓库,出荷倉庫を選択してください,,
+请选择处理日期,処理日を選択してください,,
+请选择处理时间,処理時間を選択してください,,
+请选择客户,お客様を選択してください,,
+请选择收支类型,お支払いタイプを選択してください,,
+请选择收支项目,収入と支出の項目を選択してください,,
+请选择时间,時間を選択してください,,
+请选择权限,権限を選択してください,,
+请选择状态,状態を選択してください,,
+请选择生产产品,生産品を選択してください,,
+请选择经手人,ハンドラーを選択してください,,
+请选择结算账户,決済口座を選択してください,,
+请选择转入账户,振込口座を選択してください,,
+请选择转出时间,乗り換え時間を選択してください,,
+请选择转出账户,振込口座を選択してください,,
+请重新登录,再度ログインしてください,,
+调拨,在庫移動,,
+"调拨
+export function stockTransferCreate(data)","移行
+エクスポート関数stockTransferCreate(data)",,
+"调拨
+export function stockTransferOrdersList(params)","移行
+エクスポート関数stockTransferOrdersList(params)",,
+调拨业务,譲渡事業,,
+调拨创建,転送の作成,,
+调拨单,転送命令,,
+"调拨单
+export function getStockTransferOrderNumber(params)","転送命令
+エクスポート関数 getStockTransferOrderNumber(params)",,
+调拨单号,ダイヤル番号,,
+调拨单据,譲渡書類,,
+调拨单详情,転送注文の詳細,,
+调拨数量,転送数量,,
+调拨数量必填,必要な転送数量,,
+调拨编号,転送番号,,
+调拨记录作废,転送記録が無効です,,
+"调拨记录作废
+export function stockTransferOrdersVoid(data)","転送記録が無効です
+エクスポート関数stockTransferOrdersVoid(data)",,
+调拨详情,転送詳細,,
+"调拨详情
+export function stockCheckDetail(params)","転送詳細
+エクスポート関数stockCheckDetail(params)",,
+"调拨详情
+export function stockTransferDetail(params)","転送詳細
+エクスポート関数stockTransferDetail(params)",,
+财务管理,財務管理,,
+账单信息,請求情報,,
+账号管理,アカウント管理,,
+账户余额(元),口座残高（元）,,
+账户名称,アカウント名,,
+账户类型,アカウントの種類,,
+账户编号,口座番号,,
+账户转账,口座振替,,
+"账户转账
+export function accountTransferOrdersList(params)","口座振替
+エクスポート関数 accountTransferOrdersList(params)",,
+账户转账新增,口座振替を追加しました,,
+"账户转账新增
+export function accountTransferOrderCreate(data)","口座振替を追加しました
+エクスポート関数 accountTransferOrderCreate(data)",,
+账户转账记录作废,口座振替記録が無効になった,,
+"账户转账记录作废
+export function accountTransferOrdersVoid(data)","口座振替記録が無効になった
+エクスポート関数 accountTransferOrdersVoid(data)",,
+账面总数量,書籍の合計金額,,
+资金流水,資金履歴,,
+"资金流水
+export function financeFlowsList(params)","資本の流れ
+エクスポート関数 FinanceFlowsList(params)",,
+资金流水详情,資金の流れの詳細,,
+"资金流水详情
+export function financeFlowDetail(params)","資金の流れの詳細
+エクスポート関数 FinanceFlowDetail(params)",,
+超出最大长度 (256),最大長を超えました (256),,
+超出最大长度 (32),最大長を超えました (32),,
+超出最大长度 (64),最大長を超えました (64),,
+转入时间,乗り換え時間,,
+转入账户,振込口座,,
+转入账户支付,口座に送金して支払います,,
+转出时间,転送時間,,
+转出账户,口座振替,,
+转出账户支付,口座振替によるお支払い,,
+转账金额,振込金額,,
+转账金额(元),送金額（元）,,
+转账金额格式不正确,送金額の形式が間違っています,,
+输入查询,クエリを入力してください,,
+过期日期,有効期限,,
+近30天,過去 30 日間,,
+近7天,過去7日間,,
+近一年,ほぼ1年,,
+返回,戻る,,
+返回登录,ログインに戻る,,
+进销存管理系统,仕入・販売・在庫管理システム,,
+连接被拒绝，请检查服务器是否启动,接続が拒否されました。サーバーが起動しているかどうかを確認してください,,
+退出登录,ログアウト,,
+退款金额,返金額,,
+退货单价(元),返品単価（元）,,
+退货单价和销退货数量必填,返品単価と売上返品数量が必要です。,,
+退货单价退货数量必填,返品単価 必要な返品数量,,
+退货单编号,返品注文番号,,
+退货总数量,返品された合計数量,,
+退货总金额,還元総額,,
+退货数量,返品数量,,
+退货编号,戻り番号,,
+退货记录,返品記録,,
+"退货记录
+export function purchaseReturnOrdersList(params)","返却記録
+エクスポート関数 PurchaseReturnOrdersList(params)",,
+退货记录作废,返されるレコードが無効です,,
+"退货记录作废
+export function purchaseReturnOrdersVoid(data)","返されるレコードが無効です
+エクスポート関数 PurchaseReturnOrdersVoid(data)",,
+退货记录详情,戻りレコードの詳細,,
+"退货记录详情
+export function purchaseReturnOrderDetail(params)","戻りレコードの詳細
+エクスポート関数 PurchaseReturnOrderDetail(params)",,
+选择,選ぶ,,
+选择产品,製品を選択してください,,
+邮箱,郵便,,
+部署用的后端,デプロイメント用のバックエンド,,
+配置管理,構成管理,,
+采购价,購入価格,,
+采购价(元),購入価格（元）,,
+采购价格,購入価格,,
+采购价格(元),購入価格（元）,,
+采购入库,調達と保管,,
+采购单,注文書,,
+"采购单
+export function getPurchaseOrderNumber(params)","注文書
+エクスポート関数 getPurchaseOrderNumber(params)",,
+采购单价,購入単価,,
+采购单价(元),購入単価（元）,,
+采购单价和采购数量必填,購入単価と購入数量は必須です,,
+采购单原料,発注書の原材料,,
+采购单号,注文書番号,,
+采购单据,購入書類,,
+"采购单据
+export function purchaseOrdersOption(params)","購入書類
+エクスポート関数 PurchaseOrdersOption(params)",,
+采购单编号,注文書番号,,
+采购单详情,注文書の詳細,,
+采购对账单,購入明細書,,
+采购开单,仕入伝票作成,,
+"采购开单
+export function purchaseOrderCreate(data)","購入請求
+エクスポート関数 PurchaseOrderCreate(data)",,
+采购总数量,合計購入数量,,
+采购总金额,購入総額,,
+采购总金额(元),購入総額（元）,,
+采购报表,仕入レポート,,
+"采购报表
+export function purchaseReportStatistics(params)","購入レポート
+エクスポート関数 PurchaseReportStatistics(params)",,
+采购报表按产品汇总,製品ごとにまとめた購買レポート,,
+"采购报表按产品汇总
+export function purchaseReportByGoodsList(params)","製品ごとにまとめた購買レポート
+エクスポート関数 PurchaseReportByGoodsList(params)",,
+采购报表明细,購入レポート詳細,,
+"采购报表明细
+export function purchaseReportDetialsList(params)","購入レポート詳細
+エクスポート関数 PurchaseReportDetialsList(params)",,
+采购支出明细,購入支出の詳細,,
+"采购支出明细
+export function purchasePaymentRecord(params)","購入支出の詳細
+エクスポート関数 PurchasePaymentRecord(params)",,
+采购数量,購入数量,,
+采购明细,購入詳細,,
+采购次数,購入回数,,
+采购管理,仕入管理,,
+采购编号,購入番号,,
+采购订单,注文書,,
+采购记录,仕入記録,,
+"采购记录
+export function purchaseOrderList(params)","購入履歴
+エクスポート関数 PurchaseOrderList(params)",,
+采购记录作废,購入記録が無効です,,
+"采购记录作废
+export function purchaseOrdersVoid(data)","購入記録が無効です
+エクスポート関数 PurchaseOrdersVoid(data)",,
+采购记录详情,購入履歴詳細,,
+"采购记录详情
+export function purchaseOrderDetail(params)","購入履歴詳細
+エクスポート関数 PurchaseOrderDetail(params)",,
+采购退款明细,購入時の払い戻しの詳細,,
+"采购退款明细
+export function purchaseReturnPaymentRecord(params)","購入時の払い戻しの詳細
+エクスポート関数 PurchaseReturnPaymentRecord(params)",,
+采购退货,仕入返品,,
+采购退货单,購入返品フォーム,,
+"采购退货单
+export function getPurchaseReturnOrderNumber(params)","購入返品フォーム
+エクスポート関数 getPurchaseReturnOrderNumber(params)",,
+"采购退货单
+export function purchaseReturnOrderCreate(data)","購入返品フォーム
+エクスポート関数 PurchaseReturnOrderCreate(data)",,
+采购退货单号,購入返品注文番号,,
+采购退货单据,購入返品書類,,
+采购退货单详情,返品注文の詳細を購入する,,
+采购金额,購入金額,,
+重置密码,パスワードをリセットする,,
+重置成功,リセット成功,,
+金额,額,,
+金额(元),金額（元）,,
+银行账户,銀行口座,,
+销售价格(元),販売価格（元）,,
+销售任务,営業タスク,,
+"销售任务
+export function saleTaskList(params)","営業タスク
+エクスポート関数 saleTaskList(params)",,
+销售任务删除,営業タスクを削除する,,
+"销售任务删除
+export function saleTaskDestroy(data)","営業タスクを削除する
+エクスポート関数 saleTaskDestroy(data)",,
+销售任务新增,新しい営業タスク,,
+"销售任务新增
+export function saleTaskCreate(data)","新しい営業タスク
+エクスポート関数 saleTaskCreate(data)",,
+销售出库,アウトバウンド販売,,
+销售前十产品,売上上位10製品,,
+"销售前十产品
+export function salesTopTenList(params)","売上上位10製品
+エクスポート関数 salesTopTenList(params)",,
+销售单,販売明細書,,
+销售单价,販売単価,,
+销售单价(元),販売単価（元）,,
+销售单价和销售数量必填,販売単価と販売数量は必須です,,
+销售单号,販売注文番号,,
+销售单据,販売書類,,
+"销售单据
+export function saleOrdersOption(params)","販売書類
+エクスポート関数 saleOrdersOption(params)",,
+销售单详情,販売注文の詳細,,
+销售对账单,売上明細書,,
+销售开单,販売伝票作成,,
+"销售开单
+export function getSaleOrderNumber(params)","売上請求
+エクスポート関数 getSaleOrderNumber(params)",,
+"销售开单
+export function saleOrderCreate(data)","売上請求
+エクスポート関数 saleOrderCreate(data)",,
+销售总数量,総販売数量,,
+销售总金额,総売上高,,
+销售总金额(元),総売上高（元）,,
+销售报表,販売レポート,,
+"销售报表
+export function salesReportStatistics(params)","販売レポート
+エクスポート関数 salesReportStatistics(params)",,
+销售报表按产品汇总,製品ごとの販売レポートの概要,,
+"销售报表按产品汇总
+export function salesReportByGoodsList(params)","製品ごとの販売レポートの概要
+エクスポート関数 salesReportByGoodsList(params)",,
+销售报表明细,販売レポートの詳細,,
+"销售报表明细
+export function salesReportDetialsList(params)","販売レポートの詳細
+エクスポート関数 salesReportDetialsList(params)",,
+销售数量,販売数量,,
+销售次数,販売数,,
+销售管理,販売管理,,
+销售编号,販売数,,
+销售订单,販売注文,,
+销售记录,販売記録,,
+"销售记录
+export function saleOrderList(params)","販売実績
+エクスポート関数 saleOrderList(params)",,
+销售记录录作废,販売記録は無効になります,,
+"销售记录录作废
+export function saleOrdersVoid(data)","販売記録は無効になります
+エクスポート関数 saleOrdersVoid(data)",,
+销售记录详情,販売実績詳細,,
+"销售记录详情
+export function saleOrderDetail(params)","販売実績詳細
+エクスポート関数 saleOrderDetail(params)",,
+销售走势,販売動向,,
+"销售走势
+export function salesTrendList(params)","販売動向
+エクスポート関数 salesTrendList(params)",,
+销售退款明细,販売払い戻しの詳細,,
+"销售退款明细
+export function salesReturnPaymentRecord(params)","販売払い戻しの詳細
+エクスポート関数 salesReturnPaymentRecord(params)",,
+销售退货,販売返品,,
+"销售退货
+export function getSaleReturnOrderNumber(params)","売上の返品
+エクスポート関数 getSaleReturnOrderNumber(params)",,
+"销售退货
+export function saleReturnOrderCreate(data)","売上の返品
+エクスポート関数 saleReturnOrderCreate(data)",,
+销售退货单,売上返品フォーム,,
+销售退货单号,販売返品注文番号,,
+销售退货单据,売上返品書類,,
+销售退货单详情,販売返品注文の詳細,,
+销售退货记录,売上返品実績,,
+"销售退货记录
+export function saleReturnOrderList(params)","売上返品実績
+エクスポート関数 saleReturnOrderList(params)",,
+销售退货详情,販売返品の詳細,,
+"销售退货详情
+export function saleReturnOrderDetail(params)","販売返品の詳細
+エクスポート関数 saleReturnOrderDetail(params)",,
+销售金额,売上高,,
+销量,販売数量,,
+附加组件】,アドオン],,
+零售价,小売価格,,
+零售价(元),小売価格（元）,,
+需要完善该产品的批次信息,この製品のバッチ情報を完了する必要があります,,
+页面引用CLodop云打印必须的JS文件：,このページでは、CLodop クラウド印刷に必要な JS ファイルを参照しています。,,
+项目名称,プロジェクト名,,
+预期价格(元),予想価格（元）,,
+预期销售数量,予想販売数量,,
+首页,フロントページ,,
+默认初始密码为,デフォルトの初期パスワードは、,,

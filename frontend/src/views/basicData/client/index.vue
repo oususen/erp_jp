@@ -1,18 +1,18 @@
 <template>
   <div>
-    <a-card title="客户">
+    <a-card title="顧客">
       <a-row gutter="16">
         <a-col :span="24" style="max-width: 200px; margin-bottom: 12px;">
-          <a-select v-model="searchForm.is_active" placeholder="ステータス" allowClear style="width: 100%;" @change="search">
-            <a-select-option :value="true">有効</a-select-option>
-            <a-select-option :value="false">無効</a-select-option>
+          <a-select v-model="searchForm.is_active" placeholder="状態" allowClear style="width: 100%;" @change="search">
+            <a-select-option :value="true">有効化</a-select-option>
+            <a-select-option :value="false">凍結</a-select-option>
           </a-select>
         </a-col>
         <a-col :span="24" style="max-width: 200px; margin-bottom: 12px;">
-          <a-input v-model="searchForm.search" placeholder="番号、名称、備考" allowClear @pressEnter="search" />
+          <a-input v-model="searchForm.search" placeholder="コード, 名称, 備考" allowClear @pressEnter="search" />
         </a-col>
         <a-col :span="24" style="width: 100px; margin-bottom: 12px;">
-          <a-button type="primary" icon="search" @click="search">照会</a-button>
+          <a-button type="primary" icon="search" @click="search">検索</a-button>
         </a-col>
 
         <a-col :span="24" style="width: 300px; margin-bottom: 12px;">
@@ -26,7 +26,7 @@
         </a-col>
 
         <div style="margin-bottom: 12px; float: right;">
-          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="openFormModal(form)">新增客户</a-button>
+          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="openFormModal(form)">顧客新規登録</a-button>
         </div>
       </a-row>
 
@@ -41,12 +41,12 @@
           @change="tableChange"
         >
           <div slot="is_active" slot-scope="value">
-            <a-tag :color="value ? 'green' : 'red'">{{ value ? "有効" : "無効" }}</a-tag>
+            <a-tag :color="value ? 'green' : 'red'">{{ value ? "有効化" : "凍結" }}</a-tag>
           </div>
           <div slot="action" slot-scope="value, item">
             <a-button-group>
               <a-button icon="edit" size="small" @click="openFormModal(item)">編集</a-button>
-              <a-popconfirm title="削除してもよろしいですか" @confirm="destroy(item.id)">
+              <a-popconfirm title="本当に削除しますか?" @confirm="destroy(item.id)">
                 <a-button type="danger" icon="delete" size="small">削除</a-button>
               </a-popconfirm>
             </a-button-group>
@@ -62,7 +62,7 @@
       @update="update"
     />
     <a-modal v-model="importLoading" :footer="null" :maskClosable="false" :closable="false">
-      <div><a-spin style="margin-right: 12px;" />正在导入中, 请等待...</div>
+      <div><a-spin style="margin-right: 12px;" />インポート中, お待ちください...</div>
     </a-modal>
   </div>
 </template>
@@ -83,7 +83,7 @@ export default {
     return {
       columns: [
         {
-          title: "番号",
+          title: "連番",
           dataIndex: "index",
           key: "index",
           width: 60,
@@ -92,24 +92,24 @@ export default {
           },
         },
         {
-          title: "客户编号",
+          title: "顧客コード",
           dataIndex: "number",
         },
         {
-          title: "客户名称",
+          title: "顧客名",
           dataIndex: "name",
           sorter: true,
         },
         {
-          title: "联系人",
+          title: "連絡先",
           dataIndex: "contact",
         },
         {
-          title: "手机号",
+          title: "携帯コード",
           dataIndex: "phone",
         },
         {
-          title: "ステータス",
+          title: "状態",
           dataIndex: "is_active",
           scopedSlots: { customRender: "is_active" },
         },
@@ -180,14 +180,14 @@ export default {
         //   this.items.findIndex((item) => item.id == id),
         //   1
         // );
-        this.$message.success("删除成功");
+        this.$message.success("削除成功");
         this.list();
       });
     },
     exportExcel() {
       clientExport(this.searchForm)
         .then((resp) => {
-          exportExcel(resp.data, "客户列表");
+          exportExcel(resp.data, "顧客一覧");
         })
         .catch((err) => {
           this.$message.error(err.response.data.error);
@@ -196,7 +196,7 @@ export default {
     downloadTemplate() {
       clientTemplate()
         .then((resp) => {
-          exportExcel(resp.data, "客户导入模板");
+          exportExcel(resp.data, "顧客インポートテンプレート");
         })
         .catch((err) => {
           this.$message.error(err.response.data.error);
@@ -209,7 +209,7 @@ export default {
       setTimeout(() => {
         clientImport(data)
           .then(() => {
-            this.$message.success("导入成功");
+            this.$message.success("インポート成功");
             this.list();
           })
           .catch((err) => {

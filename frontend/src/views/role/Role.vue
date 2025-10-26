@@ -3,11 +3,11 @@
     <a-card title="ロール管理">
       <a-row gutter="16">
         <a-col :span="24" :md="8" :xl="6" style="margin-bottom: 12px;">
-          <a-input-search v-model="searchForm.search" placeholder="名称, 备注" allowClear @search="search" />
+          <a-input-search v-model="searchForm.search" placeholder="名称, 備考" allowClear @search="search" />
         </a-col>
 
         <div style="margin-bottom: 12px; float: right;">
-          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="openFormModal(form)">新增角色</a-button>
+          <a-button type="primary" icon="plus" style="margin: 0 8px;" @click="openFormModal(form)">ロール新規登録</a-button>
         </div>
       </a-row>
 
@@ -17,7 +17,7 @@
           <div slot="action" slot-scope="value, item">
             <a-button-group>
               <a-button icon="edit" size="small" @click="openFormModal(item)">編集</a-button>
-              <a-popconfirm title="削除してもよろしいですか" @confirm="destroy(item.id)">
+              <a-popconfirm title="本当に削除しますか?" @confirm="destroy(item.id)">
                 <a-button type="danger" icon="delete" size="small">削除</a-button>
               </a-popconfirm>
             </a-button-group>
@@ -86,7 +86,7 @@
       destroy(id) {
         roleDestroy({ id }).then(() => {
           // this.items.splice(this.items.findIndex(item => item.id == id), 1);
-          this.$message.success('删除成功');
+          this.$message.success('削除成功');
           this.list();
         });
       },

@@ -11,12 +11,12 @@ export default {
     },
     {
       path: 'purchase_record',
-      meta: { title: '購買履歴', permission: 'purchase_record' },
+      meta: { title: '購買記録', permission: 'purchase_record' },
       component: () => import('@/views/purchasing/purchaseRecord/index'),
     },
     {
       path: 'purchase_record_detail',
-      meta: { title: '采购记录详情', permission: 'purchase_record_detail' },
+      meta: { title: '購買記録詳細', permission: 'purchase_record_detail' },
       component: () => import('@/views/purchasing/purchaseRecordDetail/index'),
     },
     {
@@ -26,12 +26,12 @@ export default {
     },
     {
       path: 'return_record',
-      meta: { title: '返品履歴', permission: 'return_record' },
+      meta: { title: '返品記録', permission: 'return_record' },
       component: () => import('@/views/purchasing/returnRecord/index'),
     },
     {
       path: 'return_record_detail',
-      meta: { title: '退货记录详情', permission: 'return_record_detail' },
+      meta: { title: '返品記録詳細', permission: 'return_record_detail' },
       component: () => import('@/views/purchasing/returnRecordDetail/index'),
     },
   ],

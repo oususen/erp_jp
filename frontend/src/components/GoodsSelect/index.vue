@@ -7,7 +7,7 @@
       show-search
       :disabled="disabled"
       :filter-option="false"
-      :not-found-content="loading ? undefined : '暂无数据'"
+      :not-found-content="loading ? undefined : 'データなし'"
       style="width: 100%;"
       @search="search"
       @change="change"

@@ -1,15 +1,15 @@
 <template>
   <div>
-    <a-card title="配置管理">
+    <a-card title="構成管理">
       <a-spin :spinning="loading">
         <a-descriptions bordered>
-          <a-descriptions-item label="激活入库" :span="3">
+          <a-descriptions-item label="入庫有効化" :span="3">
             <a-switch v-model="form.enable_auto_stock_in" @change="update" />
-            <Helper :message="'激活后无需到库存管理页面手动确认入库。'" style="margin-left:20px;"></Helper>
+            <Helper :message="'有効化後、在庫管理ページに移動して手動でストレージを確認する必要はありません。'" style="margin-left:20px;"></Helper>
           </a-descriptions-item>
-          <a-descriptions-item label="激活出库" :span="3">
+          <a-descriptions-item label="出庫有効化" :span="3">
             <a-switch v-model="form.enable_auto_stock_out" @change="update" />
-             <Helper :message="'激活后无需到库存管理页面手动确认出库。'" style="margin-left:20px;"></Helper>
+             <Helper :message="'有効化後は在庫管理ページで手動出庫確認は不要'" style="margin-left:20px;"></Helper>
           </a-descriptions-item>
         </a-descriptions>
       </a-spin>

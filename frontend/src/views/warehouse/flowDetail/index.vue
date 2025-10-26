@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card title="库存流水详情">
+    <a-card title="在庫推移詳細">
       <a-button slot="extra" type="primary" ghost @click="() => { this.$router.go(-1); }"> <a-icon type="left" />戻る</a-button>
       <section id="pdfDom">
         <a-spin :spinning="loading">
@@ -8,79 +8,79 @@
             <a-descriptions-item label="作成者">
               {{ info.creator_name }}
             </a-descriptions-item>
-            <a-descriptions-item label="作成日時">
+            <a-descriptions-item label="作成時間">
               {{ info.create_time }}
             </a-descriptions-item>
-            <a-descriptions-item label="仓库">
+            <a-descriptions-item label="入庫">
               {{ info.warehouse_name }}
             </a-descriptions-item>
-            <a-descriptions-item label="产品名称">
+            <a-descriptions-item label="商品名">
               {{ info.goods_name }}
             </a-descriptions-item>
-            <a-descriptions-item label="产品编号">
+            <a-descriptions-item label="商品コード">
               {{ info.goods_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="单位名称">
+            <a-descriptions-item label="単位名">
               {{ info.unit_name }}
             </a-descriptions-item>
-            <a-descriptions-item label="流水类型">
+            <a-descriptions-item label="明細タイプ">
               {{ info.type_display }}
             </a-descriptions-item>
-            <a-descriptions-item label="变化之前数量">
+            <a-descriptions-item label="変更前数数数量">
               {{ info.quantity_before }}
             </a-descriptions-item>
-            <a-descriptions-item label="变化数量">
+            <a-descriptions-item label="変更数数数量">
               {{ info.quantity_change }}
             </a-descriptions-item>
-            <a-descriptions-item label="变化之后数量">
+            <a-descriptions-item label="変更後数数数量">
               {{ info.quantity_after }}
             </a-descriptions-item>
-            <a-descriptions-item label="采购单号">
+            <a-descriptions-item label="購買伝票コード">
               {{ info.purchase_order_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="作废采购单号">
+            <a-descriptions-item label="購買伝票コード無効">
               {{ info.void_purchase_order_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="采购退货单号">
+            <a-descriptions-item label="購入返品伝票コード">
               {{ info.purchase_return_order_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="作废采购退货单号">
+            <a-descriptions-item label="購買返品伝票コード無効">
               {{ info.void_purchase_return_order_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="销售单号">
+            <a-descriptions-item label="販売伝票コード">
               {{ info.sales_order_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="作废销售单号">
+            <a-descriptions-item label="販売伝票コード無効">
               {{ info.void_sales_order_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="销售退货单号">
+            <a-descriptions-item label="販売返品伝票コード">
               {{ info.sales_return_order_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="作废销售退货单号">
+            <a-descriptions-item label="販売返品伝票コード無効">
               {{ info.void_sales_return_order_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="入库通知单号">
+            <a-descriptions-item label="入庫届出コード">
               {{ info.stock_in_order_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="作废入库通知单号">
+            <a-descriptions-item label="入庫通知コード無効">
               {{ info.void_stock_in_order_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="出库通知单号">
+            <a-descriptions-item label="出庫通知コード">
               {{ info.stock_out_order_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="作废出库通知单号">
+            <a-descriptions-item label="出庫通知コード無効">
               {{ info.void_stock_out_order_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="盘点单号">
+            <a-descriptions-item label="在庫伝票コード">
               {{ info.stock_check_order_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="作废盘点单号">
+            <a-descriptions-item label="棚卸伝票コード無効">
               {{ info.void_stock_check_order_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="调拨单号">
+            <a-descriptions-item label="ダイヤルコード">
               {{ info.stock_transfer_order_number }}
             </a-descriptions-item>
-            <a-descriptions-item label="作废调拨单号">
+            <a-descriptions-item label="振替伝票コード無効">
               {{ info.void_stock_transfer_order_number }}
             </a-descriptions-item>
           </a-descriptions>

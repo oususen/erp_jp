@@ -1,4 +1,4 @@
-// 导出页面为PDF格式
+// ページをPDF形式でエクスポート
 import html2Canvas from 'html2canvas'
 import JsPDF from 'jspdf'
 export default{

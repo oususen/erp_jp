@@ -1,6 +1,6 @@
 var CreatedOKLodop7766=null;
 
-//====判断是否需要安装CLodop云打印服务器:====
+//====CLodopクラウド印刷サーバーのインストール必要性確認:====
 export function needCLodop(){
   try{
     var ua=navigator.userAgent;
@@ -35,35 +35,35 @@ export function needCLodop(){
   } catch(err) {return true;};
 };
 
-//====页面引用CLodop云打印必须的JS文件：====
+//====ページでCLodopクラウド印刷に必要なJSファイルを参照：====
 if (needCLodop()) {
   var head = document.head || document.getElementsByTagName("head")[0] || document.documentElement;
   var oscript = document.createElement("script");
   oscript.src ="http://localhost:8000/CLodopfuncs.js?priority=1";
   head.insertBefore( oscript,head.firstChild );
 
-  //引用双端口(8000和18000）避免其中某个被占用：
+  //二重ポート(8000と18000)を参照し、いずれかが占有されるのを防ぎます
   oscript = document.createElement("script");
   oscript.src ="http://localhost:18000/CLodopfuncs.js?priority=0";
   head.insertBefore( oscript,head.firstChild );
 };
 
-//====获取LODOP对象的主过程：====
+//====LODOPオブジェクト取得の主な手順：====
 export function getLodop(oOBJECT,oEMBED){
-  var strHtmInstall="<br><font color='#FF00FF'>打印控件未安装!点击这里<a href='install_lodop32.exe' target='_self'>执行安装</a>,安装后请刷新页面或重新进入。</font>";
-  var strHtmUpdate="<br><font color='#FF00FF'>打印控件需要升级!点击这里<a href='install_lodop32.exe' target='_self'>执行升级</a>,升级后请重新进入。</font>";
-  var strHtm64_Install="<br><font color='#FF00FF'>打印控件未安装!点击这里<a href='install_lodop64.exe' target='_self'>执行安装</a>,安装后请刷新页面或重新进入。</font>";
-  var strHtm64_Update="<br><font color='#FF00FF'>打印控件需要升级!点击这里<a href='install_lodop64.exe' target='_self'>执行升级</a>,升级后请重新进入。</font>";
-  var strHtmFireFox="<br><br><font color='#FF00FF'>（注意：如曾安装过Lodop旧版附件npActiveXPLugin,请在【工具】->【附加组件】->【扩展】中先卸它）</font>";
-  var strHtmChrome="<br><br><font color='#FF00FF'>(如果此前正常，仅因浏览器升级或重安装而出问题，需重新执行以上安装）</font>";
-  var strCLodopInstall="<br><font color='#FF00FF'>CLodop云打印服务(localhost本地)未安装启动!点击这里<a href='http://www.c-lodop.com/download/CLodop_Setup_for_Win32NT_https_3.008Extend.zip' target='_self'>执行安装</a>,安装后请刷新页面。</font>";
-  var strCLodopUpdate="<br><font color='#FF00FF'>CLodop云打印服务需升级!点击这里<a href='CLodop_Setup_for_Win32NT.exe' target='_self'>执行升级</a>,升级后请刷新页面。</font>";
+  var strHtmInstall="<br><font color='#FF00FF'>印刷コントロール未インストール!ここをクリック<a href='install_lodop32.exe' target='_self'>インストール実行</a>,インストール後はページを更新または再アクセスしてください</font>";
+  var strHtmUpdate="<br><font color='#FF00FF'>印刷コントロールのアップグレード必要!ここをクリック<a href='install_lodop32.exe' target='_self'>アップグレード実行</a>,アップグレード後は再アクセスしてください</font>";
+  var strHtm64_Install="<br><font color='#FF00FF'>印刷コントロール未インストール!ここをクリック<a href='install_lodop64.exe' target='_self'>インストール実行</a>,インストール後はページを更新または再アクセスしてください</font>";
+  var strHtm64_Update="<br><font color='#FF00FF'>印刷コントロールのアップグレード必要!ここをクリック<a href='install_lodop64.exe' target='_self'>アップグレード実行</a>,アップグレード後は再アクセスしてください</font>";
+  var strHtmFireFox="<br><br><font color='#FF00FF'>（注意：以前にLodop旧版アドオンnpActiveXPLuginをインストールした場合,【ツール】で->【アドオン】->【拡張機能】先にアンインストールしてください</font>";
+  var strHtmChrome="<br><br><font color='#FF00FF'>(以前正常でブラウザのアップグレードまたは再インストールのみが原因の場合、上記のインストールを再実行する必要があります</font>";
+  var strCLodopInstall="<br><font color='#FF00FF'>CLodopクラウド印刷サービス（localhostローカル）がインストールされていません!ここをクリック<a href='http://www.c-lodop.com/download/CLodop_Setup_for_Win32NT_https_3.008Extend.zip' target='_self'>インストール実行</a>,インストール後はページを更新してください</font>";
+  var strCLodopUpdate="<br><font color='#FF00FF'>CLodopクラウド印刷サービスのアップグレードが必要!ここをクリック<a href='CLodop_Setup_for_Win32NT.exe' target='_self'>アップグレード実行</a>,アップグレード後はページを更新してください</font>";
   var LODOP;
   try{
     var isIE = (navigator.userAgent.indexOf('MSIE')>=0) || (navigator.userAgent.indexOf('Trident')>=0);
     if (needCLodop()) {
       try{ LODOP=getCLodop();} catch(err) {};
-      if (!LODOP && document.readyState!=="complete") {alert("C-Lodop没准备好，请稍后再试！"); return;};
+      if (!LODOP && document.readyState!=="complete") {alert("C-Lodop準備ができていません。後でもう一度お試しください"); return;};
       if (!LODOP) {
         // if (isIE) document.write(strCLodopInstall); else
           // document.documentElement.innerHTML=strCLodopInstall+document.documentElement.innerHTML;
@@ -79,7 +79,7 @@ export function getLodop(oOBJECT,oEMBED){
       };
     } else {
       var is64IE  = isIE && (navigator.userAgent.indexOf('x64')>=0);
-      //=====如果页面有Lodop就直接使用，没有则新建:==========
+      //=====ページにLodopがある場合は直接使用し、ない場合は新規作成します:==========
       if (oOBJECT!=undefined || oEMBED!=undefined) {
         if (isIE) LODOP=oOBJECT; else  LODOP=oEMBED;
       } else if (CreatedOKLodop7766==null){
@@ -92,7 +92,7 @@ export function getLodop(oOBJECT,oEMBED){
         document.documentElement.appendChild(LODOP);
         CreatedOKLodop7766=LODOP;
       } else LODOP=CreatedOKLodop7766;
-      //=====Lodop插件未安装时提示下载地址:==========
+      //=====Lodopプラグイン未インストール時のダウンロードURL表示:==========
       if ((LODOP==null)||(typeof(LODOP.VERSION)=="undefined")) {
         if (navigator.userAgent.indexOf('Chrome')>=0)
           document.documentElement.innerHTML=strHtmChrome+document.documentElement.innerHTML;
@@ -112,10 +112,10 @@ export function getLodop(oOBJECT,oEMBED){
       };
       return LODOP;
     };
-    //===如下空白位置适合调用统一功能(如注册语句、语言选择等):===
-    //LODOP.SET_LICENSES("北京XXXXX公司","8xxxxxxxxxxxxx5","","");
+    //===次の日白の位置は、統合機能 (登録ステートメント、言語選択など) を呼び出すのに適しています。:===
+    //LODOP.SET_LICENSES("北京XXXXX会社","8xxxxxxxxxxxxx5","","");
 
     //===========================================================
     return LODOP;
-  } catch(err) {alert("getLodop出错:请先安装Lodop,下载地址："+'http://www.lodop.net/download/CLodop_Setup_for_Win64NT_4.142EN.zip');};
+  } catch(err) {alert("getLodopエラー発生発生:まずLodopをインストールしてください,ダウンロードURL："+'http://www.lodop.net/download/CLodop_Setup_for_Win64NT_4.142EN.zip');};
 };

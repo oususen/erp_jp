@@ -1,45 +1,45 @@
 <template>
   <div>
-    <a-card title="销售单详情">
+    <a-card title="販売伝票詳細">
       <a-button slot="extra" type="primary" style="margin-right: 8px;" ghost v-print="'#printContent'"> <a-icon type="printer" />印刷</a-button>
       <a-button slot="extra" type="primary" ghost @click="() => { this.$router.go(-1); }"> <a-icon type="left" />戻る</a-button>
       <section id="printContent">
         <a-spin :spinning="loading">
           <img id="barcode" style="float: right" />
           <a-descriptions bordered>
-            <a-descriptions-item label="销售编号">
+            <a-descriptions-item label="販売回数">
               {{ info.number }}
             </a-descriptions-item>
-            <a-descriptions-item label="销售单号">
+            <a-descriptions-item label="販売伝票コード">
               {{ info.sales_order }}
             </a-descriptions-item>
-            <a-descriptions-item label="客户">
+            <a-descriptions-item label="顧客">
               {{ info.client_name }}
             </a-descriptions-item>
-            <a-descriptions-item label="仓库">
+            <a-descriptions-item label="入庫">
               {{ info.warehouse_name }}
             </a-descriptions-item>
-            <a-descriptions-item label="经手人">
+            <a-descriptions-item label="担当者">
               {{ info.handler_name }}
             </a-descriptions-item>
-            <a-descriptions-item label="处理日期">
+            <a-descriptions-item label="処理日">
               {{ info.handle_time }}
             </a-descriptions-item>
-            <a-descriptions-item label="其他费用">
+            <a-descriptions-item label="そのその他費用">
               {{ info.other_amount }}
             </a-descriptions-item>
             <a-descriptions-item label="備考">
               {{ info.remark }}
             </a-descriptions-item>
           </a-descriptions>
-          <!-- <a-divider orientation="left" style="margin-top: 30px;">结算账户信息</a-divider>
+          <!-- <a-divider orientation="left" style="margin-top: 30px;">決済口座情報</a-divider>
           <a-table
             rowKey="id"
             size="middle"
             :columns="columnsAccount"
             :data-source="info.sales_account_items"
             :pagination="false" /> -->
-          <a-divider orientation="left" style="margin-top: 30px;">製品情報</a-divider>
+          <a-divider orientation="left" style="margin-top: 30px;">商品情報</a-divider>
           <a-table
             rowKey="id"
             size="middle"
@@ -66,46 +66,46 @@ export default {
         info: {},
         columns: [
           {
-            title: '番号',
+            title: '連番',
             dataIndex: 'index',
             key: 'index',
             width: 45,
             customRender: (value, item, index) => {
-              return item.isTotal ? '合计' : (index + 1)
+              return item.isTotal ? '合計' : (index + 1)
             },
           },
           {
-            title: '产品名称',
+            title: '商品名',
             dataIndex: 'goods_name',
             key: 'goods_name',
             width: 150,
           },
           {
-            title: '产品编号',
+            title: '商品コード',
             dataIndex: 'goods_number',
             key: 'goods_number',
             width: 150,
           },
           {
-            title: '单位',
+            title: '単位',
             dataIndex: 'unit_name',
             key: 'unit_name',
             width: 80,
           },
           {
-            title: '销售数量',
+            title: '販売回数数数量',
             dataIndex: 'sales_quantity',
             key: 'sales_quantity',
             width: 120,
           },
           {
-            title: '销售单价(元)',
+            title: '販売単価（円）',
             dataIndex: 'sales_price',
             key: 'sales_price',
             width: 120,
           },
           {
-            title: '金額',
+            title: '金金額',
             dataIndex: 'totalAmount',
             key: 'totalAmount',
             width: 200,
@@ -118,22 +118,22 @@ export default {
         ],
         columnsAccount: [
           {
-            title: '番号',
+            title: '連番',
             dataIndex: 'index',
             key: 'index',
             width: 45,
             customRender: (value, item, index) => {
-              return item.isTotal ? '合计' : (index + 1)
+              return item.isTotal ? '合計' : (index + 1)
             },
           },
           {
-            title: '決済アカウント',
+            title: '決済口座',
             dataIndex: 'account_name',
             key: 'account_name',
             width: 200,
           },
           {
-            title: '付款金额',
+            title: '支払いい金金金額',
             dataIndex: 'collection_amount',
             key: 'collection_amount',
             width: 200,
