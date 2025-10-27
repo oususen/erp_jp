@@ -17,5 +17,5 @@ export function setPassword(data) {
 }
 
 export function fetchCsrfToken() {
-  return request({ url: '/manage/super_user/get_csrf_token/', method: 'get' });
+  return request({ url: '/super_user/get_csrf_token/', method: 'get' });
 }
