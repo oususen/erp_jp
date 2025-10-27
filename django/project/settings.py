@@ -90,7 +90,12 @@ CORS_ALLOW_HEADERS = (
 )
 
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8080']
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8080',
+    'http://127.0.0.1:8080',
+    'http://10.0.1.194:8080',  # フロントエンド（他のPCからアクセス）
+    'http://10.0.1.194:8000',  # バックエンド（他のPCからアクセス）
+]
 
 
 ROOT_URLCONF = 'project.urls'

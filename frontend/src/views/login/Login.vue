@@ -70,10 +70,13 @@ export default {
           .finally(() => {
             getToken(this.form)
               .then((data) => {
-                this.$message.success('ログインに成功しました');
                 Cookies.set('access', data.access);
                 Cookies.set('refresh', data.refresh);
-                this.$router.push('/basicData/client');
+                this.$message.success('ログインに成功しました');
+                // ページ遷移の前に少し待機してクッキーが設定されるのを確認
+                this.$nextTick(() => {
+                  this.$router.push('/basicData/client');
+                });
               })
               .finally(() => {
                 this.isLoading = false;
