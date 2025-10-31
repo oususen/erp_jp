@@ -21,8 +21,8 @@ Vue.use(Print);
 Vue.use(htmlToPdf);
 
 
-Vue.prototype.ProjectName='ERP購買・販売・在庫管理システム'
-Vue.prototype.OnwerName='ERP'
+Vue.prototype.ProjectName='生産管理システム'
+Vue.prototype.OnwerName='DAISO'
 
 
 
