@@ -1,4 +1,4 @@
-export default [
+const menus = [
   {
     key: '1', name: 'レポートデータデータ統計', icon: 'line-chart', submenus: [
       { key: '/report/sale_report', name: '販売レポート' },
@@ -69,3 +69,21 @@ export default [
     ]
   },
 ]
+
+// 上位メニュー「販売管理」「財務管理」を非表示
+// さらに「レポート」「基本データ」内の販売・財務関連サブメニューも非表示
+const filteredMenus = menus
+  .filter(menu => menu.name !== '販売管理' && menu.name !== '財務管理')
+  .map(menu => {
+    if (menu.name === 'レポートデータデータ統計') {
+      const blocked = new Set(['販売レポート', '収支データデータ統計']);
+      return { ...menu, submenus: menu.submenus.filter(sm => !blocked.has(sm.name)) };
+    }
+    if (menu.name === '基本データ') {
+      const blocked = new Set(['決済口座', '収支項目']);
+      return { ...menu, submenus: menu.submenus.filter(sm => !blocked.has(sm.name)) };
+    }
+    return menu;
+  });
+
+export default filteredMenus;

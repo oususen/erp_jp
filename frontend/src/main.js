@@ -24,6 +24,13 @@ Vue.use(htmlToPdf);
 Vue.prototype.ProjectName='生産管理システム'
 Vue.prototype.OnwerName='DAISO'
 
+// 画面タイトル（ブラウザタブ）をルートに応じて設定
+router.afterEach((to) => {
+  const baseTitle = Vue.prototype.ProjectName || '生産管理システム';
+  const pageTitle = (to.meta && to.meta.title) ? `${to.meta.title} - ${baseTitle}` : baseTitle;
+  document.title = pageTitle;
+});
+
 
 
 new Vue({
